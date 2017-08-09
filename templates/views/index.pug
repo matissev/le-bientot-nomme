@@ -1,0 +1,20 @@
+extends ../layouts/default
+
+block content
+	section.jumbotron
+		.text
+			h1 Cras quis nulla commodo, aliquam lectus sed
+			p Pierre Durand dans Derniers articles
+			p Il y a 7h | Durée de lecture 3 min
+			// hr ==> WHAT IS THIS TAG?
+
+	section.news
+
+	section.agenda
+		if agenda.length
+			each event in agenda
+				strong= event.title
+				<br>
+				span= event.price
+				p= event.description
+				img(src=event._.image.fit(500,300))
