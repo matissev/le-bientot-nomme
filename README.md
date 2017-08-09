@@ -27,3 +27,9 @@ I stumbled across a problem when I npm installed : pug install crashed.
 After a research here is what I did :
 
 https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04
+
+## Install MongoDB
+
+I followed this link's instructions
+
+(link)[https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04]

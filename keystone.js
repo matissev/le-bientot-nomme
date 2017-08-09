@@ -24,12 +24,8 @@ keystone.init({
 	'auth': true,
 	'user model': 'Utilisateur',
 	'adminui custom styles': 'public/styles/admin.less',
-	'cookie secret': 'DSPMlRbgilaA6whwNBAX',
-	'cloudinary config': {
-		cloud_name: 'eragonstar',
-		api_key: '724875291727465',
-		api_secret: 'U24Z13eEzxeQrUO8oCYfHBgxGD8'
-	}
+	'cookie secret': process.env.COOKIE_SECRET,
+	'cloudinary config': process.env.CLOUDINARY_URL
 });
 
 // Load your project's Models
