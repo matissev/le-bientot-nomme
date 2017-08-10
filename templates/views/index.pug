@@ -6,15 +6,24 @@ block content
 			h1 Cras quis nulla commodo, aliquam lectus sed
 			p Pierre Durand dans Derniers articles
 			p Il y a 7h | Durée de lecture 3 min
-			// hr ==> WHAT IS THIS TAG?
 
 	section.news
 
 	section.agenda
 		if agenda.length
 			each event in agenda
-				strong= event.title
-				<br>
-				span= event.price
-				p= event.description
-				img(src=event._.image.fit(500,300))
+				a.event(href="/event/" + event.slug)
+					strong.title= event.title
+					span.start= event._.startDate.format('MMM YYYY HH:mm')
+					span.end= event._.endDate.format('MMM YYYY HH:mm')
+					span.end= event.price
+	
+	.voiture
+
+	.popup-wrapper
+		.event-popup
+			button.close-popup
+			.event-popup-content
+
+block js
+	script(src="/js/script.min.js")

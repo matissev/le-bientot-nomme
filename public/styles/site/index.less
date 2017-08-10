@@ -24,15 +24,55 @@
 	}
 }
 
-.events {
+.agenda {
 	display: inline-block;
 	width: 100%;
-	background: red;
+	background: lightblue;
+	padding: 20px;
 
 	.event {
 		display: inline-block;
-		width: 25%;
+		width: 20%;
+		margin-right: 5%;
 		height: 100px;
 		background: pink;
+
+		.title, .start, .end {
+			display: block;
+		}
 	}
+}
+
+.popup-wrapper {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: blue;
+	overflow: scroll;
+
+	.event-popup {
+		position: relative;
+		width: 90%;
+		height: 2000px;
+		margin: 20px 5%;
+		background: silver;
+
+		button.close-popup {
+			position: absolute;
+			right: 20px;
+			top: 20px;
+			height: 30px;
+			width: 30px;
+			background: red;
+			border: none;
+			cursor: pointer;
+		}
+	}
+}
+
+.popup-active .popup-wrapper {
+	display: block;
 }

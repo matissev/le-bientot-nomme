@@ -1,0 +1,7 @@
+[{
+	"name": "script.min.js",
+	"src": [
+		"public/js/utilities.js",
+		"public/js/ajax.js"
+	]
+}]

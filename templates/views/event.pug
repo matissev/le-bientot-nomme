@@ -1,0 +1,9 @@
+extends ../layouts/default
+
+block content
+	section.event
+		strong= data.event.title
+		<br>
+		span= data.event.price
+		p !{data.event.description}
+		img(src=data.event._.image.fit(500,300))

@@ -33,3 +33,7 @@ https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu
 I followed this link's instructions
 
 (link)[https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04]
+
+## Stop the droplet
+
+    sudo poweroff

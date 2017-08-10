@@ -10,8 +10,7 @@ var Event = new keystone.List('Event', {
 	map: {name: 'title'},
 	singular: 'Évènement',
 	plural: 'Évènements',
-	autokey: {path: 'slug', from: 'title', unique: 'true'
-	}
+	autokey: {path: 'slug', from: 'title', unique: true}
 });
 
 var eventImageGallery = new keystone.Storage({
@@ -24,7 +23,7 @@ var eventImageGallery = new keystone.Storage({
 Event.add({
 	title: {type: String, required: true},
 	price: { type: Types.Money, currency: 'fr', format: '0.00 €' },
-	startDate: {type: Types.Datetime, default: Date.now, required: true},
+	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true},
 	endDate: {type: Types.Datetime, default: Date.now, required: true},
 	description: {type: Types.Html, wysiwyg: true},
 	image: { type: Types.CloudinaryImage, autoCleanup : true },
