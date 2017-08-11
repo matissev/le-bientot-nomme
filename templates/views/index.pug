@@ -8,6 +8,10 @@ block content
 			p Il y a 7h | Durée de lecture 3 min
 
 	section.news
+		if news.length
+			each post in news
+				a.post(href="/news/" + post.slug)
+					strong= post.title
 
 	section.agenda
 		if agenda.length
@@ -17,13 +21,12 @@ block content
 					span.start= event._.startDate.format('MMM YYYY HH:mm')
 					span.end= event._.endDate.format('MMM YYYY HH:mm')
 					span.end= event.price
-	
-	.voiture
 
 	.popup-wrapper
-		.event-popup
+		.popup-overlay
+		.popup
 			button.close-popup
-			.event-popup-content
+			.popup-content
 
 block js
 	script(src="/js/script.min.js")

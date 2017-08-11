@@ -27,15 +27,26 @@ function ajaxify(linkEl, callback) {
 	});
 }
 
-ajaxify('a.event', function(response){
-	var container = document.querySelector('.event-popup-content');
+function injectPartial(partialEl, containerEl, response) {
+	var container = document.querySelector(containerEl);
 	container.innerHTML = "";
 	var doc = new DOMParser().parseFromString(response, 'text/html');
-	var content = doc.documentElement.querySelector('section.event');
+	var content = doc.documentElement.querySelector(partialEl);
 	container.appendChild(content);
+}
+
+ajaxify('a.event', function(response){
+	injectPartial('section.event', '.popup-content', response);
 	addClass(document.querySelector('body'), 'popup-active');
 });
 
-document.querySelector('.close-popup').addEventListener('click', function(event) {
-	removeClass(document.querySelector('body'), 'popup-active');
+ajaxify('a.post', function(response){
+	injectPartial('article.post', '.popup-content', response);
+	addClass(document.querySelector('body'), 'popup-active');
+});
+
+document.querySelectorAll('.close-popup, .popup-overlay').forEach(function(el) {
+	el.addEventListener('click', function(event) {
+		removeClass(document.querySelector('body'), 'popup-active');
+	}, false);
 });

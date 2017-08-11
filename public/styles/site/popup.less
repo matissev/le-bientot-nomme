@@ -1,0 +1,47 @@
+
+.popup-wrapper {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: scroll;
+
+	.popup-overlay {
+		background: black;
+		opacity: 0.3;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		cursor: pointer;
+	}
+
+	.popup {
+		position: relative;
+		width: 90%;
+		height: 2000px;
+		margin: 20px 5%;
+		background: silver;
+
+		button.close-popup {
+			position: absolute;
+			right: 20px;
+			top: 20px;
+			height: 30px;
+			width: 30px;
+			background: red;
+			border: none;
+			cursor: pointer;
+		}
+	}
+}
+
+.popup-active {
+	overflow: hidden;
+	.popup-wrapper, .popup-overlay {
+		display: block;
+	}
+}

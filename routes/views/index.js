@@ -10,6 +10,7 @@ exports = module.exports = function (req, res) {
 	locals.section = 'home';
 
 	view.query('agenda', keystone.list('Event').model.find());
+	view.query('news', keystone.list('Post').model.find());
 
 	// Render the view
 	view.render('index');
