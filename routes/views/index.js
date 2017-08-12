@@ -1,4 +1,6 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+	_ = require('lodash'),
+	Event = keystone.list('Event');
 
 exports = module.exports = function (req, res) {
 
@@ -8,8 +10,54 @@ exports = module.exports = function (req, res) {
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
 	locals.section = 'home';
+	locals.data = {
+		agenda: [],
+	};
 
-	view.query('agenda', keystone.list('Event').model.find());
+	view.on('init', function (next) {
+		Event.model.find()
+			.sort('startDate')
+			.exec(function (err, events) {
+				var now = new Date();
+				var thisMonth = now.getMonth() + 1; // Date().getMonth() starts at 0
+				var thisYear = now.getFullYear();
+				var thisMonthId = thisYear * 12 + thisMonth;
+
+				// ATTACH MONTH IDs ON EACH EVENT
+				events.forEach(function(event) {
+					var eventMonth = event._.startDate.moment().month() + 1; // moment().month starts at 0
+					var eventYear = event._.startDate.moment().year();
+					event.monthId = eventYear * 12 + eventMonth;
+				});
+
+				// FILTER 6 MONTHS
+				var sixMonths = events.filter(function(event) {
+					// 5 because it doesn't count the current month
+					return event.monthId >= thisMonthId && event.monthId - thisMonthId <= 5;
+				});
+
+
+				// BUILD THE EVENT TABLE				
+				var lastEvent = sixMonths[sixMonths.length - 1]; // Define size
+				var agenda = [];
+
+				for(var i = 0; i <= lastEvent.monthId - thisMonthId; i++) { // Add month number
+					agenda[i] = {
+						monthNumber: 1 + (thisMonth - 1 + i) % 12, // Thug life (01:50 a.m)
+						events: []
+					};
+				}
+
+				sixMonths.forEach(function(event) {
+					agenda[event.monthId - thisMonthId].events.push(event); // push events in months
+				});
+
+
+				locals.data.agenda = agenda;
+				next(err);
+			});
+	});
+
 	view.query('news', keystone.list('Post').model.find());
 
 	// Render the view

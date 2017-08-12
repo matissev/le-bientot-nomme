@@ -14,13 +14,15 @@ block content
 					strong= post.title
 
 	section.agenda
-		if agenda.length
-			each event in agenda
-				a.event(href="/event/" + event.slug)
-					strong.title= event.title
-					span.start= event._.startDate.format('MMM YYYY HH:mm')
-					span.end= event._.endDate.format('MMM YYYY HH:mm')
-					span.end= event.price
+		if data.agenda.length
+			each month in data.agenda
+				.month(class=month.monthNumber)
+					each event in month.events
+						a.event(href="/event/" + event.slug)
+							strong.title= event.title
+							span.start= event._.startDate.format('MMM YYYY HH:mm')
+							span.end= event._.endDate.format('MMM YYYY HH:mm')
+							span.end= event.price
 
 	.popup-wrapper
 		.popup-overlay

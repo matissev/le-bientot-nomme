@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	fs = require('fs'),
 
 	server = require('browser-sync').create(),
+	nodemon = require('gulp-nodemon'),
 	watch = require('gulp-watch'),
 	plumber = require('gulp-plumber'),
 	notify = require('gulp-notify'),
@@ -51,19 +52,50 @@ var onError = function(err) {
 /* DEV TASKS == DEV TASKS == DEV TASKS == DEV TASKS == DEV TASKS == DEV TASKS == DEV TASKS */
 /* ======================================================================================= */
 
-gulp.task('keystone', function(){
+gulp.task('mongo', function(){
 	return gulp.src('.')
 		.pipe(run('rm -r node_modules/keystone/admin/bundles/js/* &'))
 		.pipe(run('mongod --dbpath ./data/db/ &'))
 		.pipe(run('nodemon keystone.js &'));
 });
 
-gulp.task('browser-sync', function(){
+gulp.task('nodemon', function(){
+	var started = false;
+
+	var stream = nodemon({
+		script: 'keystone.js',
+		verbose: true,
+		ignore: [
+			"templates/*",
+			"public/*",
+			"data/*",
+			"gulpfile.js",
+			"bower_components/*",
+			"README.md",
+			"bower.json",
+			"package.json",
+			".gitignore",
+			"Procfile"
+		],
+		env: { 'NODE_ENV': 'development' }
+	}).on('start', function() {
+	}).on('crash', function() {
+		console.error('Application has crashed!\n');
+		notify({
+			title: 'Application has crashed!',
+			message: 'Restarting server in 5 seconds',
+			sound: 'Tink'
+		});
+		stream.emit('restart', 5); // restart the server in 5 seconds 
+    });
+});
+
+gulp.task('browser-sync', function() {
 	server.init({
 		proxy: 'http://localhost:3000',
 		port: '4000'
 	});
-});
+})
 
 gulp.task('public', function() {
 	return watch(paths.public, function () {
@@ -140,7 +172,8 @@ gulp.task('done', function() {
 
 gulp.task('default', function(callback) {
 	sequence(
-		'keystone',
+		'mongo',
+		'nodemon',
 		'browser-sync',
 		['js', 'public'],
 	callback);

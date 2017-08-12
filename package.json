@@ -17,6 +17,7 @@
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
     "gulp-imagemin": "^3.3.0",
+    "gulp-nodemon": "^2.2.1",
     "gulp-notify": "^3.0.0",
     "gulp-plumber": "^1.1.0",
     "gulp-run": "^1.7.1",
