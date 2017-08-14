@@ -31,8 +31,6 @@ block content
 						input(id=month.monthName.toLowerCase() type="radio" name='time' checked=firstMonth)
 						label(for=month.monthName.toLowerCase())= month.monthName
 						- firstMonth = false;
-					input#hehe(type="radio" name='time')
-					label(for="hehe") Month
 			.months
 				- var firstMonth = true;
 				each month in data.agenda
