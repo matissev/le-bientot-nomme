@@ -40,7 +40,7 @@ block content
 						- firstMonth = false;
 						if month.events.length
 							each event in month.events
-								article.event(class=event.category.key)
+								article.event(class=event.category ? event.category.key : "")
 									a(href="/event/" + event.slug rel="bookmark")
 										span.category= event.category.name
 										strong.title= event.title
