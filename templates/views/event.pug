@@ -2,8 +2,13 @@ extends ../layouts/default
 
 block content
 	section.event
-		strong= data.event.title
-		<br>
-		span= data.event.price
-		p !{data.event.description}
+		h1.title= data.event.title
 		img(src=data.event._.image.fit(500,300))
+		- sd = data.event._.startDate;
+		//- - startDate = sd.format('[Le ]D [' + month.monthName + ' ]' + 'YYYY[ à ]HH:mm');
+		- ed = data.event._.endDate;
+		//- - endDate = ed.format('[Le ]D [' + month.monthName + ' ]' + 'YYYY[ à ]HH:mm');
+		time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= startDate
+		time.end(datetime=ed.format('YYYY-MM-DDTHH:mm'))= endDate
+		span.price= data.event.price
+		p !{data.event.description}

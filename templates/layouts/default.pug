@@ -14,7 +14,7 @@ html
 
 		//- Customise the stylesheet for your site by editing /public/styles/site.less
 		//- All .less files will be automatically compiled and minified in production.
-		link(href="/styles/site.min.css", rel="stylesheet")
+		link(href="/styles/site.css", rel="stylesheet")
 		//- link(href="/styles/print.min.css" type="text/css" rel="stylesheet" media="print")
 
 		//- This file provides the default styling for the KeystoneJS Content Editor
@@ -36,6 +36,7 @@ html
 
 	//- HTML BODY
 	body
+		include ../mixins/grid
 
 		//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 		//- ... or completely change this header to suit your design.

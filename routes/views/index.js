@@ -1,9 +1,24 @@
 var keystone = require('keystone'),
 	_ = require('lodash'),
-	Event = keystone.list('Event');
+	Event = keystone.list('Event'),
+	EventCategory = keystone.list('EventCategory');
+
+var monthsNames = [
+	'janvier',
+	'février',
+	'mars',
+	'avril',
+	'mai',
+	'juin',
+	'juillet',
+	'août',
+	'septembre',
+	'octobre',
+	'novembre',
+	'décembre'
+];
 
 exports = module.exports = function (req, res) {
-
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
 
@@ -12,10 +27,12 @@ exports = module.exports = function (req, res) {
 	locals.section = 'home';
 	locals.data = {
 		agenda: [],
+		eventCategories: []
 	};
 
 	view.on('init', function (next) {
 		Event.model.find()
+			.populate('category')
 			.sort('startDate')
 			.exec(function (err, events) {
 				var now = new Date();
@@ -43,7 +60,7 @@ exports = module.exports = function (req, res) {
 
 				for(var i = 0; i <= lastEvent.monthId - thisMonthId; i++) { // Add month number
 					agenda[i] = {
-						monthNumber: 1 + (thisMonth - 1 + i) % 12, // Thug life (01:50 a.m)
+						monthName: monthsNames[(thisMonth - 1 + i) % 12], // Thug life (01:50 a.m)
 						events: []
 					};
 				}
@@ -55,7 +72,15 @@ exports = module.exports = function (req, res) {
 
 				locals.data.agenda = agenda;
 				next(err);
-			});
+		});
+	});
+
+
+	view.on('init', function (next) {
+		EventCategory.model.find().exec(function (err, categories) {
+			locals.data.eventCategories = categories;
+			next(err);
+		});
 	});
 
 	view.query('news', keystone.list('Post').model.find());

@@ -12,8 +12,7 @@ var keystone = require('keystone');
 keystone.init({
 	'name': 'Le Bientôt Nommé',
 	'brand': 'Le Bientôt Nommé',
-
-	'less': 'public',
+	
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
 	'views': 'templates/views',
@@ -48,7 +47,7 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
 	news: 'posts',
-	agenda: 'events',
+	agenda: ['events', 'event-categories'],
 	admin: ['utilisateurs']
 });
 

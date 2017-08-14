@@ -1,8 +1,16 @@
+
+// Libraries
+// =========
+
 @import (less) "../../bower_components/normalize-css/normalize.css";
+
+
+// General
+// =======
 
 body {
 	margin: 0;
-	font-family: sans-serif;
+	font-family: @current-text;
 }
 
 a {
@@ -10,16 +18,30 @@ a {
 	text-decoration: none;
 }
 
-@import "site/variables.less";
+.grid {
+	// display: none;
+}
+
+
+// Mixins
+// ======
+
+@import "mixins/fonts.less";
+@import "mixins/helpers.less";
+@import "mixins/variables.less";
 
 
 // Site Styles
 // ===========
 
-// Add your own site style includes here
+//template
 @import "site/layout.less";
 
+// pages
 @import "site/index.less";
 @import "site/contact.less";
 
+// partials
+@import "site/agenda.less";
+@import "site/news.less";
 @import "site/popup.less";

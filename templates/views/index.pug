@@ -12,17 +12,41 @@ block content
 			each post in news
 				a.post(href="/news/" + post.slug)
 					strong= post.title
+			a.post(href="/news/")
+				strong= hello
 
-	section.agenda
-		if data.agenda.length
-			each month in data.agenda
-				.month(class=month.monthNumber)
-					each event in month.events
-						a.event(href="/event/" + event.slug)
-							strong.title= event.title
-							span.start= event._.startDate.format('MMM YYYY HH:mm')
-							span.end= event._.endDate.format('MMM YYYY HH:mm')
-							span.end= event.price
+	if data.agenda.length
+		section.agenda
+			.agenda-head
+				h2 Agenda
+				fieldset.filter
+					legend TRIER PAR :
+					each category in data.eventCategories
+						input(type="checkbox" checked id=category.key)
+						label(for=category.key)= category.name
+				fieldset.time-selector
+					- var firstMonth = true;
+					each month in data.agenda
+						input(id=month.monthName.toLowerCase() type="radio" name='time' checked=firstMonth)
+						label(for=month.monthName.toLowerCase())= month.monthName
+						- firstMonth = false;
+					input#hehe(type="radio" name='time')
+					label(for="hehe") Month
+			.months
+				- var firstMonth = true;
+				each month in data.agenda
+					.month(class=month.monthName class=firstMonth === true ? "currentMonth" : "toRight")
+						- firstMonth = false;
+						each event in month.events
+							article.event(class=event.category.key)
+								a(href="/event/" + event.slug rel="bookmark")
+									span.category= event.category.name
+									strong.title= event.title
+									time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
+			.controls
+				.left
+				.right
+
 
 	.popup-wrapper
 		.popup-overlay

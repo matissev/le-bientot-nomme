@@ -14,6 +14,10 @@ var gulp = require('gulp'),
 	sequence = require('run-sequence'),
 	run = require('gulp-run'),
 
+	less = require('gulp-less'),
+	cssmin = require('gulp-minify-css'),
+	prefixer = require('gulp-autoprefixer'),
+
 	sourcemaps = require('gulp-sourcemaps'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
@@ -28,8 +32,8 @@ var gulp = require('gulp'),
 var paths = {
 	js : 'public/js', /* No file type is specified because of _compile.json */
 	images : 'public/images',
+	styles : 'public/styles',
 	public : [
-		'public/styles/**/*.*',
 		'public/fonts/**/*.*',
 		'public/images/**/*.*',
 		'public/favicon.ico',
@@ -100,7 +104,7 @@ gulp.task('browser-sync', function() {
 gulp.task('public', function() {
 	return watch(paths.public, function () {
 		return gulp.src(paths.public)
-			.pipe(server.reload({stream: true}));
+			.pipe(server.reload());
 	});
 });
 
@@ -114,8 +118,21 @@ gulp.task('js', function(){
 				.pipe(concat(obj.name))
 				.pipe(sourcemaps.write())
 				.pipe(gulp.dest(paths.js))
-				.pipe(server.reload({stream: true}));
+				.pipe(server.reload());
 		});
+	});
+});
+
+gulp.task('less', function(){
+	watch(paths.styles + '/**/*.less', {ignoreInitial: false}, function () {
+		return gulp.src(paths.styles + '/*.less')
+			.pipe(plumber({errorHandler: onError}))
+			.pipe(sourcemaps.init())
+			.pipe(less())
+			.pipe(prefixer('last 4 versions'))
+			.pipe(sourcemaps.write())
+			.pipe(gulp.dest(paths.styles))
+			.pipe(server.reload({stream:true}));
 	});
 });
 
@@ -133,6 +150,18 @@ gulp.task('js-dist', function() {
 			.pipe(uglify())
 			.pipe(gulp.dest(paths.js));
 	});
+});
+
+gulp.task('less-dist', function(){
+	return gulp.src(paths.styles + '/*.less')
+		.pipe(less())
+		.pipe(prefixer('last 4 versions'))
+		.pipe(cssmin({
+			compatibility: 'ie11',
+			keepSpecialComments: 0,
+			roundingPrecision: -1
+		}))
+		.pipe(gulp.dest(paths.styles));
 });
 
 gulp.task('imagemin', function(){
@@ -175,13 +204,13 @@ gulp.task('default', function(callback) {
 		'mongo',
 		'nodemon',
 		'browser-sync',
-		['js', 'public'],
+		['js', 'less', 'public'],
 	callback);
 });
 
 gulp.task('dist', function(callback) {
 	sequence(
-		['js-dist', 'images-dist'],
+		['js-dist', 'less-dist', 'images-dist'],
 		'done',
 	callback);
 });

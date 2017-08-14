@@ -1,0 +1,270 @@
+
+.agenda {
+	color: @white;
+	background: @color1-c;
+	width: 100%;
+	padding: 0 @margin - @gutter / 2;
+	box-sizing: border-box;
+	padding-top: 50px;
+
+	h2 {
+		width: 2 * @column;
+		float: left;
+		position: relative;
+		text-transform: lowercase;
+		padding: 0 @gutter / 2;
+		font-size: 73px;
+		margin: 0;
+		box-sizing: border-box;
+
+		&:before {
+			width: calc(100% ~"-" @gutter);
+			position: absolute;
+			border-bottom: 2px solid @white;
+			bottom: 5px;
+			left: @gutter / 2;
+			content: "";
+			display: block;
+		}
+	}
+
+	.agenda-head {
+		.clearfix();
+		margin-bottom: 40px;
+	}
+
+	fieldset.filter {
+		width: 2 * @column;
+		padding: 0 @gutter / 2;
+		margin: 0;
+		border: none;
+		color: @color1-a;
+		font-weight: bold;
+		font-size: 13px;
+		float: left;
+		box-sizing: border-box;
+
+		input[type=checkbox] {
+			appearance: none;
+			visibility: hidden;
+			display: none;
+		}
+
+		legend, label {
+			display: block;
+			float: left;
+			width: 50%;
+			margin-bottom: 13px;
+			line-height: 16px;
+		}
+
+		label {
+			cursor: pointer;
+			text-transform: lowercase;
+			position: relative;
+			box-sizing: border-box;
+			padding-left: 23px;
+
+			&:before {
+				position: absolute;
+				left: 0;
+				content: "";
+				display: block;
+				width: 18px;
+				height: 18px;
+				border: 3px solid @white;
+				box-sizing: border-box;
+			}
+		}
+
+		input:checked + label:after {
+			position: absolute;
+			left: 5px;
+			bottom: 3px;
+			border-radius: 10px;
+			content: "";
+			display: block;
+			width: 8px;
+			height: 8px;
+			background: @white;	
+		}
+	}
+
+	fieldset.time-selector {
+		margin: 0 0 95px 0;
+		border: none;
+		float: right;
+		width: 50%;
+		padding: 0 @gutter / 2;
+		box-sizing: border-box;
+
+		input[type=radio] {
+			appearance: none;
+			visibility: hidden;
+			display: none;
+		}
+
+		label {
+			cursor: pointer;
+			float: left;
+			position: relative;
+			text-align: center;
+			width: 25%;
+			color: @color1-a;
+			text-transform: uppercase;
+			list-style: none;
+
+			&:after {
+				content: "";
+				display: block;
+				bottom: -5px;
+				position: absolute;
+				width: calc(100% ~"-" 4px);
+				border-bottom: 1px solid white;
+			}
+		}
+
+		input:checked + label {
+			font-weight: bold;
+
+			&:after {
+				border-bottom: 4px solid white;
+				bottom: -6px;
+			}
+		}
+	}
+
+	.months{
+		width: 100%;
+
+		.month{
+			.clearfix();
+			width: 100%;
+			clear: both;
+			margin-bottom: 10px;
+		}
+	}
+
+	.event {
+		width: 2 * @column;
+		padding: 0 @gutter / 2;
+		margin-bottom: @gutter;
+		color: @white;
+		float: left;
+		box-sizing: border-box;
+
+		a {
+			position: relative;
+			height: 120px;
+			background: @color1-a;
+			display: block;
+			padding: 20px;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			color: @white;
+		}
+
+		.category {
+			font-size: 20px;
+		}
+
+		.title {
+			display: block;
+			font-size: 30px;
+			font-weight: bold;
+		}
+
+		.day {
+			position: absolute;
+			right: -7px;
+			top: -15px;
+			font-weight: bold;
+			font-size: 40px;
+		}
+	}
+}
+
+.controls {
+	.clearfix();
+	padding-bottom: 20px;
+
+	.left, .right {
+		cursor: pointer;
+		display: block;
+		width: 20px;
+		height: 20px;
+		background: red;
+	}
+
+	.left {
+		float: left;
+	}
+
+	.right {
+		float: right;
+	}
+}
+
+.agenda.interactive {
+
+	.months {
+		position: relative;
+	}
+
+	.month:not(.currentMonth) {
+		pointer-events: none;
+		position: absolute;
+		opacity: 0;
+		top: 0;
+		left: 0;
+
+		&.toLeft {
+			transform: translate3D(-100px, 0, 0);
+		}
+
+		&.toRight {
+			transform: translate3D(100px, 0, 0);
+		}
+	}
+
+	.month {
+		transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+
+		.event {
+			transform: translateZ(0);
+			will-change: transform, opacity, width, margin, padding;
+			transition:
+				transform 0.1s ease-out 0.1s,
+				opacity 0.1s ease-out 0.1s,
+
+				width 0.2s ease-out,
+				margin 0.2s ease-out,
+				padding 0.2s ease-out;
+			opacity: 1;
+		}
+
+		.event.filtered {
+			transition:
+				transform 0.2s ease-in,
+				opacity 0.2s ease-in,
+
+				width 0.2s ease-out 0.1s,
+				margin 0.2s ease-out 0.1s,
+				padding 0.2s ease-out 0.1s;
+			pointer-events: none;
+			transform: scale(0.5);
+			opacity: 0;
+			width: 0%;
+			margin: 0;
+			padding: 0;
+		}
+	}
+
+	.month.currentMonth {
+		transform: translate3D(0px, 0, 0);
+		opacity: 1;
+		transition: transform 0.2s ease-out 0.1s, opacity 0.2s ease-out 0.1s;
+	}
+}

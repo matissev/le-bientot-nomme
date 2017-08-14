@@ -22,6 +22,7 @@ var eventImageGallery = new keystone.Storage({
 
 Event.add({
 	title: {type: String, required: true},
+	category: { type: Types.Relationship, ref: 'EventCategory' },
 	price: { type: Types.Money, currency: 'fr', format: '0.00 €' },
 	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true},
 	endDate: {type: Types.Datetime, default: Date.now, required: true},
