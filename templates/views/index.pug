@@ -21,9 +21,10 @@ block content
 				h2 Agenda
 				fieldset.filter
 					legend TRIER PAR :
-					each category in data.eventCategories
-						input(type="checkbox" checked id=category.key)
-						label(for=category.key)= category.name
+					if data.eventCategories.length
+						each category in data.eventCategories
+							input(type="checkbox" checked id=category.key)
+							label(for=category.key)= category.name
 				fieldset.time-selector
 					- var firstMonth = true;
 					each month in data.agenda
@@ -37,12 +38,13 @@ block content
 				each month in data.agenda
 					.month(class=month.monthName class=firstMonth === true ? "currentMonth" : "toRight")
 						- firstMonth = false;
-						each event in month.events
-							article.event(class=event.category.key)
-								a(href="/event/" + event.slug rel="bookmark")
-									span.category= event.category.name
-									strong.title= event.title
-									time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
+						if month.events.length
+							each event in month.events
+								article.event(class=event.category.key)
+									a(href="/event/" + event.slug rel="bookmark")
+										span.category= event.category.name
+										strong.title= event.title
+										time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
 			.controls
 				.left
 				.right
