@@ -42,7 +42,8 @@ block content
 							each event in month.events
 								article.event(class=event.category ? event.category.key : "")
 									a(href="/event/" + event.slug rel="bookmark")
-										span.category= event.category.name
+										if event.category
+											span.category= event.category.name
 										strong.title= event.title
 										time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
 			.controls
