@@ -31,7 +31,7 @@ exports = module.exports = function (req, res) {
 			html: '<b>Hello world ?</b>' // html body
 		}, (err, info) => {
     		// console.log(info.envelope);
-    		console.log(info.messageId);
+    		// console.log(info.messageId);
 		});
 
 		updater.process(req.body, {
