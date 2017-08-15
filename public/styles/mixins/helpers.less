@@ -11,6 +11,21 @@
     }
 }
 
+// Multiple lines ellipsis
+
+.multiline-ellipsis(@lines, @font-size, @line-height) {
+    // It takes a line-height and a height to make this work
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  height: @font-size*@line-height*@lines; /* Fallback for non-webkit */
+  margin: 0 auto;
+  font-size: @font-size;
+  line-height: @line-height;
+  -webkit-line-clamp: @lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 // Kill highlight
 

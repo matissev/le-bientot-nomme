@@ -82,7 +82,12 @@ gulp.task('nodemon', function(){
 			"Procfile"
 		],
 		env: { 'NODE_ENV': 'development' }
-	}).on('start', function() {
+	})
+
+	stream.on('start', function() {
+	    setTimeout(function reload() {
+	        server.reload();
+	    }, 10000);
 	}).on('crash', function() {
 		console.error('Application has crashed!\n');
 		notify({
@@ -92,14 +97,16 @@ gulp.task('nodemon', function(){
 		});
 		stream.emit('restart', 5); // restart the server in 5 seconds 
     });
-});
 
-gulp.task('browser-sync', function() {
-	server.init({
-		proxy: 'http://localhost:3000',
-		port: '4000'
-	});
-})
+	setTimeout(function () {
+		server.init({
+			proxy: 'http://localhost:3000',
+			port: '4000'
+		});
+	}, 10000);
+
+	return stream;
+});
 
 gulp.task('public', function() {
 	return watch(paths.public, function () {
@@ -203,7 +210,6 @@ gulp.task('default', function(callback) {
 	sequence(
 		'mongo',
 		'nodemon',
-		'browser-sync',
 		['js', 'less', 'public'],
 	callback);
 });
