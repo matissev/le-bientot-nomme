@@ -22,7 +22,9 @@ exports = module.exports = function (req, res) {
 
 		// send mail with defined transport object
 		nodemailer.createTransport({
-			sendmail: true
+			sendmail: true,
+		    newline: 'unix',
+		    path: '/usr/sbin/sendmail'
 		}).sendMail({
 			from: '"Keystone" <foo@blurdybloop.com>', // sender address
 			to: process.env.MAIL_RECEIVER, // list of receivers
