@@ -1,6 +1,6 @@
 var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry'),
-	nodemailer = require('nodemailer');
+	email = require('keystone-email');
 	require('dotenv').config();
 
 exports = module.exports = function (req, res) {
@@ -19,30 +19,6 @@ exports = module.exports = function (req, res) {
 	view.on('post', { action: 'contact' }, function (next) {
 		var newEnquiry = new Enquiry.model();
 		var updater = newEnquiry.getUpdateHandler(req);
-
-		nodemailer.mail({
-		    from: "Fred Foo ✔ <foo@blurdybloop.com>", // sender address
-		    to: process.env.MAIL_RECEIVER, // list of receivers
-		    subject: "Hello ✔", // Subject line
-		    text: "Hello world ✔", // plaintext body
-		    html: "<b>Hello world ✔</b>" // html body
-		});
-
-		// // send mail with defined transport object
-		// nodemailer.createTransport({
-		// 	sendmail: true,
-		//     newline: 'unix',
-		//     path: '/usr/sbin/sendmail'
-		// }).sendMail({
-		// 	from: '"Keystone" <foo@blurdybloop.com>', // sender address
-		// 	to: process.env.MAIL_RECEIVER, // list of receivers
-		// 	subject: 'Hello ✔', // Subject line
-		// 	text: 'Hello world ?', // plain text body
-		// 	html: '<b>Hello world ?</b>' // html body
-		// }, (err, info) => {
-		// 	console.log(info.envelope);
-		// 	console.log(info.messageId);
-		// });
 
 		updater.process(req.body, {
 			flashErrors: true,

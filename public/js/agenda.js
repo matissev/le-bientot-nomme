@@ -20,14 +20,14 @@ document.querySelector('.controls .right').addEventListener('click', function(ev
 	}
 });
 
-document.querySelectorAll('.time-selector label').forEach(function(el, index) {
+forEachNl(document.querySelectorAll('.time-selector label'), function(el, index) {
 	el.addEventListener('click', function(event) {
 		agendaIndex = index;
 		updateAgenda();
 	});
 });
 
-document.querySelectorAll('.filter label').forEach(function(el, index) {
+forEachNl(document.querySelectorAll('.filter label'), function(el, index) {
 	el.addEventListener('click', function(event) {
 		var checked = document.querySelectorAll('.filter input')[index].checked;
 		filterAgenda(el.getAttribute('for'), checked);
@@ -36,7 +36,7 @@ document.querySelectorAll('.filter label').forEach(function(el, index) {
 });
 
 function updateAgenda() {
-	months.forEach(function(el, index) {
+	forEachNl(months, function(el, index) {
 		removeClass(el, 'toLeft');
 		removeClass(el, 'toRight');
 		removeClass(el, 'currentMonth');
@@ -52,7 +52,7 @@ function updateAgenda() {
 }
 
 function updateTimeSelector() {
-	document.querySelectorAll('.time-selector input').forEach(function(el, index){
+	forEachNl(document.querySelectorAll('.time-selector input'), function(el, index){
 		if(index === agendaIndex) {
 			el.checked = true;
 		}
@@ -82,7 +82,7 @@ function toggleEmptyMonthMessage() {
 		});
 
 		if (!hasEvents && eventsInMonth.length) {
-			alert.innerText = 'Aucun évènement ne correspond à votre recherche ce mois-ci';
+			alert.innerText = 'Aucun évènement ne correspond à votre recherche ce mois-ci.';
 			addClass(alert, 'show');
 		} else if (hasEvents && eventsInMonth.length) {
 			removeClass(alert, 'show');

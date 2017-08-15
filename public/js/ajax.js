@@ -45,7 +45,7 @@ ajaxify('a.post', function(response){
 	addClass(document.querySelector('body'), 'popup-active');
 });
 
-document.querySelectorAll('.close-popup, .popup-overlay').forEach(function(el) {
+forEachNl(document.querySelectorAll('.close-popup, .popup-overlay'), function(el) {
 	el.addEventListener('click', function(event) {
 		removeClass(document.querySelector('body'), 'popup-active');
 	}, false);
