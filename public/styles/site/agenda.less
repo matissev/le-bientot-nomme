@@ -235,7 +235,32 @@
 	}
 
 	.month {
+		position: relative;
+		min-height: 160px;
 		transition: transform 0.2s ease-in, opacity 0.2s ease-in;
+
+		.no-events-in-month, .no-events-in-filter {
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			margin: 18px 0;
+			text-align: center;
+			color: @color1-a;
+			font-weight: bold;
+		}
+
+		.no-events-in-filter {
+			opacity: 0;
+			transform: translateZ(0);
+			will-change: opacity;
+			transition: opacity 0.2s ease-out;
+
+			&.show {
+				opacity: 1;
+				transition: opacity 0.2s ease-in 0.2s;
+			}
+		}
 
 		.event {
 			transform: translateZ(0);
