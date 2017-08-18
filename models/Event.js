@@ -22,27 +22,11 @@ var eventImageGallery = new keystone.Storage({
 
 Event.add({
 	title: {type: String, required: true},
-	category: { type: Types.Relationship, ref: 'EventCategory' },
+	category: { type: Types.Relationship, ref: 'EventCategory', required: true, initial: false },
 	price: { type: Types.Money, currency: 'fr', format: '0.00 €' },
-	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true},
-	endDate: {type: Types.Datetime, default: Date.now, required: true},
+	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true },
 	description: {type: Types.Html, wysiwyg: true},
 	image: { type: Types.CloudinaryImage, autoCleanup : true },
 });
 
 Event.register();
-
-
-// var eventImageGallery = new keystone.Storage({
-//   adapter: keystone.Storage.Adapters.FS,
-//   fs: {
-//     path: 'data/imgs'
-//   },
-// });
-
-// Event.add({
-// 	image: {
-// 		type: Types.File,
-// 		storage: eventImageGallery
-// 	}
-// });

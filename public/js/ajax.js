@@ -30,13 +30,13 @@ function ajaxify(linkEl, callback) {
 function injectPartial(partialEl, containerEl, response) {
 	var container = document.querySelector(containerEl);
 	container.innerHTML = "";
-	var doc = new DOMParser().parseFromString(response, 'text/html');
-	var content = doc.documentElement.querySelector(partialEl);
+	currentPopup = new DOMParser().parseFromString(response, 'text/html');
+	var content = currentPopup.documentElement.querySelector(partialEl);
 	container.appendChild(content);
 }
 
 ajaxify('.event a', function(response){
-	injectPartial('section.event', '.popup-content', response);
+	injectPartial('article.event', '.popup-content', response);
 	addClass(document.querySelector('body'), 'popup-active');
 });
 

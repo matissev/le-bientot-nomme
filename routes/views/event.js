@@ -1,5 +1,20 @@
 var keystone = require('keystone');
 
+var monthsNames = [
+	'janvier',
+	'février',
+	'mars',
+	'avril',
+	'mai',
+	'juin',
+	'juillet',
+	'août',
+	'septembre',
+	'octobre',
+	'novembre',
+	'décembre'
+];
+
 exports = module.exports = function (req, res) {
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
@@ -17,10 +32,9 @@ exports = module.exports = function (req, res) {
 	view.on('init', function(next) {
 		var q = keystone.list('Event').model.findOne({
 			slug: locals.filters.event
-		});
-
-		q.exec(function(err, result) {
-			locals.data.event = result;
+		}).exec(function(err, event) {
+			event.monthName = monthsNames[event._.startDate.moment().month()];
+			locals.data.event = event;
 			next(err);
 		});
 	});

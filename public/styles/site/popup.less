@@ -21,10 +21,9 @@
 
 	.popup {
 		position: relative;
-		width: 90%;
-		height: 2000px;
-		margin: 20px 5%;
-		background: silver;
+		width: calc(100% ~"-" @margin * 2);
+		margin: @margin auto;
+		background: @white;
 
 		button.close-popup {
 			position: absolute;

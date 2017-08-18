@@ -36,6 +36,7 @@ keystone.import('models');
 keystone.set('locals', {
 	_: require('lodash'),
 	env: keystone.get('env'),
+	process: process,
 	utils: keystone.utils,
 	editable: keystone.content.editable,
 });
@@ -48,6 +49,7 @@ keystone.set('routes', require('./routes'));
 keystone.set('nav', {
 	news: 'posts',
 	agenda: ['events', 'event-categories'],
+	contact: 'enquiries',
 	admin: ['utilisateurs']
 });
 

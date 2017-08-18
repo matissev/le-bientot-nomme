@@ -1,14 +1,37 @@
 extends ../layouts/default
 
+block head
+	title data.event.title
+	meta(name="description" content="THIS IS TO FILL")
+
+	// Facebook
+	meta(property="og:title" content=data.event.title)
+	meta(property="og:description" content="THIS IS TO FILL")
+	meta(property="og:type" content="article")
+	meta(property="og:url" content=process.env.DOMAIN_NAME+"/"+data.event.slug)
+	meta(property="og:image" content=data.event.image.secure_url)
+
+	// Twitter
+	meta(name="twitter:title" content=data.event.title)
+	meta(name="twitter:description" content="THIS IS TO FILL")
+	meta(name="twitter:card" content="summary")
+	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/"+data.event.slug)
+	meta(name="twitter:image" content=data.event.image.secure_url)
+
 block content
-	section.event
-		h1.title= data.event.title
-		img(src=data.event._.image.fit(500,300))
-		- sd = data.event._.startDate;
-		//- - startDate = sd.format('[Le ]D [' + month.monthName + ' ]' + 'YYYY[ à ]HH:mm');
-		- ed = data.event._.endDate;
-		//- - endDate = ed.format('[Le ]D [' + month.monthName + ' ]' + 'YYYY[ à ]HH:mm');
-		time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= startDate
-		time.end(datetime=ed.format('YYYY-MM-DDTHH:mm'))= endDate
-		span.price= data.event.price
-		p !{data.event.description}
+	article.event
+		if !data.event
+			p Évènement invalide.
+		else
+			h1.title= data.event.title
+			img(src=data.event._.image.fill(1000,400))
+			- sd = data.event._.startDate;
+			- startDate = sd.format('[Le ]D [' + data.event.monthName + ' ]' + 'YYYY[ à ]HH:mm');
+			time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= startDate
+			if data.event.price
+				span.price= data.event.price
+					| €
+			else
+				span.price Gratuit
+			p !{data.event.description}
+		+sharer(process.env.DOMAIN_NAME+"/"+data.event.slug)

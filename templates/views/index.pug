@@ -44,7 +44,7 @@ block content
 											span.category= event.category.name
 										strong.title= event.title
 										time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
-								div.no-events-in-filter
+							div.no-events-in-filter
 						else
 							p.no-events-in-month Aucun évènement n'est programmé ce mois-ci.
 			.controls
@@ -59,4 +59,4 @@ block content
 			.popup-content
 
 block js
-	script(src="/js/script.min.js")
+	
