@@ -4,32 +4,32 @@ block content
 	section.contact
 		h1 Contact
 		#map
-		form.form(method='post' onsubmit='return validateForm(this);' autocomplete='on')
+		form.form(method='post' onsubmit='return submitEnquiry(this);' autocomplete='on')
 			input#action(type='hidden', name='action', value='contact')
 			label(for='name') Name
 			input(type='text', name='name', placeholder='Nom')
 			label(for='email') Email
-			input(type='email', name='email', placeholder='Email')
+			input#email(type='email', name='email', placeholder='Email')
 			label(for='phone') Phone
-			input(type='text', name='phone', placeholder='Téléphone (optionnel)')
-			label(for='enquiryType') Sujet
-			select(name='enquiryType')
-				option(value='') (sélectionnez un sujet)
-				each type in enquiryTypes
-					option(value=type.value)= type.label
-				label(for='message') Message
+			input#phone(type='tel', name='phone', placeholder='Téléphone (optionnel)')
+			label(for='subject') Sujet
+			input(type='text', name='subject', placeholder='Sujet')
+			label(for='message') Message
 			textarea(name='message', placeholder='Laissez-nous un message…')= formData.message
 			button(type='submit')
 				span.button-text Send
 				span.mail-loader
 			.result-box(aria-hidden="true")
+				- console.log(responses);
 				if responses.success
 					p.result-message.success Votre message a été envoyé, merci.
 				if responses.invalidEmail
 					p.result-message.error Erreur&nbsp;: Veuillez entrer une adresse email valide.
+				if responses.invalidPhone
+					p.result-message.error Erreur&nbsp;: Veuillez entrer un numéro de téléphone valide.
 				if responses.missingFields
 					p.result-message.error Erreur&nbsp;: Des champs requis n'ont pas été remplis
-				if responses.invalidCaracters
+				if responses.invalidCharacters
 					p.result-message.error Erreur&nbsp;: L’email contient des caractères invalides.
 				if responses.failure
 					p.result-message.failure Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.

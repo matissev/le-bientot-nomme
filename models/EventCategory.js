@@ -6,7 +6,12 @@ var keystone = require('keystone');
  */
 
 var EventCategory = new keystone.List('EventCategory', {
-	autokey: { from: 'name', path: 'key', unique: true },
+	autokey: {
+		from: 'name',
+		path: 'key',
+		unique: true,
+		label: 'Catégories'
+	},
 });
 
 EventCategory.add({

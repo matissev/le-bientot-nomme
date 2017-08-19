@@ -2,21 +2,26 @@ var contactForm = document.querySelector('section.contact form');
 
 var resultMessages = {
 	success: 'Votre message a été envoyé, merci.',
-	invalidEmail: 'Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.',
-	missingFields: 'Erreur&nbsp;: Veuillez entrer une adresse email valide.',
-	invalidCaracters: 'Erreur&nbsp;: L’email contient des caractères invalides.',
-	failure: 'Erreur&nbsp;: Tous les champs sont requis.'
+	invalidEmail: 'Erreur&nbsp;: Veuillez entrer une adresse email valide.',
+	invalidPhone: 'Erreur&nbsp;: Veuillez entrer un numéro de téléphone valide.',
+	missingFields: 'Erreur&nbsp;: Des champs requis n\'ont pas été remplis.',
+	invalidCharacters: 'Erreur&nbsp;: L’email contient des caractères invalides.',
+	failure: 'Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.'
 };
 
 function submitEnquiry(form) {
 	event.preventDefault();
 	addClass(contactForm, 'loading');
-	var responses = ajaxPostMail(form);
-	notifyContactForm(responses); // response is an array of message
+	ajaxPostMail(form, function(responses){
+		setTimeout(function() {
+			notifyContactForm(responses); // response is an array of message
+			removeClass(contactForm, 'loading');
+		}, 1000);
+	});
 }
 
 // This function sends the request to the server
-function ajaxPostMail(form) {
+function ajaxPostMail(form, callback) {
 	var url = form.querySelector('#action').value,
 		xhr = new XMLHttpRequest(),
 		params = [],
@@ -35,9 +40,9 @@ function ajaxPostMail(form) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
-				return xhr.responseText;
+				callback(JSON.parse(xhr.responseText));
 			} else {
-				return false;
+				callback(['failure']);
 			}
 		}
 	};
@@ -50,87 +55,48 @@ function ajaxPostMail(form) {
 	xhr.send(params);
 }
 
-
-// This function checks the request from the server
-function checkResponse(response, savedResults) {
-	var knownResponses = ['success', 'invalidEmail', 'missingFields', 'invalidCaracters', 'failure'];
-	if (knownResponses.indexOf(response) > -1) {
-		savedResults.push(response);
-	} else {
-		savedResults.push('failure');
-	}
-}
-
 // This function outputs the results in the DOM
 function notifyContactForm(responses){
 	var resultBox = document.querySelector('.result-box');
 	var fields = contactForm.querySelectorAll('input, textarea');
+	fields = [].slice.call(fields, 1);
 
-	// Delete every message from DOM
-	// Inject the new ones, corresponding to the messages
-	// Show invalid fields
-
-	forEachNl(resultMessages, function(el, index){
-		resultBox.removeChild(resultBox.querySelectorAll('.result-message')[index]);
-	});
+	resultBox.innerHTML = '';
 
 	responses.forEach(function(response){
-		var newMessage = document.createElement(p);
-		newMessage.innerText = resultMessages[response];
+		var newMessage = document.createElement('p');
+		newMessage.innerHTML = resultMessages[response];
+		addClass(newMessage, 'result-message');
 
-		if(response === 'missingFields' || response === 'invalidEmail' || response === 'invalidCaracters')
+		if(response === 'missingFields' || response === 'invalidEmail' || response === 'invalidPhone' || response === 'invalidCharacters')
 			addClass(newMessage, 'error');
 		else
 			addClass(newMessage, response);
 
 		resultBox.appendChild(newMessage);
-	});
 
 
-	// BE CAREFUL
-	// for (i = 0; i < savedResults.length; i++) {
-	// 	if (savedResults[i] === 'missing-fields' || savedResults[i] === 'invalid-email' || savedResults[i] === 'invalid-caracters') {
-	// 		addClass(contactForm.querySelector('.result-message.' + savedResults[i]), 'show');
-	// 	}
-
-	// 	if (savedResults[i] === 'missing-fields') {
-	// 		for (u = 0; u < fields.length; u++) {
-	// 			if (fields[u].value === '') {
-	// 				addClass(fields[u], 'invalid');
-	// 			} else {
-	// 				removeClass(fields[u], 'invalid');
-	// 			}
-	// 		}
-	// 	}
-
-	// 	if (savedResults[i] === 'invalid-email' || savedResults[i] === 'invalid-caracters') {
-	// 		addClass(contactForm.querySelector('#email'), 'invalid');
-	// 	}
-
-	// 	if (savedResults[i] === 'success' || savedResults[i] === 'failure') {
-	// 		for (u = 0; u < fields.length; u++) {
-	// 			removeClass(fields[u], 'invalid');
-	// 		}
-
-	// 		killFormLoader(savedResults[i]);
-	// 	}
-	// }
-}
-
-// This function clears the form and kills the loading animation
-function killFormLoader(result) {
-	var fields = contactForm.querySelectorAll('input, textarea');
-
-	setTimeout(function() {
-		removeClass(contactForm, 'loading');
-		addClass(contactForm.querySelector('.result-message.' + result), 'show');
-
-		if (result === 'success') {
-			for (i = 1; i < fields.length; i++) {
-				fields[i].value = '';
-				fields[i].focus();
-				fields[i].blur();
-			}
+		if (response === 'missingFields') {
+			forEachNl(fields, function(field){
+				if (field.value === '') {
+					addClass(field, 'invalid');
+				} else {
+					removeClass(field, 'invalid');
+				}
+			});
+		} else if (response === 'invalidEmail' && response === 'invalidCharacters') {
+			addClass(contactForm.querySelector('#email'), 'invalid');
+		} else if (response === 'invalidPhone') {
+			addClass(contactForm.querySelector('#phone'), 'invalid');
+		} else {
+			forEachNl(fields, function(field){
+				removeClass(field, 'invalid');
+				if(response === 'success') {
+					field.value = '';
+					field.focus();
+					field.blur();
+				}
+			});
 		}
-	}, 1000);
+	});
 }

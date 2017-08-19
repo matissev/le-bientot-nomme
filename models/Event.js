@@ -8,8 +8,7 @@ var Types = keystone.Field.Types;
 
 var Event = new keystone.List('Event', {
 	map: {name: 'title'},
-	singular: 'Évènement',
-	plural: 'Évènements',
+	label: 'Évènements',
 	autokey: {path: 'slug', from: 'title', unique: true}
 });
 
@@ -21,12 +20,12 @@ var eventImageGallery = new keystone.Storage({
 });
 
 Event.add({
-	title: {type: String, required: true},
-	category: { type: Types.Relationship, ref: 'EventCategory', required: true, initial: false },
-	price: { type: Types.Money, currency: 'fr', format: '0.00 €' },
-	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true },
-	description: {type: Types.Html, wysiwyg: true},
-	image: { type: Types.CloudinaryImage, autoCleanup : true },
+	title: { type: String, required: true, label: 'Titre' },
+	category: { type: Types.Relationship, ref: 'EventCategory', required: true, initial: false, label: 'Catégorie' },
+	price: { type: Types.Money, currency: 'fr', format: '0.00 €', label: 'Prix' },
+	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true, label: 'Date et horaire' },
+	description: {type: Types.Html, wysiwyg: true, label: 'Description'},
+	image: { type: Types.CloudinaryImage, autoCleanup : true, label: 'Image' },
 });
 
 Event.register();

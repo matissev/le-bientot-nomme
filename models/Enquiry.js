@@ -9,21 +9,18 @@ var Types = keystone.Field.Types;
 var Enquiry = new keystone.List('Enquiry', {
 	nocreate: true,
 	noedit: true,
+	label: 'Messages'
 });
 
 Enquiry.add({
 	name: { type: Types.Name, required: true, label: 'Nom' },
-	email: { type: Types.Email, required: true },
-	phone: { type: String },
-	enquiryType: { type: Types.Select, options: [
-		{ value: 'message', label: 'Just leaving a message' },
-		{ value: 'question', label: 'I\'ve got a question' },
-		{ value: 'other', label: 'Something else...' },
-	] },
-	message: { type: Types.Markdown, required: true },
-	createdAt: { type: Date, default: Date.now },
+	email: { type: Types.Email, required: true, label: 'Email' },
+	phone: { type: String, label: 'Téléphone' },
+	subject: { type: String, label: 'Sujet' },
+	message: { type: Types.Textarea, required: true, label: 'Message' },
+	createdAt: { type: Date, default: Date.now, label: 'Envoyé le' },
 });
 
 Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name, email, enquiryType, createdAt';
+Enquiry.defaultColumns = 'name, email, phone, enquiryType, createdAt';
 Enquiry.register();

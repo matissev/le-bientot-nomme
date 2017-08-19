@@ -21,7 +21,7 @@ keystone.init({
 	'auto update': true,
 	'session': true,
 	'auth': true,
-	'user model': 'Utilisateur',
+	'user model': 'User',
 	'adminui custom styles': 'public/styles/admin.less',
 	'cookie secret': process.env.COOKIE_SECRET,
 	'cloudinary config': process.env.CLOUDINARY_URL
@@ -50,7 +50,7 @@ keystone.set('nav', {
 	news: 'posts',
 	agenda: ['events', 'event-categories'],
 	contact: 'enquiries',
-	admin: ['utilisateurs']
+	admin: ['users']
 });
 
 // Start Keystone to connect to your database and initialise the web server
