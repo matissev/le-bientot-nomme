@@ -33,20 +33,18 @@ html
 		//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
 		//- ... or completely change this header to suit your design.
 
-		header
+		header.nav
 			nav
 				ul.user-nav
 					li
 						a.logo(href="/") Le Bientôt Nommé
 					each link in navLinks
 						li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
-				ul.admin-nav
-					if user
-						if user.canAccessKeystone
-							li: a(href='/keystone') Open Keystone
-						li: a(href='/keystone/signout') Sign Out
-					else
-						li: a(href='/keystone/signin') Sign In
+				if user
+					if user.canAccessKeystone
+						ul.admin-nav
+							li: a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
+							li: a(href='/keystone/signout') Se déconnecter
 
 		//- BODY
 		main
@@ -68,6 +66,13 @@ html
 
 		//- FOOTER
 		footer
+			div.admin-login
+				if user
+					if user.canAccessKeystone
+						a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
+					a(href='/keystone/signout') Se déconnecter
+				else
+					a(href='/keystone/signin' target="_blank") Accès administrateur
 
 
 		//- JAVASCRIPT

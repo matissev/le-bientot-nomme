@@ -2,36 +2,50 @@ extends ../layouts/default
 
 block head
 	title data.event.title
-	meta(name="description" content="THIS IS TO FILL")
+	if data.event.brief
+		meta(name="description" content=data.event.brief)
 
 	// Facebook
 	meta(property="og:title" content=data.event.title)
-	meta(property="og:description" content="THIS IS TO FILL")
+	if data.event.brief
+		meta(property="og:description" content=data.event.brief)
 	meta(property="og:type" content="article")
-	meta(property="og:url" content=process.env.DOMAIN_NAME+"/"+data.event.slug)
-	meta(property="og:image" content=data.event.image.secure_url)
+	meta(property="og:url" content=process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)
+	if data.event.image
+		meta(property="og:image" content=data.event.image.secure_url)
 
 	// Twitter
 	meta(name="twitter:title" content=data.event.title)
-	meta(name="twitter:description" content="THIS IS TO FILL")
+	if data.event.brief
+		meta(name="twitter:description" content=data.event.brief)
 	meta(name="twitter:card" content="summary")
-	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/"+data.event.slug)
-	meta(name="twitter:image" content=data.event.image.secure_url)
+	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)
+	if data.event.image
+		meta(name="twitter:image" content=data.event.image.secure_url)
+
+
 
 block content
 	article.event
 		if !data.event
 			p Évènement invalide.
 		else
-			h1.title= data.event.title
-			img(src=data.event._.image.fill(1000,400))
-			- sd = data.event._.startDate;
-			- startDate = sd.format('[Le ]D [' + data.event.monthName + ' ]' + 'YYYY[ à ]HH:mm');
-			time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= startDate
+			header
+				h1.title= data.event.title
+				if data.event.image.exists
+					img(src=data.event._.image.fill(1000,400))
+
+			div.time
+				- sd = moment(data.event.startDate).locale('fr');
+				time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
+				- ed = moment(data.event.endDate).locale('fr');
+				time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')
+
 			if data.event.price
 				span.price= data.event.price
 					| €
 			else
 				span.price Gratuit
-			p !{data.event.description}
+			if data.event.description
+				div.description!= data.event.description
 		+sharer(process.env.DOMAIN_NAME+"/"+data.event.slug)

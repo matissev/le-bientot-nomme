@@ -1,5 +1,30 @@
 extends ../layouts/default
 
+block head
+	title data.post.title
+	if data.post.brief
+		meta(name="description" content=data.post.brief)
+
+	// Facebook
+	meta(property="og:title" content=data.post.title)
+	if data.post.brief
+		meta(property="og:description" content=data.post.brief)
+	meta(property="og:type" content="article")
+	meta(property="og:url" content=process.env.DOMAIN_NAME+"/blog/"+data.post.slug)
+	if data.post.image
+		meta(property="og:image" content=data.post.image.secure_url)
+
+	// Twitter
+	meta(name="twitter:title" content=data.post.title)
+	if data.post.brief
+		meta(name="twitter:description" content=data.post.brief)
+	meta(name="twitter:card" content="summary")
+	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/blog/"+data.post.slug)
+	if data.post.image
+		meta(name="twitter:image" content=data.post.image.secure_url)
+
+
+
 block content
 	article.post
 		if !data.post
@@ -7,8 +32,17 @@ block content
 		else
 			header
 				h1= data.post.title
-				time #{data.post._.publishedDate.format('MMMM Do, YYYY')}  
-			.post
 				if data.post.image.exists
 					img(src=data.post._.image.fit(750,450))
-				!= data.post.content.full
+			time #{data.post._.publishedDate.format('MMMM Do, YYYY')}
+			if data.post.text
+				div.description!= data.post.text
+			if data.post.events
+				div.relatedEvents
+					each event in data.post.events
+						a(href="/agenda/"+event.slug rel="bookmark")= event.title
+						div.time
+							- sd = moment(event.startDate).locale('fr');
+							time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
+							- ed = moment(event.endDate).locale('fr');
+							time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')

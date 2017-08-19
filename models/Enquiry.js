@@ -22,5 +22,5 @@ Enquiry.add({
 });
 
 Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name, email, phone, enquiryType, createdAt';
+Enquiry.defaultColumns = 'name|15%, subject, email, phone|15%, createdAt';
 Enquiry.register();

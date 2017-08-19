@@ -1,39 +1,40 @@
 
-addClass(document.querySelector('.agenda'), 'interactive');
+if (document.querySelector('.agenda')) {
+	addClass(document.querySelector('.agenda'), 'interactive');
+	agendaIndex = 0;
+	months = document.querySelectorAll('.month');
 
-agendaIndex = 0;
-months = document.querySelectorAll('.month');
-
-document.querySelector('.controls .left').addEventListener('click', function(event) {
-	if(agendaIndex > 0) {
-		agendaIndex --;
-		updateAgenda();
-		updateTimeSelector();
-	}
-});
-
-document.querySelector('.controls .right').addEventListener('click', function(event) {
-	if(agendaIndex < months.length - 1) {
-		agendaIndex ++;
-		updateAgenda();
-		updateTimeSelector();
-	}
-});
-
-forEachNl(document.querySelectorAll('.time-selector label'), function(el, index) {
-	el.addEventListener('click', function(event) {
-		agendaIndex = index;
-		updateAgenda();
+	document.querySelector('.controls .left').addEventListener('click', function(event) {
+		if(agendaIndex > 0) {
+			agendaIndex --;
+			updateAgenda();
+			updateTimeSelector();
+		}
 	});
-});
 
-forEachNl(document.querySelectorAll('.filter label'), function(el, index) {
-	el.addEventListener('click', function(event) {
-		var checked = document.querySelectorAll('.filter input')[index].checked;
-		filterAgenda(el.getAttribute('for'), checked);
-		toggleEmptyMonthMessage();
+	document.querySelector('.controls .right').addEventListener('click', function(event) {
+		if(agendaIndex < months.length - 1) {
+			agendaIndex ++;
+			updateAgenda();
+			updateTimeSelector();
+		}
 	});
-});
+
+	forEachNl(document.querySelectorAll('.time-selector label'), function(el, index) {
+		el.addEventListener('click', function(event) {
+			agendaIndex = index;
+			updateAgenda();
+		});
+	});
+
+	forEachNl(document.querySelectorAll('.filter label'), function(el, index) {
+		el.addEventListener('click', function(event) {
+			var checked = document.querySelectorAll('.filter input')[index].checked;
+			filterAgenda(el.getAttribute('for'), checked);
+			toggleEmptyMonthMessage();
+		});
+	});
+}
 
 function updateAgenda() {
 	forEachNl(months, function(el, index) {
@@ -60,7 +61,7 @@ function updateTimeSelector() {
 }
 
 function filterAgenda(filter, toFilter) {
-	var events = document.querySelectorAll('.event');
+	var events = document.querySelectorAll('article.event-ticket');
 
 	var matchedEvents = filterNl(events, function(event){
 		return hasClass(event, filter);
@@ -74,7 +75,7 @@ function filterAgenda(filter, toFilter) {
 
 function toggleEmptyMonthMessage() {
 	forEachNl(months, function(month){
-		var eventsInMonth = month.querySelectorAll('.event');
+		var eventsInMonth = month.querySelectorAll('article.event-ticket');
 		var alert = month.querySelector('.no-events-in-filter');
 
 		var hasEvents = someNl(eventsInMonth, function(event){

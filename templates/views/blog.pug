@@ -1,0 +1,18 @@
+extends ../layouts/default
+
+block content
+	section.blog
+		if blog.length
+			each post in blog
+				a.post(href="/blog/" + post.slug)
+					strong= post.title
+			a.post(href="/blog/")
+				strong Hello
+
+	.popup-wrapper
+		.popup-overlay
+		.popup
+			button.close-popup
+			.popup-content
+
+block js

@@ -10,8 +10,8 @@ var EventCategory = new keystone.List('EventCategory', {
 		from: 'name',
 		path: 'key',
 		unique: true,
-		label: 'Catégories'
 	},
+	label: 'Catégories'
 });
 
 EventCategory.add({

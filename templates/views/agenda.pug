@@ -1,0 +1,53 @@
+extends ../layouts/default
+
+block content
+	if data.agenda.length
+		section.agenda
+			.agenda-head
+				h2 Agenda
+				fieldset.filter
+					legend TRIER PAR :
+					if data.eventCategories.length
+						each category in data.eventCategories
+							input(type="checkbox" checked id=category.key)
+							label(for=category.key)= category.name
+				fieldset.time-selector
+					- var firstMonth = true;
+					each month in data.agenda
+						input(id=month.monthName.toLowerCase() type="radio" name='time' checked=firstMonth)
+						label(for=month.monthName.toLowerCase())= month.monthName
+						- firstMonth = false;
+			.months
+				- var firstMonth = true;
+				each month in data.agenda
+					.month(class=month.monthName class=firstMonth === true ? "currentMonth" : "toRight")
+						- firstMonth = false;
+						- var numberOfEvents = 0;
+						- month.pseudoWeeks.forEach(function(week) {
+						- 	numberOfEvents += week.length;
+						- });
+						each pseudoWeek in month.pseudoWeeks
+							.pseudoWeek
+								if pseudoWeek.length
+									each event in pseudoWeek
+										article.event-ticket(class=event.category ? event.category.key : "")
+											a(href="/agenda/" + event.slug rel="bookmark")
+												if event.category
+													span.category= event.category.name
+												strong.title= event.title
+												time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
+						if numberOfEvents != 0
+							div.no-events-in-filter
+						else
+							p.no-events-in-month Aucun évènement n'est programmé ce mois-ci.
+			.controls
+				.left
+				.right
+
+	.popup-wrapper
+		.popup-overlay
+		.popup
+			button.close-popup
+			.popup-content
+
+block js

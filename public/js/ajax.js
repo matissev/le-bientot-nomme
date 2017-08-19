@@ -35,7 +35,7 @@ function injectPartial(partialEl, containerEl, response) {
 	container.appendChild(content);
 }
 
-ajaxify('.event a', function(response){
+ajaxify('article.event-ticket a', function(response){
 	injectPartial('article.event', '.popup-content', response);
 	addClass(document.querySelector('body'), 'popup-active');
 });

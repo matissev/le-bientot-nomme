@@ -31,7 +31,7 @@
 
 	.agenda-head {
 		.clearfix();
-		margin-bottom: 40px;
+		margin-bottom: 20px;
 	}
 
 	fieldset.filter {
@@ -143,27 +143,47 @@
 
 		.month{
 			.clearfix();
+			overflow: hidden;
 			width: 100%;
 			clear: both;
-			margin-bottom: 10px;
 		}
 	}
 
-	.event {
-		display: inline-block;
+	.pseudoWeek {
+		position: relative;
+		display: block;
+		min-height: 10px;
 		width: 2 * @column;
-		padding: 0 @gutter / 2;
+		padding: 40px @gutter / 2;
+		box-sizing: border-box;
+		float: left;
+
+		&:after {
+			z-index: -1;
+			content: "";
+			position: absolute;
+			top: 0;
+			left: @gutter / 2;
+			right: @gutter / 2;
+			bottom: 0;
+			height: 200vh;
+			background: red;
+			background: url(/images/pattern.png) repeat;
+		}
+	}
+
+	.event-ticket {
+		width: 100%;
 		margin-bottom: @gutter;
 		color: @white;
-		float: left;
-		box-sizing: border-box;
 
 		a {
 			position: relative;
-			height: 120px;
+			height: 160px;
 			background: @color1-a;
 			display: block;
 			padding: 20px;
+			box-sizing: border-box;
 			top: 0;
 			bottom: 0;
 			left: 0;
@@ -245,7 +265,7 @@
 			left: 0;
 			top: 0;
 			width: 100%;
-			margin-top: 30px;
+			margin-top: 61px;
 			text-align: center;
 			color: @color1-a;
 			font-weight: bold;
@@ -263,33 +283,47 @@
 			}
 		}
 
-		.event {
+		.event-ticket {
 			transform: translateZ(0);
-			will-change: transform, opacity, width, margin, padding;
+			will-change: transform, opacity, width, margin, padding, height;
 			transition:
 				transform 0.1s ease-out 0.1s,
 				opacity 0.1s ease-out 0.1s,
 
 				width 0.2s ease-out,
 				margin 0.2s ease-out,
-				padding 0.2s ease-out;
+				padding 0.2s ease-out,
+				height 0.2s ease-out 0.2s;
 			opacity: 1;
+
+			a {
+				transform: translateZ(0);
+				will-change: height, padding;
+				transition: height 0.1s ease-out, padding 0.1s ease-out;
+			}
 		}
 
-		.event.filtered {
+		.event-ticket.filtered {
 			transition:
 				transform 0.2s ease-in,
 				opacity 0.2s ease-in,
 
 				width 0.2s ease-out 0.1s,
 				margin 0.2s ease-out 0.1s,
-				padding 0.2s ease-out 0.1s;
+				padding 0.2s ease-out 0.1s,
+				height 0.05s ease-out 0s;
 			pointer-events: none;
 			transform: scale(0.5);
 			opacity: 0;
 			width: 0%;
 			margin: 0;
 			padding: 0;
+
+			a {
+				transition: height 0.1s ease-out 0.2s, padding 0.1s ease-out 0.30s;
+				height: 0px;
+				padding: 0;
+			}
 		}
 	}
 

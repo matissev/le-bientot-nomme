@@ -3,6 +3,7 @@
 	"src": [
 		"public/js/utilities.js",
 		"public/js/ajax.js",
+		"public/js/agenda.js",
 		"public/js/mail.js"
 	]
 }]
