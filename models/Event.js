@@ -18,9 +18,9 @@ Event.add({
 	price: { type: Types.Money, currency: 'fr', format: '0.00 €', label: 'Prix' },
 	startDate: {type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required: true, label: 'Date & heure de début' },
 	endDate: { type: Types.Datetime, default: Date.now, format: 'MMM YYYY HH:mm', required:true, label: 'Heure de fin' },
-	brief: { type: Types.Html, wysiwyg: true, height: 150, label: 'Résumé' },
-	description: {type: Types.Html, wysiwyg: true, label: 'Description'},
-	image: { type: Types.CloudinaryImage, autoCleanup : true, label: 'Image' },
+	brief: { type: Types.Text, wysiwyg: true, height: 100, label: 'Résumé' },
+	description: {type: Types.Html, wysiwyg: true, height: 200, label: 'Description'},
+	image: { type: Types.CloudinaryImage, autoCleanup : true, label: 'Image' }
 });
 
 Event.register();

@@ -54,7 +54,7 @@ exports = module.exports = function (req, res) {
 					// FILTER 6 MONTHS
 					var sixMonths = events.filter(function(event) {
 						// 5 because it doesn't count the current month
-						return event.monthId >= thisMonthId && event.monthId - thisMonthId <= 5;
+						return event.monthId >= thisMonthId && event.monthId - thisMonthId <= 11;
 					});
 
 					// BUILD THE EVENT TABLE				
@@ -72,8 +72,6 @@ exports = module.exports = function (req, res) {
 						agenda[event.monthId - thisMonthId].pseudoWeeks[weekIndex].push(event); // push events in months
 					});
 				}
-
-				console.log(agenda);
 
 				locals.data.agenda = agenda;
 				next(err);

@@ -17,6 +17,12 @@ function addClass(element, className) {
     }
 }
 
+function groupsLength(array, groupLength) {
+  var remainder = array.length % 4;
+  var groupNumber = (array.length - remainder) / 4;
+  return remainder ? groupNumber++ : groupNumber;
+}
+
 // Higher-order functions for Nodelists and full browser support
 // https://toddmotto.com/ditch-the-array-foreach-call-nodelist-hack/#recommendations
 // These functions are taken from the allmighty http://eloquentjavascript.net/05_higher_order.html

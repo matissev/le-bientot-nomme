@@ -12,16 +12,19 @@ block content
 							input(type="checkbox" checked id=category.key)
 							label(for=category.key)= category.name
 				fieldset.time-selector
+					button.prev
+						span Mois précédents
+					button.next
+						span Mois suivants
 					- var firstMonth = true;
-					each month in data.agenda
-						input(id=month.monthName.toLowerCase() type="radio" name='time' checked=firstMonth)
-						label(for=month.monthName.toLowerCase())= month.monthName
-						- firstMonth = false;
+					.time-selector-months
+						each month in data.agenda
+							input(id=month.monthName.toLowerCase() type="radio" name='time' checked=firstMonth)
+							label(for=month.monthName.toLowerCase())= month.monthName
+							- firstMonth = false;
 			.months
-				- var firstMonth = true;
 				each month in data.agenda
-					.month(class=month.monthName class=firstMonth === true ? "currentMonth" : "toRight")
-						- firstMonth = false;
+					.month(class=month.monthName)
 						- var numberOfEvents = 0;
 						- month.pseudoWeeks.forEach(function(week) {
 						- 	numberOfEvents += week.length;
@@ -36,13 +39,8 @@ block content
 													span.category= event.category.name
 												strong.title= event.title
 												time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
-						if numberOfEvents != 0
-							div.no-events-in-filter
-						else
+						if numberOfEvents === 0
 							p.no-events-in-month Aucun évènement n'est programmé ce mois-ci.
-			.controls
-				.left
-				.right
 
 	.popup-wrapper
 		.popup-overlay
