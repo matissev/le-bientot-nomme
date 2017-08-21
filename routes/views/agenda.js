@@ -68,7 +68,7 @@ exports = module.exports = function (req, res) {
 
 					sixMonths.forEach(function(event) {
 						var daysInMonth = moment(event.startDate).daysInMonth();
-						var weekIndex = Math.floor(moment(event.startDate).format('D') / (daysInMonth / 4));
+						var weekIndex = Math.floor((moment(event.startDate).format('D') - 1) / (daysInMonth / 4));
 						agenda[event.monthId - thisMonthId].pseudoWeeks[weekIndex].push(event); // push events in months
 					});
 				}
