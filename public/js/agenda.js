@@ -78,6 +78,9 @@ Agenda.prototype.init = function() {
 	});
 
 	addClass(self.timeSelector.element.querySelector('button.prev'), 'disabled');
+	if(this.timeSelector.pannelLength < 2) {
+		addClass(self.timeSelector.element.querySelector('button.next'), 'disabled');
+	}
 
 	// The PREV button in the TIME SELECTOR is clicked
 	self.timeSelector.element.querySelector('button.prev').addEventListener('click', function(event) {
