@@ -78,7 +78,7 @@ Agenda.prototype.init = function() {
 	});
 
 	addClass(self.timeSelector.element.querySelector('button.prev'), 'disabled');
-	if(this.timeSelector.pannelLength < 2) {
+	if(self.timeSelector.pannelLength === 1) {
 		addClass(self.timeSelector.element.querySelector('button.next'), 'disabled');
 	}
 
