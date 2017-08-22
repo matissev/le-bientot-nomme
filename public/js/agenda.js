@@ -90,11 +90,11 @@ Agenda.prototype.init = function() {
 			forEachNl(self.timeSelector.months, function(el, index){
 				Velocity(el, { translateX: '-' + percentage + '%' }, { queue: false, duration: 700, easing: 'easeOutSine' });
 			});
-		}
 
-		if (self.timeSelector.index === 0)
-			addClass(self.timeSelector.element.querySelector('button.prev'), 'disabled');
-		removeClass(self.timeSelector.element.querySelector('button.next'), 'disabled');
+			if (self.timeSelector.index === 0)
+				addClass(self.timeSelector.element.querySelector('button.prev'), 'disabled');
+			removeClass(self.timeSelector.element.querySelector('button.next'), 'disabled');
+		}
 	});
 
 	// The NEXT button in the TIME SELECTOR is clicked
@@ -105,11 +105,11 @@ Agenda.prototype.init = function() {
 			forEachNl(self.timeSelector.months, function(el, index){
 				Velocity(el, { translateX: '-' + percentage + '%' }, { queue: false, duration: 700, easing: 'easeOutSine' });
 			});
-		}
 
-		if (self.timeSelector.index === self.timeSelector.pannelLength - 1)
-			addClass(self.timeSelector.element.querySelector('button.next'), 'disabled');
-		removeClass(self.timeSelector.element.querySelector('button.prev'), 'disabled');
+			if (self.timeSelector.index === self.timeSelector.pannelLength - 1)
+				addClass(self.timeSelector.element.querySelector('button.next'), 'disabled');
+			removeClass(self.timeSelector.element.querySelector('button.prev'), 'disabled');
+		}
 	});
 
 
