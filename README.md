@@ -47,3 +47,7 @@ This will enable nodemailer to send mail trough sendmail
     Make sure the line looks like this: 127.0.0.1 localhost yourhostname
     Run Sendmail's config and answer 'Y' to everything: sudo sendmailconfig
     Restart apache sudo service apache2 restart
+
+## Change mongoDB path
+
+I followed (this link)[https://tecadmin.net/change-mongodb-default-data-path/#]
