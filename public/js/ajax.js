@@ -43,6 +43,7 @@ ajaxify('article.event-ticket a', function(response){
 ajaxify('a.post', function(response){
 	injectPartial('article.post', '.popup-content', response);
 	addClass(document.querySelector('body'), 'popup-active');
+	objectFitPolyfill();
 });
 
 forEachNl(document.querySelectorAll('.close-popup, .popup-overlay'), function(el) {

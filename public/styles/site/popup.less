@@ -1,46 +1,51 @@
 
-.popup-wrapper {
+.popup {
 	display: none;
+	background: white;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	overflow: scroll;
+	background: @color1-d;
 
-	.popup-overlay {
-		background: black;
-		opacity: 0.3;
-		position: fixed;
+	// .popup-overlay {
+	// 	background: red;
+	// 	opacity: 0.3;
+	// 	position: fixed;
+	// 	top: 0;
+	// 	left: 0;
+	// 	right: 0;
+	// 	bottom: 0;
+	// 	cursor: pointer;
+	// }
+
+	.popup-content {
+		position: absolute;
 		top: 0;
-		left: 0;
-		right: 0;
 		bottom: 0;
-		cursor: pointer;
+		left: calc(@margin ~"-" @gutter / 2);
+		right: calc(@margin ~"-" @gutter / 2);
+		overflow: hidden;
 	}
 
-	.popup {
-		position: relative;
-		width: calc(100% ~"-" @margin * 2);
-		margin: @margin auto;
-		background: @white;
-
-		button.close-popup {
-			position: absolute;
-			right: 20px;
-			top: 20px;
-			height: 30px;
-			width: 30px;
-			background: red;
-			border: none;
-			cursor: pointer;
-		}
+	button.close-popup {
+		z-index: 2;
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		height: 33px;
+		width: 33px;
+		background: red;
+		border: none;
+		cursor: pointer;
 	}
 }
 
 .popup-active {
 	overflow: hidden;
-	.popup-wrapper, .popup-overlay {
+	.popup, .popup-overlay {
 		display: block;
 	}
 }

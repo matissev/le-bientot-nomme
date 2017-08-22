@@ -30,19 +30,23 @@ block content
 		if !data.post
 			p Post invalide.
 		else
-			header
-				h1= data.post.title
+			.title-wrapper
+				h1(class=data.post.title.split(' ').length < 5 ? 'few-words' : '')
+					span= data.post.title
+			.img-contain-wrapper
 				if data.post.image.exists
-					img(src=data.post._.image.fit(750,450))
-			time #{data.post._.publishedDate.format('MMMM Do, YYYY')}
-			if data.post.text
-				div.description!= data.post.text
-			if data.post.events
-				div.relatedEvents
-					each event in data.post.events
-						a(href="/agenda/"+event.slug rel="bookmark")= event.title
-						div.time
-							- sd = moment(event.startDate).locale('fr');
-							time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
-							- ed = moment(event.endDate).locale('fr');
-							time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')
+					img(src=data.post._.image.fit(1000,1000) data-object-fit="contain")
+			.description-wrapper
+				if data.post.text
+					.description
+						time #{data.post._.publishedDate.format('MMMM Do, YYYY')}
+						| !{data.post.text}
+						if data.post.events
+							.relatedEvents
+								each event in data.post.events
+									a(href="/agenda/"+event.slug rel="bookmark")= event.title
+									.time
+										- sd = moment(event.startDate).locale('fr');
+										time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
+										- ed = moment(event.endDate).locale('fr');
+										time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')
