@@ -178,6 +178,7 @@ gulp.task('imagemin', function(){
 			interlaced: true,
 			optimizationLevel: 9,
 			svgoPlugins: [
+				{ '--pretty': true },
 				{ removeViewBox: true },
 				{ removeUselessStrokeAndFill: true },
 				{ removeEmptyAttrs: true }

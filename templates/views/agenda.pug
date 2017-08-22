@@ -13,9 +13,11 @@ block content
 							label(for=category.key)= category.name
 				fieldset.time-selector
 					button.prev
+						include ../../public/images/sprite/agenda-prev-month.svg
 						span Mois précédents
 					button.next
 						span Mois suivants
+						include ../../public/images/sprite/agenda-next-month.svg
 					- var firstMonth = true;
 					.time-selector-months
 						each month in data.agenda

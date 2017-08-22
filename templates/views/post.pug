@@ -43,10 +43,11 @@ block content
 						| !{data.post.text}
 						if data.post.events
 							.relatedEvents
+								span.relatedEvents-caption Évènements liés
 								each event in data.post.events
-									a(href="/agenda/"+event.slug rel="bookmark")= event.title
-									.time
-										- sd = moment(event.startDate).locale('fr');
-										time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
-										- ed = moment(event.endDate).locale('fr');
-										time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')
+									a.relatedEvent(href="/agenda/"+event.slug rel="bookmark")= event.title
+										.time
+											- sd = moment(event.startDate).locale('fr');
+											time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
+											- ed = moment(event.endDate).locale('fr');
+											time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')

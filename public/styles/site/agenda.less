@@ -122,12 +122,16 @@
 			top: 0;
 			appearance: none;
 			padding: 0;
-			background: red;
 			width: 28px;
 			height: 28px;
 			border: none;
-			transition: opacity 0.3s ease-in;
+			transition: opacity 0.3s ease-in, background 0.3s ease;
 			opacity: 1;
+			background: transparent;
+
+			&:hover {
+				background: fade(@color1-a, 50%);
+			}
 
 			&.disabled {
 				opacity: 0.2;
@@ -162,6 +166,11 @@
 			padding: 5px 0 10px 0;
 			text-transform: uppercase;
 			list-style: none;
+
+			&:hover:after {
+				border-bottom: 4px solid white;
+				bottom: 1px;
+			}
 
 			&:after {
 				content: "";
@@ -325,7 +334,11 @@
 			a {
 				transform: translateZ(0);
 				will-change: height, padding;
-				transition: height 0.1s ease-out, padding 0.1s ease-out;
+				transition: height 0.1s ease-out, padding 0.1s ease-out, background 0.2s ease;
+
+				&:hover {
+					background: darken(@color1-a, 10%);
+				}
 			}
 		}
 

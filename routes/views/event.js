@@ -1,4 +1,5 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+	Event = keystone.list('Event');
 
 exports = module.exports = function (req, res) {
 	var view = new keystone.View(req, res);
@@ -15,7 +16,7 @@ exports = module.exports = function (req, res) {
 	};
 
 	view.on('init', function(next) {
-		var q = keystone.list('Event').model.findOne({
+		Event.model.findOne({
 			slug: locals.filters.event
 		}).exec(function(err, event) {
 			locals.data.event = event;

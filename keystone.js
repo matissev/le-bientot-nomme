@@ -50,8 +50,9 @@ keystone.set('routes', require('./routes'));
 keystone.set('nav', {
 	news: 'posts',
 	agenda: ['events', 'event-categories'],
+	leLieu: ['professionals'],
 	contact: 'enquiries',
-	admin: ['users']
+	admin: 'users'
 });
 
 // Start Keystone to connect to your database and initialise the web server
