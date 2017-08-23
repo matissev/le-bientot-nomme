@@ -20,7 +20,7 @@ function addClass(element, className) {
 function groupsLength(array, groupLength) {
   var remainder = array.length % 4;
   var groupNumber = (array.length - remainder) / 4;
-  return remainder ? groupNumber++ : groupNumber;
+  return remainder ? groupNumber + 1 : groupNumber;
 }
 
 // Higher-order functions for Nodelists and full browser support
