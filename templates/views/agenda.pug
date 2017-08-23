@@ -4,13 +4,8 @@ block content
 	if data.agenda.length
 		section.agenda
 			.agenda-head
-				h2 Agenda
-				fieldset.filter
-					legend TRIER PAR :
-					if data.eventCategories.length
-						each category in data.eventCategories
-							input(type="checkbox" checked id=category.key)
-							label(for=category.key)= category.name
+				.heading-wrapper
+					h2 Agenda
 				fieldset.time-selector
 					button.prev
 						include ../../public/images/sprite/agenda-prev-month.svg
@@ -24,6 +19,12 @@ block content
 							input(id=month.monthName.toLowerCase() type="radio" name='time' checked=firstMonth)
 							label(for=month.monthName.toLowerCase())= month.monthName
 							- firstMonth = false;
+				fieldset.filter
+					legend TRIER PAR :
+					if data.eventCategories.length
+						each category in data.eventCategories
+							input(type="checkbox" checked id=category.key)
+							label(for=category.key)= category.name
 			.months
 				each month in data.agenda
 					.month(class=month.monthName)

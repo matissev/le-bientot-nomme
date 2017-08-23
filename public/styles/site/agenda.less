@@ -9,7 +9,6 @@
 	padding-top: 50px;
 
 	h2 {
-		width: 2 * @column;
 		float: left;
 		position: relative;
 		text-transform: lowercase;
@@ -19,7 +18,17 @@
 		box-sizing: border-box;
 
 		&:before {
-			width: calc(100% ~"-" @gutter);
+			width: 184px;
+			position: absolute;
+			border-bottom: 2px solid @white;
+			bottom: 5px;
+			right: @gutter / 2;
+			content: "";
+			display: block;
+		}
+
+		&:after {
+			width: 42px;
 			position: absolute;
 			border-bottom: 2px solid @white;
 			bottom: 5px;
@@ -35,6 +44,7 @@
 	}
 
 	fieldset.filter {
+		float: right;
 		width: 2 * @column;
 		padding: 0 @gutter / 2;
 		margin: 0;
@@ -42,7 +52,7 @@
 		color: @color1-a;
 		font-weight: bold;
 		font-size: 13px;
-		float: left;
+		float: right;
 		box-sizing: border-box;
 
 		input[type=checkbox] {
@@ -93,20 +103,21 @@
 	}
 
 	fieldset.time-selector {
+		float: right;
 		position: relative;
 		margin: 0;
 		border: none;
-		float: right;
 		width: 4 * @column;
 		padding: 0 @gutter / 2;
 		box-sizing: border-box;
 		height: 28px;
+		overflow: hidden;
 
 		.time-selector-months {
 			overflow: hidden;
 			position: absolute;
 			top: 0;
-			bottom: 0;
+			height: 80px;
 			left: @gutter / 2 + 28px;
 			right: @gutter / 2 + 28px;
 			box-sizing: border-box;
@@ -156,6 +167,7 @@
 		}
 
 		label {
+			height: 28px;
 			user-select: none;
 			flex-shrink: 0;
 			cursor: pointer;
@@ -169,13 +181,13 @@
 
 			&:hover:after {
 				border-bottom: 4px solid white;
-				bottom: 1px;
+				bottom: 14px;
 			}
 
 			&:after {
 				content: "";
 				display: block;
-				bottom: 2px;
+				bottom: 15px;
 				position: absolute;
 				left: 2px;
 				right: 2px;
@@ -189,7 +201,7 @@
 
 			&:after {
 				border-bottom: 4px solid white;
-				bottom: 1px;
+				bottom: 14px;
 			}
 		}
 	}
@@ -296,10 +308,11 @@
 		transition: transform 0.2s ease-in, opacity 0.2s ease-in;
 
 		.no-events-in-month, .no-events-in-filter {
+			pointer-events: none;
 			position: absolute;
-			left: 0;
+			left: @margin;
 			top: 0;
-			width: 100%;
+			width: calc(100% ~"-" 2 * @margin);
 			margin-top: 61px;
 			text-align: center;
 			color: @color1-a;
@@ -370,5 +383,71 @@
 		transform: translate3D(0px, 0, 0);
 		opacity: 1;
 		transition: transform 0.2s ease-out 0.1s, opacity 0.2s ease-out 0.1s;
+	}
+}
+
+
+.agenda.is-mobile {
+	fieldset.time-selector {
+		.next, .prev {
+			display: none;
+		}
+
+		.time-selector-months {
+			overflow-x: scroll;
+
+			left: @gutter / 2;
+			right: @gutter / 2;
+
+			label {
+				width: 40%;
+			}
+		}
+	}
+}
+
+
+@media screen and (max-width: 1279px), screen and (max-device-width: 1279px) {
+	.agenda {
+		.heading-wrapper {
+			.clearfix();
+			width: 100%;
+		}
+
+		fieldset.time-selector, fieldset.filter {
+			margin-top: 50px;
+		}
+
+		fieldset.time-selector {
+			width: 5 * @column;
+		}
+
+		fieldset.filter {
+			width: 3 * @column;
+		}
+	}
+}
+
+@media screen and (max-width: 800px), screen and (max-device-width: 800px) {
+	.agenda {
+		.pseudoWeek {
+			padding-top: 0;
+			padding-bottom: 0;
+			width: 100%;
+		}
+
+		fieldset.time-selector {
+			width: 100%;
+		}
+
+		fieldset.filter {
+			width: 100%;
+		}
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	.agenda {
+		padding: 0 @margin-mobile - @gutter / 2;
 	}
 }

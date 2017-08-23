@@ -1,18 +1,37 @@
 
 .popup article.post {
+	background: @color1-d;
 	position: absolute;
 	height: 100%;
+	width: 100%;
+	padding: 0;
+
+	.description-wrapper {
+		max-height: 80vh;
+	}
+
+	.img-contain-wrapper {
+		position: absolute;
+	}
+}
+
+.post-wrapper {
+	min-height: 100vh;
+	background: @color1-d;
 }
 
 article.post {
-	width: 100%;
+	.clearfix();
+	position: relative;
+	width: calc(100% ~"-" 2 * (@margin - @gutter / 2));
+	margin: 0 auto;
 
 	.title-wrapper {
+		position: absolute;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		z-index: 2;
-		position: absolute;
 		top: 20vh;
 		margin-top: -80px;
 		height: 180px;
@@ -35,13 +54,12 @@ article.post {
 	}
 
 	.description-wrapper {
+		position: relative;
+		float: right;
 		min-height: 70px;
-		position: absolute;
 		background: @color1-c;
 		margin-right: @gutter / 2;
-		right: 0;
-		top: 20vh;
-		max-height: 80vh;
+		margin-top: 20vh;
 		overflow: scroll;
 		width: calc(4 * @column ~"-" @gutter);
 
@@ -57,16 +75,16 @@ article.post {
 
 	.img-contain-wrapper {
 		position: absolute;
-		height: 100%;
 		top: 0;
-		left: 0;
+		left: @gutter / 2;
+		height: 100vh;
 		width: calc(7 * @column ~"-" @gutter);
-		margin-left: @gutter / 2;
 
 		img {
 			width: 100%;
 			height: 100%;
 			object-fit: contain;
+			object-position: 50% 50%;
 		}
 	}
 
@@ -82,5 +100,55 @@ article.post {
 		display: inline-block;
 		padding: 20px;
 		background: grey;
+	}
+}
+
+@media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	.popup article.post {
+		position: static;
+		height: auto;
+
+		.description-wrapper {
+			max-height: none;
+		}
+	}
+
+	article.post {
+		.title-wrapper {
+			right: auto;
+			left: calc(1 * @column ~"+" @gutter / 2);
+			width: calc(4 * @column ~"-" @gutter);
+		}
+
+		.description-wrapper {
+			width: calc(7 * @column ~"-" @gutter);
+			margin-top: 80vh;
+		}
+
+		.img-contain-wrapper {
+			width: calc(8 * @column ~"-" @gutter);
+		}
+	}
+}
+
+@media screen and (max-width: 750px), screen and (max-device-width: 750px) {
+	article.post {
+		.description-wrapper {
+			width: calc(100% ~"-" @gutter);
+		}
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	article.post {
+		width: calc(100% ~"-" 2 * (@margin-mobile - @gutter / 2));
+	}
+
+	article.post {
+		.title-wrapper {
+			right: auto;
+			left: calc(@gutter / 2);
+			width: calc(5 * @column ~"-" @gutter);
+		}
 	}
 }

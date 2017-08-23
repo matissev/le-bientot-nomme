@@ -3,6 +3,7 @@
 	"src": [
 		"bower_components/velocity/velocity.js",
 		"bower_components/objectFitPolyfill/src/objectFitPolyfill.js",
+		"bower_components/isMobile/isMobile.js",
 		"public/js/utilities.js",
 		"public/js/ajax.js",
 		"public/js/agenda.js",

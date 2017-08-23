@@ -22,8 +22,6 @@ exports = module.exports = function (req, res) {
 
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'contact' }, function (next) {
-		console.log(req.body);
-
 		var formErrors = validateForm(req.body);
 
 		if (formErrors.length && req.body.ajax) {

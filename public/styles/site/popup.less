@@ -7,7 +7,7 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	overflow: scroll;
+	overflow: hidden;
 	background: @color1-d;
 
 	// .popup-overlay {
@@ -25,8 +25,8 @@
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		left: calc(@margin ~"-" @gutter / 2);
-		right: calc(@margin ~"-" @gutter / 2);
+		left: @margin - @gutter / 2;
+		right: @margin - @gutter / 2;
 		overflow: hidden;
 	}
 
@@ -36,8 +36,8 @@
 		box-sizing: border-box;
 		z-index: 2;
 		position: absolute;
-		left: 20px;
-		top: 20px;
+		left: @margin - 33px;
+		top: @margin - 33px;
 		height: 33px;
 		width: 33px;
 		border: none;
@@ -49,5 +49,31 @@
 	overflow: hidden;
 	.popup, .popup-overlay {
 		display: block;
+	}
+}
+
+@media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	.popup {
+		.popup-content {
+			overflow: scroll;
+		}
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	.popup {
+		.popup-content {
+			left: @margin-mobile - @gutter / 2;
+			right: @margin-mobile - @gutter / 2;
+		}
+
+		button.close-popup {
+			left: auto;
+			right: @margin - 33px;
+			background: white;
+			padding: 10px;
+			height: 53px;
+			width: 53px;
+		}
 	}
 }

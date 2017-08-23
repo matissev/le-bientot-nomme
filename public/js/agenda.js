@@ -8,6 +8,10 @@ function Agenda(options) {
 	this.element = document.querySelector(options.container);
 	addClass(this.element, 'interactive');
 
+	if(isMobile) {
+		addClass(this.element, 'is-mobile');
+	}
+
 	this.index = 0;
 	this.months = this.element.querySelectorAll(options.month);
 	this.events = this.element.querySelectorAll(options.event);

@@ -1,3 +1,8 @@
+
+/* If the device is a mobile */
+
+isMobile = isMobile.any;
+
 /* Add class raw javascript */
 
 function hasClass(ele,cls) {
@@ -16,6 +21,8 @@ function addClass(element, className) {
         element.className += '  '+ className + '  ';
     }
 }
+
+/* Simple group length compute for arrays */
 
 function groupsLength(array, groupLength) {
   var remainder = array.length % 4;
