@@ -84,19 +84,19 @@ function validateForm(data) {
 		illegalChars = /[\(\)\\<\>\,\;\:\\\"\[\]]/,
 		rgxPhonePal = /0[1-9]([-. ]?[0-9]){8}/,
 		rgxPhoneUs = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/,
-		empty = /^\s+$/,
+		empty = /^\s*$/,
 		savedErrors = [];
 
 	if (data.name.match(empty) || data.email.match(empty) || data.subject.match(empty) || data.message.match(empty))
 		savedErrors.push('missingFields');
 
-	if (!emailFilter.test(data.email.replace(/^\s+|\s+$/, '')))
+	if (!data.email.match(empty) && !emailFilter.test(data.email.replace(/^\s+|\s+$/, '')))
 		savedErrors.push('invalidEmail');
 
 	if (!data.phone.match(empty) && !data.phone.match(rgxPhonePal) && !data.phone.match(rgxPhoneUs))
 		savedErrors.push('invalidPhone');
 
-	if (data.email.match(illegalChars))
+	if (!data.email.match(empty) && data.email.match(illegalChars))
 		savedErrors.push('invalidCharacters');
 	return savedErrors;
 }

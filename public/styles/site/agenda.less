@@ -1,6 +1,6 @@
 
 .agenda {
-	overflow-x: hidden;
+	overflow: hidden;
 	color: @white;
 	background: @color1-c;
 	width: 100%;
@@ -46,14 +46,13 @@
 	fieldset.filter {
 		float: right;
 		width: 2 * @column;
-		padding: 0 @gutter / 2;
 		margin: 0;
 		border: none;
 		color: @color1-a;
 		font-weight: bold;
 		font-size: 13px;
 		float: right;
-		box-sizing: border-box;
+		padding: 0;
 
 		input[type=checkbox] {
 			appearance: none;
@@ -62,9 +61,10 @@
 		}
 
 		legend, label {
+			margin: 0 @gutter / 2;
 			display: block;
 			float: left;
-			width: 50%;
+			width: calc(50% ~"-" @gutter);
 			margin-bottom: 13px;
 			line-height: 16px;
 		}
@@ -167,9 +167,10 @@
 		}
 
 		label {
+			flex: 0 0 auto;
+			display: block;
 			height: 28px;
 			user-select: none;
-			flex-shrink: 0;
 			cursor: pointer;
 			position: relative;
 			text-align: center;
@@ -200,8 +201,8 @@
 			font-weight: bold;
 
 			&:after {
-				border-bottom: 4px solid white;
-				bottom: 14px;
+				border-bottom: 4px solid white!important;
+				bottom: 14px!important;
 			}
 		}
 	}
@@ -395,12 +396,18 @@
 
 		.time-selector-months {
 			overflow-x: scroll;
+			-webkit-overflow-scrolling: touch;
 
 			left: @gutter / 2;
 			right: @gutter / 2;
 
 			label {
 				width: 40%;
+
+				&:hover:after {
+					border-bottom: 1px solid white;
+					bottom: 15px;
+				}
 			}
 		}
 	}
@@ -430,7 +437,13 @@
 
 @media screen and (max-width: 800px), screen and (max-device-width: 800px) {
 	.agenda {
+		.month {
+			padding-top: 5px;
+		}
 		.pseudoWeek {
+			&.empty {
+				display: none;
+			}
 			padding-top: 0;
 			padding-bottom: 0;
 			width: 100%;

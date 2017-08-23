@@ -3,21 +3,23 @@ section.contact {
 	.clearfix();
 
 	h1 {
-		margin-left: @margin;
+		width: 100%;
+		float: left;
+		margin: 40px 0 40px @margin;
 	}
 }
 
 #map {
 	height: 500px;
-	width: calc(50% ~"-" @gutter / 2);
+	width: 100%;
 	float: left;;
 	background: #EEEEEE;
 }
 
 section.contact form {
 	width: calc(50% ~"-" @gutter / 2);
-	padding-right: @margin;
-	float: right;
+	padding-left: @margin;
+	float: left;
 	box-sizing: border-box;
 
 	h3 {
@@ -71,6 +73,7 @@ section.contact form {
 	}
 
 	button {
+		cursor: pointer;
 		position: relative;
 		padding: 0;
 		height: 30px;

@@ -1,7 +1,7 @@
 
 
 function ajaxify(linkEl, callback) {
-	document.querySelectorAll(linkEl).forEach(function(el) {
+	forEachNl(document.querySelectorAll(linkEl), function(el) {
 		var url = el.attributes.href.value;
 		el.addEventListener('click', function(event) {
 			event.preventDefault();

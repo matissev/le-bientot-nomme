@@ -63,6 +63,8 @@ function notifyContactForm(responses){
 
 	resultBox.innerHTML = '';
 
+	console.log(responses);
+
 	responses.forEach(function(response){
 		var newMessage = document.createElement('p');
 		newMessage.innerHTML = resultMessages[response];
@@ -78,13 +80,13 @@ function notifyContactForm(responses){
 
 		if (response === 'missingFields') {
 			forEachNl(fields, function(field){
-				if (field.value === '') {
+				if (field.value === '' && !hasClass(field, 'optionnal')) {
 					addClass(field, 'invalid');
 				} else {
 					removeClass(field, 'invalid');
 				}
 			});
-		} else if (response === 'invalidEmail' && response === 'invalidCharacters') {
+		} else if (response === 'invalidEmail' || response === 'invalidCharacters') {
 			addClass(contactForm.querySelector('#email'), 'invalid');
 		} else if (response === 'invalidPhone') {
 			addClass(contactForm.querySelector('#phone'), 'invalid');

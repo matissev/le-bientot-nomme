@@ -33,7 +33,7 @@ block content
 						- 	numberOfEvents += week.length;
 						- });
 						each pseudoWeek in month.pseudoWeeks
-							.pseudoWeek
+							.pseudoWeek(class=pseudoWeek.length ? '' : 'empty')
 								if pseudoWeek.length
 									each event in pseudoWeek
 										article.event-ticket(class=event.category ? event.category.key : "")

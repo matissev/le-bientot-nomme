@@ -2,8 +2,8 @@ extends ../layouts/default
 		
 block content
 	section.contact
-		h1 Contact
 		#map
+		h1 Contact
 		form.form(method='post' onsubmit='return submitEnquiry(this);' autocomplete='on')
 			input#action(type='hidden', name='action', value='contact')
 			label(for='name') Name
@@ -11,7 +11,7 @@ block content
 			label(for='email') Email
 			input#email(type='email', name='email', placeholder='Email')
 			label(for='phone') Phone
-			input#phone(type='tel', name='phone', placeholder='Téléphone (optionnel)')
+			input#phone.optionnal(type='tel', name='phone', placeholder='Téléphone (optionnel)')
 			label(for='subject') Sujet
 			input(type='text', name='subject', placeholder='Sujet')
 			label(for='message') Message
