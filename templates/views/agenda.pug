@@ -5,7 +5,7 @@ block content
 		section.agenda
 			.agenda-head
 				.heading-wrapper
-					h2 Agenda
+					h1 Agenda
 				fieldset.time-selector
 					button.prev
 						include ../../public/images/sprite/agenda-prev-month.svg
@@ -28,12 +28,13 @@ block content
 			.months
 				each month in data.agenda
 					.month(class=month.monthName)
+						h2= month.monthName
 						- var numberOfEvents = 0;
 						- month.pseudoWeeks.forEach(function(week) {
 						- 	numberOfEvents += week.length;
 						- });
 						each pseudoWeek in month.pseudoWeeks
-							.pseudoWeek(class=pseudoWeek.length ? '' : 'empty')
+							.pseudo-week(class=pseudoWeek.length ? '' : 'empty')
 								if pseudoWeek.length
 									each event in pseudoWeek
 										article.event-ticket(class=event.category ? event.category.key : "")

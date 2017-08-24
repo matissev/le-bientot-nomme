@@ -35,16 +35,18 @@ function injectPartial(partialEl, containerEl, response) {
 	container.appendChild(content);
 }
 
-ajaxify('article.event-ticket a', function(response){
-	injectPartial('article.event', '.popup-content', response);
-	addClass(document.querySelector('body'), 'popup-active');
-});
+if(!isMobile) {
+	ajaxify('article.event-ticket a', function(response){
+		injectPartial('article.event', '.popup-content', response);
+		addClass(document.querySelector('body'), 'popup-active');
+	});
 
-ajaxify('a.post', function(response){
-	injectPartial('article.post', '.popup-content', response);
-	addClass(document.querySelector('body'), 'popup-active');
-	objectFitPolyfill();
-});
+	ajaxify('a.post', function(response){
+		injectPartial('article.post', '.popup-content', response);
+		addClass(document.querySelector('body'), 'popup-active');
+		objectFitPolyfill();
+	});
+}
 
 forEachNl(document.querySelectorAll('.close-popup, .popup-overlay'), function(el) {
 	el.addEventListener('click', function(event) {

@@ -8,7 +8,7 @@
 	box-sizing: border-box;
 	padding-top: 50px;
 
-	h2 {
+	h1 {
 		float: left;
 		position: relative;
 		text-transform: lowercase;
@@ -38,12 +38,18 @@
 		}
 	}
 
+	h2 {
+		margin-left: @gutter / 2;
+		text-transform: capitalize;
+	}
+
 	.agenda-head {
 		.clearfix();
 		margin-bottom: 50px;
 	}
 
 	fieldset.filter {
+		display: none;
 		float: right;
 		width: 2 * @column;
 		margin: 0;
@@ -103,6 +109,7 @@
 	}
 
 	fieldset.time-selector {
+		display: none;
 		float: right;
 		position: relative;
 		margin: 0;
@@ -219,12 +226,10 @@
 		}
 	}
 
-	.pseudoWeek {
+	.pseudo-week {
+		width: 100%;
 		position: relative;
 		display: block;
-		min-height: 10px;
-		width: 2 * @column;
-		padding: 40px @gutter / 2;
 		box-sizing: border-box;
 		float: left;
 
@@ -237,12 +242,17 @@
 			right: @gutter / 2;
 			bottom: 0;
 			height: 1000vh;
-			background: url(/images/pattern.png) repeat;
+			background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 20"><rect fill="@{color1-a}" width="1" height="1"/></svg>') repeat;
+			background-size: 1px 20px;
 		}
 	}
 
 	.event-ticket {
-		width: 100%;
+		width: 2 * @column;
+		padding: 0 @gutter / 2;
+		float: left;
+		clear: none;
+		box-sizing: border-box;
 		margin-bottom: @gutter;
 		color: @white;
 
@@ -279,9 +289,20 @@
 			font-size: 40px;
 		}
 	}
+
+	.no-events-in-month {
+		margin-left: @gutter / 2;
+	}
 }
 
 .agenda.interactive {
+	h2 {
+		display: none;
+	}
+
+	fieldset.time-selector, fieldset.filter {
+		display: block;
+	}
 
 	.months {
 		position: relative;
@@ -308,6 +329,11 @@
 		min-height: 160px;
 		transition: transform 0.2s ease-in, opacity 0.2s ease-in;
 
+		.pseudo-week {
+			width: 2 * @column;
+			padding: 40px @gutter / 2;
+		}
+
 		.no-events-in-month, .no-events-in-filter {
 			pointer-events: none;
 			position: absolute;
@@ -318,6 +344,7 @@
 			text-align: center;
 			color: @color1-a;
 			font-weight: bold;
+			margin-left: 0;
 		}
 
 		.no-events-in-filter {
@@ -333,6 +360,8 @@
 		}
 
 		.event-ticket {
+			width: 100%;
+			padding: 0;
 			transform: translateZ(0);
 			will-change: transform, opacity, width, margin, padding, height;
 			transition:
@@ -415,7 +444,7 @@
 
 
 @media screen and (max-width: 1279px), screen and (max-device-width: 1279px) {
-	.agenda {
+	.agenda.interactive {
 		.heading-wrapper {
 			.clearfix();
 			width: 100%;
@@ -436,17 +465,29 @@
 }
 
 @media screen and (max-width: 800px), screen and (max-device-width: 800px) {
-	.agenda {
+	.agenda:not(.interactive) {
+		.event-ticket {
+			width: 100%;
+		}
+	}
+
+	.agenda.interactive {
 		.month {
 			padding-top: 5px;
-		}
-		.pseudoWeek {
-			&.empty {
-				display: none;
+
+			.pseudo-week {
+				&.empty {
+					position: absolute;
+				}
+
+				&:after {
+					background: transparent;
+				}
+
+				padding-top: 0;
+				padding-bottom: 0;
+				width: 100%;
 			}
-			padding-top: 0;
-			padding-bottom: 0;
-			width: 100%;
 		}
 
 		fieldset.time-selector {
@@ -462,5 +503,15 @@
 @media screen and (max-width: 600px), screen and (max-device-width: 600px) {
 	.agenda {
 		padding: 0 @margin-mobile - @gutter / 2;
+		padding-top: 50px;
+
+		.heading-wrapper {
+			text-align: center;
+		}
+
+		h1 {
+			float: none;
+			display: inline-block;
+		}
 	}
 }

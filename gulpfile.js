@@ -173,17 +173,22 @@ gulp.task('less-dist', function(){
 
 gulp.task('imagemin', function(){
 	return gulp.src(paths.images + '/**/*.*')
-		.pipe(imagemin({
-			multipass: true,
-			interlaced: true,
-			optimizationLevel: 9,
-			svgoPlugins: [
-				{ '--pretty': true },
-				{ removeViewBox: true },
-				{ removeUselessStrokeAndFill: true },
-				{ removeEmptyAttrs: true }
-			]
-		}))
+		.pipe(imagemin([
+			imagemin.gifsicle({interlaced: true}),
+			imagemin.jpegtran({progressive: true}),
+			imagemin.jpegtran({progressive: true}),
+			imagemin.optipng({optimizationLevel: 9}),
+			imagemin.svgo({
+				plugins: [
+					{removeUselessStrokeAndFill: true},
+					{removeEmptyAttrs: true},
+					{removeViewBox: true},
+					{cleanupIDs: false},
+					{pretty:true},
+					{convertStyleToAttrs:true}
+				]
+			})
+		]))
 		.pipe(gulp.dest(paths.images))
 });
 
