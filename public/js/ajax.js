@@ -5,6 +5,7 @@ function ajaxify(linkEl, callback) {
 		var url = el.attributes.href.value;
 		el.addEventListener('click', function(event) {
 			event.preventDefault();
+			history.pushState({}, 'Article', url);
 
 			var xmlhttp = new XMLHttpRequest();
 
@@ -51,5 +52,6 @@ if(!isMobile) {
 forEachNl(document.querySelectorAll('.close-popup, .popup-overlay'), function(el) {
 	el.addEventListener('click', function(event) {
 		removeClass(document.querySelector('body'), 'popup-active');
+		window.history.back();
 	}, false);
 });

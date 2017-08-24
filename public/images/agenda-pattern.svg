@@ -1,7 +1,1 @@
-<svg>
-	<defs>
-		<pattern id="agenda-pattern" x="0" y="0" width="1" height="20" patternUnits="objectBoundingBox">
-			<path style="fill:#f79386" d="M0 0h1v1H0z"/>
-		</pattern>
-	</defs>
-</svg>
+<svg><defs><pattern id="agenda-pattern" width="1" height="20"><path d="M0 0h1v1H0z" fill="#f79386"/></pattern></defs></svg>
