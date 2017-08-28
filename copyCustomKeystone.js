@@ -1,3 +1,10 @@
 var fs = require('fs');
-
-fs.createReadStream('./custom_keystone/**/*.*').pipe(fs.createWriteStream('./node_modules/keystone/'));
+var glob = require("glob");
+ 
+// options is optional 
+glob('./custom_keystone/**/*.*', function (er, files) {
+	files.forEach(function(file) {
+		var output = file.replace('./custom_keystone', './node_modules/keystone');
+		fs.createReadStream(file).pipe(fs.createWriteStream(output));
+	});
+});
