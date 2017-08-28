@@ -1,5 +1,8 @@
 extends ../layouts/default
 
+block head
+	title= process.env.WEBSITE_NAME + ' | Le Lieu'
+
 block content
 	.professionals
 		each pro in data.professionals
@@ -17,8 +20,8 @@ block content
 					span.email= pro.contact.email
 				if pro.contact.phone
 					span.phone= pro.contact.phone
-				if pro.contact.link
-					a.link(href=pro.contact.link target="_blank" rel="bookmark") Site internet
+				if pro.contact.website
+					a.website(href=pro.contact.website target="_blank" rel="bookmark") Site internet
 				if pro.socials.facebook || pro.socials.twitter || pro.socials.linkedin
 					.socials
 						if pro.socials.facebook
@@ -30,45 +33,11 @@ block content
 				table.schedule
 					thead
 						caption Horaires
-					tr
-						th Lundi
-						if pro.schedule.monday
-							td= pro.schedule.monday
-						else
-							td Fermé
-					tr
-						th Mardi
-						if pro.schedule.tuesday
-							td= pro.schedule.tuesday
-						else
-							td Fermé
-					tr
-						th Mercredi
-						if pro.schedule.wednesday
-							td= pro.schedule.wednesday
-						else
-							td Fermé
-					tr
-						th Jeudi
-						if pro.schedule.thurdsay
-							td= pro.schedule.thurdsay
-						else
-							td Fermé
-					tr
-						th Vendredi
-						if pro.schedule.friday
-							td= pro.schedule.friday
-						else
-							td Fermé
-					tr
-						th Samedi
-						if pro.schedule.saturday
-							td= pro.schedule.saturday
-						else
-							td Fermé
-					tr
-						th Dimanche
-						if pro.schedule.sunday
-							td= pro.schedule.sunday
-						else
-							td Fermé
+					each day in pro.timetable
+						//http://schema.org/LocalBusiness
+						tr
+							th= day.label
+							if day.value
+								td(itemprop="openingHours" datetime=day.schema)= day.value
+							else
+								td Fermé

@@ -6,16 +6,17 @@ var Types = keystone.Field.Types;
  * ==========
  */
 var User = new keystone.List('User', {
-	label: 'Utilisateurs'
+	label: 'Utilisateurs',
+	singular: 'Utilisateur'
 });
 
 User.add({
-	name: { type: Types.Name, required: true, index: true },
+	name: { type: Types.Name, required: true, index: true, label: 'Nom' },
 	email: { type: Types.Email, initial: true, required: true, unique: true, index: true },
-	password: { type: Types.Password, initial: true, required: true },
-
+	password: { type: Types.Password, initial: true, required: true, label: 'Mot de passe' },
 }, 'Permissions', {
-	isAdmin: { type: Boolean, label: 'Can access Keystone', index: true },
+	isAdmin: { type: Boolean, label: 'Peu accéder à l\'interface administrateur', index: true },
+	getsMessages: { type: Boolean, label: 'Reçoit les emails provenant du site', index: true },
 });
 
 // Provide access to Keystone

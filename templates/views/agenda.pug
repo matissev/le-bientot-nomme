@@ -1,5 +1,8 @@
 extends ../layouts/default
 
+block head
+	title= process.env.WEBSITE_NAME + ' | Agenda'
+
 block content
 	if data.agenda.length
 		section.agenda

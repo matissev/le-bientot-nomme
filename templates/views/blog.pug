@@ -1,5 +1,8 @@
 extends ../layouts/default
 
+block head
+	title= process.env.WEBSITE_NAME + ' | Blog'
+
 block content
 	section.blog
 		if blog.length

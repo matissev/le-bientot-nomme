@@ -1,14 +1,14 @@
 extends ../layouts/default
 
 block head
-	title data.post.title
-	if data.post.brief
-		meta(name="description" content=data.post.brief)
+	title= process.env.WEBSITE_NAME + ' | ' + data.post.title
+	if data.post.description
+		meta(name="description" content=data.post.description)
 
 	// Facebook
 	meta(property="og:title" content=data.post.title)
-	if data.post.brief
-		meta(property="og:description" content=data.post.brief)
+	if data.post.description
+		meta(property="og:description" content=data.post.description)
 	meta(property="og:type" content="article")
 	meta(property="og:url" content=process.env.DOMAIN_NAME+"/blog/"+data.post.slug)
 	if data.post.image
@@ -16,8 +16,8 @@ block head
 
 	// Twitter
 	meta(name="twitter:title" content=data.post.title)
-	if data.post.brief
-		meta(name="twitter:description" content=data.post.brief)
+	if data.post.description
+		meta(name="twitter:description" content=data.post.description)
 	meta(name="twitter:card" content="summary")
 	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/blog/"+data.post.slug)
 	if data.post.image
@@ -36,7 +36,7 @@ block content
 						span= data.post.title
 				.img-contain-wrapper
 					if data.post.image.exists
-						img(src=data.post._.image.fit(1000,1000) data-object-fit="contain")
+						img(src=data.post._.image.fit(1000,1000) data-object-fit="contain" alt=data.post.imageDescription)
 				.description-wrapper
 					if data.post.text
 						.description

@@ -1,14 +1,14 @@
 extends ../layouts/default
 
 block head
-	title data.event.title
-	if data.event.brief
-		meta(name="description" content=data.event.brief)
+	title= process.env.WEBSITE_NAME + ' | ' + data.event.title
+	if data.event.description
+		meta(name="description" content=data.event.description)
 
 	// Facebook
 	meta(property="og:title" content=data.event.title)
-	if data.event.brief
-		meta(property="og:description" content=data.event.brief)
+	if data.event.description
+		meta(property="og:description" content=data.event.description)
 	meta(property="og:type" content="article")
 	meta(property="og:url" content=process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)
 	if data.event.image
@@ -16,8 +16,8 @@ block head
 
 	// Twitter
 	meta(name="twitter:title" content=data.event.title)
-	if data.event.brief
-		meta(name="twitter:description" content=data.event.brief)
+	if data.event.description
+		meta(name="twitter:description" content=data.event.description)
 	meta(name="twitter:card" content="summary")
 	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)
 	if data.event.image
@@ -33,19 +33,19 @@ block content
 			header
 				h1.title= data.event.title
 				if data.event.image.exists
-					img(src=data.event._.image.fill(1000,400))
+					img(src=data.event._.image.fill(1000,400) alt=data.event.imageDescription)
 
 			div.time
 				- sd = moment(data.event.startDate).locale('fr');
-				time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
+				time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH[h]mm')
 				- ed = moment(data.event.endDate).locale('fr');
-				time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')
+				time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH[h]mm')
 
 			if data.event.price
 				span.price= data.event.price
-					| €
+					| &nbsp;€
 			else
 				span.price Gratuit
-			if data.event.description
-				div.description!= data.event.description
+			if data.event.texte
+				div.text!= data.event.texte
 		+sharer(process.env.DOMAIN_NAME+"/"+data.event.slug)
