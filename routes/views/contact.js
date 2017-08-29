@@ -1,23 +1,36 @@
 var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry'),
-	email = require('keystone-email');
+	User = keystone.list('User'),
+	pug = require('pug'),
+	moment = require('moment'),
+	nodemailer = require('nodemailer');
 	require('dotenv').config();
 
-exports = module.exports = function (req, res) {
+var transporter = nodemailer.createTransport({
+	service:"Gmail",
+	auth:{
+		type: 'OAuth2',
+		user: process.env.MAIL_USER,
+		clientId: process.env.MAIL_CLIENT_ID,
+		clientSecret: process.env.MAIL_CLIENT_SECRET,
+		refreshToken: process.env.MAIL_REFRESH_TOKEN
+	}
+});
 
+exports = module.exports = function (req, res) {
 	var view = new keystone.View(req, res);
 	var locals = res.locals;
 
 	// Set locals
 	locals.section = 'contact';
-	locals.formData = req.body || {};
 
 	locals.responses = {
 		success : false,
 		invalidEmail : false,
 		missingFields : false,
 		invalidCaracters : false,
-		failure : false
+		failure : false,
+		invalidPhone : false
 	};
 
 	// On POST requests, add the Enquiry item to the database
@@ -32,48 +45,54 @@ exports = module.exports = function (req, res) {
 			});
 		}
 
-		var newEnquiry = new Enquiry.model();
-		var updater = newEnquiry.getUpdateHandler(req);
+		if(!formErrors.length) {
+			var newEnquiry = new Enquiry.model();
+			var updater = newEnquiry.getUpdateHandler(req);
 
-		// new email('mail.pug', {
-		// 	transport: 'mailgun',
-		// }).send({
-		// 	apiKey: process.env.APIKEY,
-		// 	domain: process.env.MAILGUN_URL,
-		// 	to: process.env.MAIL_RECEIVER,
-		// 	from: {
-		// 		name: 'Website',
-		// 		email: 'website@mail.com',
-		// 	},
-		// 	subject: 'Your first KeystoneJS email',
-		// }, function (err, result) {
-		// 	if (err) {
-		// 		console.error('🤕 Mailgun test failed with error:\n', err);
-		// 	} else {
-		// 		console.log('📬 Successfully sent Mailgun test with result:\n', result);
-		// 	}
-		// });
-
-		updater.process(req.body, {
-			flashErrors: true,
-			fields: 'name, email, phone, subject, message',
-			errorMessage: 'There was a problem submitting your enquiry:',
-		}, function (err) {
-			if(req.body.ajax) {
+			updater.process(req.body, {
+				fields: 'name, email, phone, subject, message'
+			}, function (err) {
 				if (err) {
-					return res.send(['failure']);
+					// ======== If the query ERRORS
+
+					if(req.body.ajax) {
+						return res.send(['failure']); // AJAX
+					} else {
+						locals.responses.failure = true; // STANDARD QUERY
+					}
 				} else {
-					return res.status(200).send(['success']);
-				}	
-			} else {
-				if (err) { // every errors accessible with : err.errors
-					locals.responses.failure = true;
-				} else {
-					locals.responses.success = true;
+					// ======== If the query is a SUCCESS
+
+					var recipients = [];
+
+					User.model.find({
+						getsMessages: true
+					}).exec(function (err, users) {
+						users.forEach(function(user){
+							recipients.push(user.email);
+						});
+
+						if(recipients.length) {
+							sendMail(req.body, recipients, function(result){
+								if(result === 'error') {
+									locals.responses.failure = true; // ONLY IF THE MAIL ERRORS
+								}
+							});
+						}
+					});
+
+					if(req.body.ajax) {
+						return res.status(200).send(['success']); // AJAX
+					} else {
+						locals.responses.success = true; // STANDARD QUERY
+					}
 				}
-			}
+			});
+		}
+
+		if(!req.body.ajax) {
 			next();
-		});
+		}
 	});
 
 	view.render('contact');
@@ -99,4 +118,23 @@ function validateForm(data) {
 	if (!data.email.match(empty) && data.email.match(illegalChars))
 		savedErrors.push('invalidCharacters');
 	return savedErrors;
+}
+
+function sendMail(enquiry, recipients, cb) {
+	enquiry.date = moment().locale('fr').format('[Le ]D MMMM YYYY[ à ]HH[h]mm');
+
+	transporter.sendMail({
+		from: enquiry.name + '<' + enquiry.email + '>',
+		to: recipients,
+		subject: enquiry.subject,
+		html: pug.renderFile('templates/layouts/email.pug', {
+			enquiry: enquiry,
+			env: process.env
+		})
+	}, function(error, response){
+		if (error) {
+			cb('error');
+		}
+		transporter.close();
+	});
 }

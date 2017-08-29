@@ -1,0 +1,17 @@
+extends ../layouts/default
+
+block head
+	title= process.env.WEBSITE_NAME + ' | Newsletter'
+
+block content
+	.result-box.custom-form
+		if responses.success
+			p.result-message.success Votre email a été ajoutée, merci.
+		if responses.invalidEmail
+			p.result-message.error Erreur&nbsp;: Veuillez entrer une adresse email valide.
+		if responses.missingFields
+			p.result-message.error Erreur&nbsp;: L'email est requis.
+		if responses.invalidCharacters
+			p.result-message.error Erreur&nbsp;: L’email contient des caractères invalides.
+		if responses.failure
+			p.result-message.failure Erreur&nbsp;: Votre adresse n'a pas pu être ajoutée, veuillez réessayer plus tard.

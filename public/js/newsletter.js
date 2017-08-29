@@ -1,17 +1,17 @@
 
-function submitEnquiry(form) {
+function submitNewsletter(form) {
 	event.preventDefault();
 	addClass(form, 'loading');
-	ajaxPostMail(form, function(responses){
+	ajaxPostNewsletter(form, function(responses){
 		setTimeout(function() {
-			notifyContactForm(responses, form); // response is an array of message
+			notifyNewsletterForm(responses, form); // response is an array of message
 			removeClass(form, 'loading');
 		}, 1000);
 	});
 }
 
 // This function sends the request to the server
-function ajaxPostMail(form, callback) {
+function ajaxPostNewsletter(form, callback) {
 	var url = form.querySelector('.action').value,
 		xhr = new XMLHttpRequest(),
 		params = [];
@@ -45,14 +45,13 @@ function ajaxPostMail(form, callback) {
 }
 
 // This function outputs the results in the DOM
-function notifyContactForm(responses, form){
+function notifyNewsletterForm(responses, form){
 	var resultMessages = {
-		success: 'Votre message a été envoyé, merci.',
+		success: 'Votre email a été ajoutée, merci.',
 		invalidEmail: 'Erreur&nbsp;: Veuillez entrer une adresse email valide.',
-		invalidPhone: 'Erreur&nbsp;: Veuillez entrer un numéro de téléphone valide.',
-		missingFields: 'Erreur&nbsp;: Des champs requis n\'ont pas été remplis.',
+		missingFields: 'Erreur&nbsp;: L’email est requis.',
 		invalidCharacters: 'Erreur&nbsp;: L’email contient des caractères invalides.',
-		failure: 'Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.'
+		failure: 'Erreur&nbsp;: Votre adresse n’a pas pu être ajoutée, veuillez réessayer plus tard.'
 	};
 
 	var resultBox = form.querySelector('.result-box');
@@ -68,7 +67,7 @@ function notifyContactForm(responses, form){
 		newMessage.innerHTML = resultMessages[response];
 		addClass(newMessage, 'result-message');
 
-		if(response === 'missingFields' || response === 'invalidEmail' || response === 'invalidPhone' || response === 'invalidCharacters')
+		if(response === 'missingFields' || response === 'invalidEmail' || response === 'invalidCharacters')
 			addClass(newMessage, 'error');
 		else
 			addClass(newMessage, response);
@@ -86,8 +85,6 @@ function notifyContactForm(responses, form){
 			});
 		} else if (response === 'invalidEmail' || response === 'invalidCharacters') {
 			addClass(form.querySelector('.email'), 'invalid');
-		} else if (response === 'invalidPhone') {
-			addClass(form.querySelector('.phone'), 'invalid');
 		} else {
 			forEachNl(fields, function(field){
 				removeClass(field, 'invalid');

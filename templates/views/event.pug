@@ -39,7 +39,7 @@ block content
 				- sd = moment(data.event.startDate).locale('fr');
 				time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH[h]mm')
 				- ed = moment(data.event.endDate).locale('fr');
-				time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH[h]mm')
+				time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[ à ]HH[h]mm')
 
 			if data.event.price
 				span.price= data.event.price

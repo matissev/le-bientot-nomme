@@ -9,22 +9,22 @@ block content
 	section.contact
 		#map
 		h1 Contact
-		form.form(method='post' onsubmit='return submitEnquiry(this);' autocomplete='on')
-			input#action(type='hidden', name='action', value='contact')
-			label(for='name') Name
+		form.custom-form(method='post' action='contact' onsubmit='return submitEnquiry(this);' autocomplete='on')
+			input.action(type='hidden', name='action', value='contact')
+			label(for='name') Nom
 			input(type='text', name='name', placeholder='Nom')
 			label(for='email') Email
-			input#email(type='email', name='email', placeholder='Email')
-			label(for='phone') Phone
-			input#phone.optionnal(type='tel', name='phone', placeholder='Téléphone (optionnel)')
+			input.email(type='email', name='email', placeholder='Email')
+			label(for='phone') Téléphone
+			input.phone.optionnal(type='tel', name='phone', placeholder='Téléphone (optionnel)')
 			label(for='subject') Sujet
 			input(type='text', name='subject', placeholder='Sujet')
 			label(for='message') Message
-			textarea(name='message', placeholder='Laissez-nous un message…')= formData.message
+			textarea(name='message', placeholder='Laissez-nous un message…')
 			button(type='submit')
-				span.button-text Send
-				span.mail-loader
-			.result-box(aria-hidden="true")
+				span.button-text Envoyer
+				span.loader
+			.result-box
 				if responses.success
 					p.result-message.success Votre message a été envoyé, merci.
 				if responses.invalidEmail

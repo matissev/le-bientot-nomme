@@ -1,6 +1,5 @@
 var keystone = require('keystone'),
-	Professional = keystone.list('Professional'),
-	_ = require('lodash');
+	Professional = keystone.list('Professional');
 
 var days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
