@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var middleware = require('../routes/middleware');
 var Types = keystone.Field.Types;
 var request = require('request');
 
@@ -23,41 +24,41 @@ Professional.add(
 	{ contact: {
 		email: { type: Types.Email, displayGravatar: true, label: 'Email' },
 		phone: { type: String, label: 'Téléphone' },
-		website: { type: Types.Url, label: 'Site internet', note: 'Doit comporter « http:// » (ex : https://le-site.com)' },
+		website: { type: Types.Url, default: '', label: 'Site internet', note: 'Doit comporter « http:// » (ex : https://le-site.com)' },
 	} },
 	{ socials: {
-		facebook: { type: Types.Url, label: 'Facebook', note: 'Lien vers la page Facebook. Doit comporter « http:// » (ex : https://www.facebook.com/jean.dupont)' },
-		twitter: { type: Types.Url, label: 'Twitter', note: 'Lien vers la page Twitter. Doit comporter « http:// » (ex : https://www.twitter.com/jeandupont)' },
-		linkedin: { type: Types.Url, label: 'Linkedin', note: 'Lien vers la page Linkedin. Doit comporter « http:// » (ex : https://www.linkedin.com/in/jeandupont/)' },
+		facebook: { type: Types.Url, default: '', label: 'Facebook', note: 'Lien vers la page Facebook. Doit comporter « http:// » (ex : https://www.facebook.com/jean.dupont)' },
+		twitter: { type: Types.Url, default: '', label: 'Twitter', note: 'Lien vers la page Twitter. Doit comporter « http:// » (ex : https://www.twitter.com/jeandupont)' },
+		linkedin: { type: Types.Url, default: '', label: 'Linkedin', note: 'Lien vers la page Linkedin. Doit comporter « http:// » (ex : https://www.linkedin.com/in/jeandupont/)' },
 	} },
 	'Horaires',
 	{ schedule: {
 		monday: {
-			value: { type: String, label: 'Lundi', note: 'Les horaires doivent être de la forme : XXhXX - XXhXX / XXhXX - XXhXX (avec autant de coupures que voulu). Si celles-ci ne sont pas spécifiées, la journée indiquera «&nbsp;Fermé&nbsp;».' },
+			value: { type: String, default: '', label: 'Lundi', note: 'Les horaires doivent être de la forme : XXhXX - XXhXX / XXhXX - XXhXX (avec autant de coupures que voulu). Si celles-ci ne sont pas spécifiées, la journée indiquera «&nbsp;Fermé&nbsp;».' },
 			microdata: { type: String, hidden: true  }
 		},
 		tuesday: {
-			value: { type: String, label: 'Mardi' },
+			value: { type: String, default: '', label: 'Mardi' },
 			microdata: { type: String, hidden: true  }
 		},
 		wednesday: {
-			value: { type: String, label: 'Mercredi' },
+			value: { type: String, default: '', label: 'Mercredi' },
 			microdata: { type: String, hidden: true  }
 		},
 		thursday: {
-			value: { type: String, label: 'Jeudi' },
+			value: { type: String, default: '', label: 'Jeudi' },
 			microdata: { type: String, hidden: true  }
 		},
 		friday: {
-			value: { type: String, label: 'Vendredi' },
+			value: { type: String, default: '', label: 'Vendredi' },
 			microdata: { type: String, hidden: true  }
 		},
 		saturday: {
-			value: { type: String, label: 'Samedi' },
+			value: { type: String, default: '', label: 'Samedi' },
 			microdata: { type: String, hidden: true  }
 		},
 		sunday: {
-			value: { type: String, label: 'Dimanche' },
+			value: { type: String, default: '', label: 'Dimanche' },
 			microdata: { type: String, hidden: true  }
 		}
 	} }
@@ -66,6 +67,20 @@ Professional.add(
 Professional.schema.methods.getDayLabel = function(dayString) {
     return this.schema.tree.schedule[dayString].label;
 };
+
+Professional.schema.pre('remove', function(next) {
+	if(!middleware.getAuthUser().canManageProfessionals) {
+		next(new Error('Vous n\'avez pas les autorisations pour supprimer des professionnels.'));
+	}
+	next();
+});
+
+Professional.schema.pre('validate', function(next) {
+	if(!middleware.getAuthUser().canManageProfessionals) {
+		next(new Error('Vous n\'avez pas les autorisations pour modifier les professionnels.'));
+	}
+	next();
+});
 
 Professional.schema.pre('save', function(next) {
 	/* ----------- CHECK LINKS */

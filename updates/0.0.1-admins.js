@@ -7,10 +7,21 @@
  * module.exports = function(done) { ... }
  */
 
+require('dotenv').config();
+
 exports.create = {
-	User: [
-		{ 'name.first': 'Admin', 'name.last': 'User', 'email': 'user@keystonejs.com', 'password': 'admin', 'isAdmin': true },
-	],
+	User: [{
+		name: 'Super Utilisateur',
+		email: process.env.SUPERUSER_EMAIL,
+		password: process.env.SUPERUSER_PASSWORD,
+		isAdmin: true,
+		getsMessages: false,
+		canManageUsers: true,
+		canManagePosts: true,
+		canManageEvents: true,
+		canManageProfessionals: true,
+		canManageEnquiries: true
+	}]
 };
 
 /*

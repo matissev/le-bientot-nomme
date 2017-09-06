@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var middleware = require('../routes/middleware');
 var Types = keystone.Field.Types;
 
 /**
@@ -16,13 +17,27 @@ var Post = new keystone.List('Post', {
 
 Post.add({
 	title: { type: String, required: true, label: 'Titre' },
-	description: { type: Types.Text, height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
+	description: { type: Types.Text, default: '', height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
 	state: { type: Types.Select, options: 'brouillon, publié, archivé', default: 'publié', index: true, label: 'État' },
 	publishedDate: { type: Types.Date, index: true, dependsOn: { state: 'publié' }, label: 'Date de publication' },
 	image: { type: Types.CloudinaryImage, label: 'Image' },
-	imageDescription: { type: String, label: 'Description de l\'image', note: 'La description de l\'image doit faire au maximum 125 caractères. Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
+	imageDescription: { type: String, default: '', label: 'Description de l\'image', note: 'La description de l\'image doit faire au maximum 125 caractères. Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
 	text: { type: Types.Html, wysiwyg: true, height: 400, label: 'Texte' },
 	events: { type: Types.Relationship, ref: 'Event', many: true, label: 'Évènements liés' },
+});
+
+Post.schema.pre('remove', function(next) {
+	if(!middleware.getAuthUser().canManagePosts) {
+		next(new Error('Vous n\'avez pas les autorisations pour supprimer des articles.'));
+	}
+	next();
+});
+
+Post.schema.pre('validate', function(next) {
+	if(!middleware.getAuthUser().canManagePosts) {
+		next(new Error('Vous n\'avez pas les autorisations pour modifier les articles.'));
+	}
+	next();
 });
 
 Post.schema.pre('save', function(next) {

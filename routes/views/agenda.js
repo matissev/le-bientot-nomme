@@ -57,20 +57,22 @@ exports = module.exports = function (req, res) {
 						return event.monthId >= thisMonthId && event.monthId - thisMonthId <= 11;
 					});
 
-					// BUILD THE EVENT TABLE				
-					var lastEvent = sixMonths[sixMonths.length - 1]; // Define size
-					for(var i = 0; i <= lastEvent.monthId - thisMonthId; i++) { // Add month number
-						agenda[i] = {
-							monthName: monthsNames[(thisMonth - 1 + i) % 12], // Thug life (01:50 a.m)
-							pseudoWeeks: [[],[],[],[]]
-						};
-					}
+					// BUILD THE EVENT TABLE
+					if (sixMonths.length) {
+						var lastEvent = sixMonths[sixMonths.length - 1]; // Define size
+						for(var i = 0; i <= lastEvent.monthId - thisMonthId; i++) { // Add month number
+							agenda[i] = {
+								monthName: monthsNames[(thisMonth - 1 + i) % 12], // Thug life (01:50 a.m)
+								pseudoWeeks: [[],[],[],[]]
+							};
+						}
 
-					sixMonths.forEach(function(event) {
-						var daysInMonth = moment(event.startDate).daysInMonth();
-						var weekIndex = Math.floor((moment(event.startDate).format('D') - 1) / (daysInMonth / 4));
-						agenda[event.monthId - thisMonthId].pseudoWeeks[weekIndex].push(event); // push events in months
-					});
+						sixMonths.forEach(function(event) {
+							var daysInMonth = moment(event.startDate).daysInMonth();
+							var weekIndex = Math.floor((moment(event.startDate).format('D') - 1) / (daysInMonth / 4));
+							agenda[event.monthId - thisMonthId].pseudoWeeks[weekIndex].push(event); // push events in months
+						});
+					}
 				}
 
 				locals.data.agenda = agenda;

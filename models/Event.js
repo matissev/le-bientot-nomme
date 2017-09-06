@@ -1,4 +1,5 @@
 var keystone = require('keystone');
+var middleware = require('../routes/middleware');
 var Types = keystone.Field.Types;
 
 /**
@@ -23,6 +24,20 @@ Event.add({
 	startDate: {type: Types.DatetimeFr, default: Date.now, required: true, label: 'Date & heure de début' },
 	endDate: { type: Types.DatetimeFr, default: Date.now, required:true, label: 'Heure de fin' },
 	text: {type: Types.Html, wysiwyg: true, height: 200, label: 'Texte' },
+});
+
+Event.schema.pre('remove', function(next) {
+	if(!middleware.getAuthUser().canManageEvents) {
+		next(new Error('Vous n\'avez pas les autorisations pour supprimer des évènements.'));
+	}
+	next();
+});
+
+Event.schema.pre('validate', function(next) {
+	if(!middleware.getAuthUser().canManageEvents) {
+		next(new Error('Vous n\'avez pas les autorisations pour modifier les évènements.'));
+	}
+	next();
 });
 
 Event.schema.pre('save', function(next) {

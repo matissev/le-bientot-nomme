@@ -8,6 +8,7 @@
  * modules in your project's /lib directory.
  */
 var _ = require('lodash');
+var keystone = require('keystone');
 
 
 /**
@@ -26,6 +27,22 @@ exports.initLocals = function (req, res, next) {
 	];
 	res.locals.user = req.user;
 	next();
+};
+
+var authUser = {
+	name : {
+		first: '',
+		last: ''
+	}
+};
+
+exports.setAuthUser = function(req, res, next) {
+	authUser = req.user;
+	next();
+};
+
+exports.getAuthUser = function(req, res, next) {
+	return authUser;
 };
 
 

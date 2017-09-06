@@ -1,25 +1,21 @@
 
-/* If the device is a mobile */
-
-isMobile = isMobile.any;
-
 /* Add class raw javascript */
 
 function hasClass(ele,cls) {
-    return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+	return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 }
 
 function removeClass(element, className) {
-    if (element && hasClass(element,className)) {
-        var reg = new RegExp('(\\s|^)'+className+'(\\s|$)');
-        element.className = ' ' + element.className.replace(reg,'') + ' ';
-    }
+	if (element && hasClass(element,className)) {
+		var reg = new RegExp('(\\s|^)'+className+'(\\s|$)');
+		element.className = ' ' + element.className.replace(reg,'') + ' ';
+	}
 }
 
 function addClass(element, className) {
-    if (element && !hasClass(element,className)) {
-        element.className += '  '+ className + '  ';
-    }
+	if (element && !hasClass(element,className)) {
+		element.className += '  '+ className + '  ';
+	}
 }
 
 /* Simple group length compute for arrays */
@@ -36,14 +32,14 @@ function groupsLength(array, groupLength) {
 // Also they have been adapted to support the index value
 function forEachNl(array, action) {
   for (var i = 0; i < array.length; i++)
-    action(array[i], i);
+	action(array[i], i);
 }
 
 function filterNl(array, test) {
   var passed = [];
   for (var i = 0; i < array.length; i++) {
-    if (test(array[i], i))
-      passed.push(array[i]);
+	if (test(array[i], i))
+	  passed.push(array[i]);
   }
   return passed;
 }
@@ -51,29 +47,44 @@ function filterNl(array, test) {
 function mapNl(array, transform) {
   var mapped = [];
   for (var i = 0; i < array.length; i++)
-    mapped.push(transform(array[i], i));
+	mapped.push(transform(array[i], i));
   return mapped;
 }
 
 function reduceNl(array, combine, start) {
   var current = start;
   for (var i = 0; i < array.length; i++)
-    current = combine(current, array[i], i);
+	current = combine(current, array[i], i);
   return current;
 }
 
 function everyNl(array, predicate) {
   for (var i = 0; i < array.length; i++) {
-    if (!predicate(array[i], i))
-      return false;
+	if (!predicate(array[i], i))
+	  return false;
   }
   return true;
 }
 
 function someNl(array, predicate) {
   for (var i = 0; i < array.length; i++) {
-    if (predicate(array[i], i))
-      return true;
+	if (predicate(array[i], i))
+	  return true;
   }
   return false;
 }
+
+
+var lessVariables = {};
+
+forEachNl(document.styleSheets, function(sheet){
+	forEachNl(sheet.cssRules, function(rule) {
+		var sRule = rule.cssText;
+		if (sRule.substr(0,5)=="#less") {
+			var aKey = sRule.match(/\.(\w+)/);
+			var aVal = sRule.match(/(\d+)/);
+			if (aKey && aVal)
+				lessVariables[aKey[1]] = aVal[0]<<0;
+		}
+	});
+});

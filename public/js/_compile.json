@@ -6,6 +6,7 @@
 		"bower_components/isMobile/isMobile.js",
 		"public/js/utilities.js",
 		"public/js/ajax.js",
+		"public/js/nav.js",
 		"public/js/agenda.js",
 		"public/js/mail.js",
 		"public/js/newsletter.js"

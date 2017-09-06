@@ -10,8 +10,8 @@ var keystone = require('keystone');
 // and documentation.
 
 keystone.init({
-	'name': 'Le Bientôt Nommé',
-	'brand': 'Le Bientôt Nommé',
+	'name': process.env.WEBSITE_NAME,
+	'brand': process.env.WEBSITE_NAME,
 	
 	'static': 'public',
 	'favicon': 'public/favicon.ico',
