@@ -20,7 +20,23 @@ exports.create = {
 		canManagePosts: true,
 		canManageEvents: true,
 		canManageProfessionals: true,
-		canManageEnquiries: true
+		canManageEnquiries: true,
+		canManagePages: true
+	}],
+	PageAccueil: [{
+		name: 'Accueil'
+	}],
+	PageContact: [{
+		name: 'Contact'
+	}],
+	PageLesoin: [{
+		name: 'Le soin'
+	}],
+	PageLeprojet: [{
+		name: 'Le projet'
+	}],
+	PageArticle: [{
+		name: 'Articles'
 	}]
 };
 

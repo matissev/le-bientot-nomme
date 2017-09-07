@@ -40,7 +40,9 @@ html
 			.nav-wrapper
 				nav
 					.root-link
-						a(href="/")= process.env.WEBSITE_NAME
+						a(href="/")
+							include ../../public/images/sprite/logo.svg
+							span= process.env.WEBSITE_NAME
 					.links-container
 						ul
 							each link in navLinks
@@ -50,8 +52,12 @@ html
 									li: a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
 									li: a(href='/keystone/signout') Se déconnecter
 					.socials
-						a(href="" target="_blank") facebook
-						a(href="" target="_blank") twitter
+						if data.contact.socials.facebook
+							a(href=data.contact.socials.facebook target="_blank") facebook
+						if data.contact.socials.twitter
+							a(href=data.contact.socials.twitter target="_blank") twitter
+						if data.contact.socials.linkedin
+							a(href=data.contact.socials.linkedin target="_blank") linkedin
 
 		//- BODY
 		main
@@ -68,27 +74,58 @@ html
 
 
 		//- FOOTER
-		footer
-			form.custom-form.newsletter(method='post' action='/newsletter' onsubmit='return submitNewsletter(this);' autocomplete='on')
-				h2 Inscrivez-vous à la newsletter
-				input.action(type='hidden', name='action', value='newsletter')
-				label(for='fname') Prénom
-				input.optionnal(type='text', name='fname', placeholder='Prénom')
-				label(for='lname') Nom
-				input.optionnal(type='text', name='lname', placeholder='Nom')
-				label(for='email') Email
-				input(type='email', name='email', placeholder='Email (ce champs est requis)')
-				button(type='submit')
-					span.button-text Envoyer
-					span.loader
-				.result-box
-			div.admin-login
-				if user
-					if user.canAccessKeystone
-						a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
-					a(href='/keystone/signout') Se déconnecter
-				else
-					a(href='/keystone/signin' target="_blank") Accès administrateur
+		if !contactPage
+			footer
+				if indexPage
+					.footer-heading-wrapper
+						h1 Nous contacter
+				.logo-wrapper
+					include ../../public/images/sprite/logo.svg
+				.address
+					h2 Adresse
+					if data.contact.address.street1
+						span= data.contact.address.street1
+					if data.contact.address.postcode || data.contact.address.suburb
+						span
+							if data.contact.address.postcode
+								| #{data.contact.address.postcode} 
+							if data.contact.address.suburb
+								| #{data.contact.address.suburb}
+					if data.contact.address.country
+						span= data.contact.address.country
+				.contact
+					h2 Contact
+					if data.contact.phone
+						span T / #{data.contact.phone} 
+					if data.contact.mobilePhone
+						span T / #{data.contact.mobilePhone} 
+					if data.contact.email
+						a(href='mailto:'+data.contact.email)= data.contact.email
+				.follow
+					h2 Suivez-nous
+					if data.contact.socials.facebook
+						a(href=data.contact.socials.facebook target="_blank") facebook
+					if data.contact.socials.twitter
+						a(href=data.contact.socials.twitter target="_blank") twitter
+					if data.contact.socials.linkedin
+						a(href=data.contact.socials.linkedin target="_blank") linkedin
+					form.custom-form.newsletter(method='post' action='/newsletter' onsubmit='return submitNewsletter(this);' autocomplete='on')
+						h3 newsletter
+						input.action(type='hidden', name='action', value='newsletter')
+						.field
+							label(for='email') Email
+							input(type='email', name='email', placeholder='Entrez votre email ici')
+						button(type='submit')
+							span.button-text Envoyer
+							span.loader
+						.result-box
+				div.admin-login
+					if user
+						if user.canAccessKeystone
+							a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
+						a(href='/keystone/signout') Se déconnecter
+					else
+						a(href='/keystone/signin' target="_blank") Accès administrateur
 
 
 		//- JAVASCRIPT
@@ -99,4 +136,6 @@ html
 			script(src='/keystone/js/content/editor.js')
 
 		script(src="/js/script.min.js")
+		script
+			| document.querySelector('header.nav').className += ' interactive ';
 		block js

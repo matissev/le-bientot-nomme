@@ -2,7 +2,8 @@ var keystone = require('keystone'),
 	_ = require('lodash'),
 	moment = require('moment'),
 	Event = keystone.list('Event'),
-	EventCategory = keystone.list('EventCategory');
+	EventCategory = keystone.list('EventCategory'),
+	PageContact = keystone.list('PageContact');
 
 var monthsNames = [
 	'janvier',
@@ -28,7 +29,8 @@ exports = module.exports = function (req, res) {
 	locals.section = 'agenda';
 	locals.data = {
 		agenda: [],
-		eventCategories: []
+		eventCategories: [],
+		contact: []
 	};
 
 	view.on('init', function (next) {
@@ -84,6 +86,13 @@ exports = module.exports = function (req, res) {
 	view.on('init', function (next) {
 		EventCategory.model.find().exec(function (err, categories) {
 			locals.data.eventCategories = categories;
+			next(err);
+		});
+	});
+
+	view.on('init', function (next) {
+		PageContact.model.find().exec(function(err, content) {
+			locals.data.contact = content[0];
 			next(err);
 		});
 	});

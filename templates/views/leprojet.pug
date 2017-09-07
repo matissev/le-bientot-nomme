@@ -1,0 +1,12 @@
+extends ../layouts/default
+
+block head
+	title= process.env.WEBSITE_NAME + ' | Le Projet'
+
+block content
+	section.leprojet
+		header
+			.heading-wrapper
+				h1 Le projet
+			if data.leprojet.intro
+				p.intro-text= data.leprojet.intro

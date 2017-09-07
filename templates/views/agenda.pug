@@ -48,11 +48,8 @@ block content
 												time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
 						if numberOfEvents === 0
 							p.no-events-in-month Aucun évènement n'est programmé ce mois-ci.
-
-	.popup-wrapper
-		.popup-overlay
-		.popup
-			button.close-popup
-			.popup-content
+	.event-wrapper
 
 block js
+	script
+		| document.querySelector('.agenda').className += ' interactive ';

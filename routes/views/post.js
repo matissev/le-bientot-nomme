@@ -1,5 +1,6 @@
-var keystone = require('keystone');
-	Post = keystone.list('Post');
+var keystone = require('keystone'),
+	Post = keystone.list('Post'),
+	PageContact = keystone.list('PageContact');
 
 var monthsNames = [
 	'janvier',
@@ -27,7 +28,8 @@ exports = module.exports = function (req, res) {
 		post: req.params.post,
 	};
 	locals.data = {
-		posts: [],
+		post: [],
+		contact: []
 	};
 
 	// Load the current post
@@ -39,7 +41,13 @@ exports = module.exports = function (req, res) {
 			locals.data.post = post;
 			next(err);
 		});
+	});
 
+	view.on('init', function (next) {
+		PageContact.model.find().exec(function(err, content) {
+			locals.data.contact = content[0];
+			next(err);
+		});
 	});
 
 	// Render the view

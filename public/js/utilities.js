@@ -75,16 +75,48 @@ function someNl(array, predicate) {
 }
 
 
-var lessVariables = {};
+/* Animation end detection */
 
-forEachNl(document.styleSheets, function(sheet){
-	forEachNl(sheet.cssRules, function(rule) {
-		var sRule = rule.cssText;
-		if (sRule.substr(0,5)=="#less") {
-			var aKey = sRule.match(/\.(\w+)/);
-			var aVal = sRule.match(/(\d+)/);
-			if (aKey && aVal)
-				lessVariables[aKey[1]] = aVal[0]<<0;
+function whichAnimationEvent(){
+	var t;
+	var el = document.createElement("fakeelement");
+
+	var animations = {
+		"animation"      : "animationend",
+		"OAnimation"     : "oAnimationEnd",
+		"MozAnimation"   : "animationend",
+		"WebkitAnimation": "webkitAnimationEnd"
+	};
+
+	for(t in animations) {
+		if (el.style[t] !== undefined){
+			return animations[t];
 		}
-	});
-});
+	}
+}
+
+var animationEvent = whichAnimationEvent();
+
+
+
+// MIGHT BE USEFUL ONE DAY
+// var lessVariables = {};
+
+// forEachNl(document.styleSheets, function(sheet){
+// 	forEachNl(sheet.cssRules, function(rule) {
+// 		var sRule = rule.cssText;
+// 		if (sRule.substr(0,5)=="#less") {
+// 			var aKey = sRule.match(/\.(\w+)/);
+// 			var aVal = sRule.match(/(\d+)/);
+// 			if (aKey && aVal)
+// 				lessVariables[aKey[1]] = aVal[0]<<0;
+// 		}
+// 	});
+// });
+
+// The less file must be in the form :
+// #less {
+// 	.margin { width: @margin; }
+// 	.column { width: @column; }
+// 	.gutter { width: @gutter; }
+// }

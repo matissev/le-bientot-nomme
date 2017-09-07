@@ -6,7 +6,6 @@
 function Agenda(options) {
 	this.options = options;
 	this.element = document.querySelector(options.container);
-	addClass(this.element, 'interactive');
 
 	if(isMobile.any) {
 		addClass(this.element, 'is-mobile');

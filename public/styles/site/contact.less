@@ -1,11 +1,66 @@
 
 section.contact {
 	.clearfix();
+	padding-bottom: 80px;
+	background: @white;
 
 	h1 {
 		width: 100%;
 		float: left;
-		margin: 40px 0 40px @margin;
+		padding: 40px 0 40px @margin;
+		margin: 0;
+		font-size: 40px;
+		font-weight: 900;
+		box-sizing: border-box;
+	}
+
+	.contact-wrapper {
+		width: 100%;
+		padding: 0 @margin - @gutter / 2;
+		box-sizing: border-box;
+	}
+
+	.contact-card {
+		padding: 50px 50px 100px 50px;
+		box-sizing: border-box;
+		transform: translate3D(0,0,0);
+		margin-top: -500px;
+		width: calc(3 * @column ~"-" @gutter);
+		margin-right: @gutter / 2;
+		float: right;
+		background: @color2-b;
+
+		svg {
+			width: 140px;
+		}
+
+		& > p, & > .socials {
+			font-weight: 700;
+			font-size: 13px;
+			width: 100%;
+			margin: 0;
+			padding: 30px 0;
+			display: inline-block;
+			width: 100%;
+
+			span, a {
+				color: @grey;
+				display: inline-block;
+				float: left;
+				clear: both;
+			}
+		}
+
+		& > p {
+			border-bottom: 1px solid lighten(@grey, 30%);
+		}
+
+		p.address {
+			text-align: right;
+			span {
+				float: right;
+			}
+		}
 	}
 }
 
@@ -16,27 +71,12 @@ section.contact {
 	background: #EEEEEE;
 }
 
-section.contact form {
-	width: calc(4 * @column ~"-" @gutter / 2);
-	padding-left: @margin;
+form.contact-form {
+	width: calc(4 * @column ~"-" @gutter);
+	margin-left: @gutter / 2;
 
 	input, textarea {
 		width: 100%;
-	}
-}
-
-footer form.newsletter {
-	width: calc(4 * @column ~"-" @gutter / 2);
-	float: left;
-	padding-left: @margin;
-	margin-top: 40px;
-
-	input {
-		width: 100%;
-	}
-
-	input, button {
-		background: white;
 	}
 }
 
@@ -45,32 +85,40 @@ footer form.newsletter {
 	box-sizing: border-box;
 
 	input, textarea, button, select {
+		font-size: 15px;
 		float: left;
 		clear: both;
 		box-sizing: border-box;
 		border: none;
-		margin-bottom: 21px;
+		margin-bottom: 10px;
+		font-family: @current-text;
 	}
 
 	input, textarea {
 		border-radius: 0;
-		padding: 0 15px;
 		color: @black;
 		transition: border-left 0.2s ease-out 0.1s;
 		border-left: 0px solid transparent;
-		background: #EEEEEE;
 
 		&:focus {
 			outline: none;
-			border-left: 5px solid fade(@color1-a, 40%);
-
-			&.invalid {
-				border-left: 5px solid @color-error;					
-			}
 		}
+	}
 
-		&.invalid {
-			border-left: 5px solid darken(fade(@color-error, 70%), 15%);
+	.field {
+		.clearfix();
+		position: relative;
+
+		&.invalid:before {
+			position: absolute;
+			content: "";
+			display: block;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			background: @color-error;
+			top: 5px;
+			left: -15px;
 		}
 	}
 
@@ -80,22 +128,25 @@ footer form.newsletter {
 
 	input {
 		height: 30px;
+		border-bottom: 1px solid @black;
+		padding-bottom: 10px;
 	}
 
 	textarea {
 		resize: none;
-		padding-top: 10px;
 		height: 210px;
 	}
 
 	button {
 		cursor: pointer;
 		position: relative;
-		padding: 0 10px;
-		height: 30px;
+		padding: 0 20px;
+		height: 36px;
+		box-sizing: border-box;
 		line-height: 32px;
-		min-width: 60px;
-		background: #EEEEEE;
+		min-width: 120px;
+		background: @white;
+		border: 1px solid @black;
 		transition: width 0.3s ease-out;
 
 		&:active {
@@ -122,12 +173,12 @@ footer form.newsletter {
 				content: "";
 				position: relative;
 				bottom: 4px;
-				left: -3px;
-				width: 6px;
-				height: 6px;
+				left: -4px;
+				width: 8px;
+				height: 8px;
 				border-radius: 100% 0 0 0;
-				border-top: 2px solid fade(@black, 80%);
-				border-left: 2px solid fade(@black, 80%);
+				border-top: 2px solid @black;
+				border-left: 2px solid @black;
 				transform: translateZ(0);
 				transform-origin: 100% 100%;
 				animation: sending 0.8s infinite linear;
@@ -140,15 +191,30 @@ footer form.newsletter {
 	}
 
 	::-webkit-input-placeholder {
-	   color: fade(@black, 50%);
+	   color: fade(@black, 40%);
+	   transition: color 0.2s ease;
 	}
 
 	:-moz-placeholder {
-	   color: fade(@black, 50%);
+	   color: fade(@black, 40%);
+	   transition: color 0.2s ease;
 	}
 
 	::-moz-placeholder {
-	   color: fade(@black, 50%);
+	   color: fade(@black, 40%);
+	   transition: color 0.2s ease;
+	}
+
+	input:focus::-webkit-input-placeholder, textarea:focus::-webkit-input-placeholder {
+		color:transparent;
+	}
+
+	input:focus:-moz-placeholder, textarea:focus:-moz-placeholder {
+		color:transparent;
+	}
+
+	input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {
+		color:transparent;
 	}
 
 	:-ms-input-placeholder {
@@ -162,22 +228,22 @@ footer form.newsletter {
 	.result-message {
 		float: left;
 		clear: both;
-		padding: 3px 7px 2px 9px;
-		margin: 5px 0;
+		padding: 3px 7px 3px 9px;
+		margin: 0;
 		line-height: 30px;
 		white-space: nowrap;
 		animation: show-message 0.5s ease-out forwards;
 
 		&.success {
-			background: fade(@color-success, 40%);
+			background: lighten(@color-success, 20%);
 		}
 
 		&.error {
-			background: fade(@color-error, 40%);
+			background: lighten(@color-error, 20%);
 		}
 
 		&.failure {
-			background: fade(@color-failure, 40%);
+			background: lighten(@color-failure, 20%);
 		}
 	}
 

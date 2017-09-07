@@ -17,7 +17,6 @@ var Enquiry = new keystone.List('Enquiry', {
 Enquiry.add({
 	name: { type: Types.Name, required: true, label: 'Nom' },
 	email: { type: Types.Email, required: true, label: 'Email' },
-	phone: { type: String, label: 'Téléphone' },
 	subject: { type: String, label: 'Sujet' },
 	message: { type: Types.Textarea, required: true, label: 'Message' },
 	createdAt: { type: Date, default: Date.now, label: 'Envoyé le' },
@@ -31,5 +30,5 @@ Enquiry.schema.pre('remove', function(next) {
 });
 
 Enquiry.defaultSort = '-createdAt';
-Enquiry.defaultColumns = 'name|15%, subject, email, phone|15%, createdAt';
+Enquiry.defaultColumns = 'name|15%, subject, email, createdAt';
 Enquiry.register();

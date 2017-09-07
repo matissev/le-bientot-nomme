@@ -1,4 +1,7 @@
 
+@menu-forth-anim-duration: 0.6s;
+@menu-back-anim-duration: 0.4s;
+
 header.nav {
 	overflow: hidden;
 	background: @color2-a;
@@ -18,6 +21,16 @@ header.nav {
 		flex-direction: column;
 		height: 100%;
 		font-weight: 900;
+
+		span {
+			.assistive-hide();
+		}
+
+		svg {
+			fill: @white;
+			width: 60px;
+			height: 100%;
+		}
 
 		a {
 			font-size: 30px;
@@ -97,13 +110,13 @@ header.nav.interactive {
 		z-index: 2;
 		display: block;
 		position: fixed;
-		top: @margin / 2;
+		top: 20px;
 		left: @margin;
 		cursor: pointer;
 		background: transparent;
 		border: none;
-		padding: 0;
-		width: 50px;
+		padding: 5px;
+		width: 55px;
 
 		svg {
 			overflow: visible;
@@ -111,11 +124,11 @@ header.nav.interactive {
 			margin: 0 auto;
 			width: 30px;
 			margin-bottom: 5px;
-
-			#line1 {
-				// transform: rotate(30deg);
-			}
 		}
+	}
+
+	& > .toggle-nav {
+		background: @color2-b;
 	}
 	
 	.nav-wrapper {
@@ -130,15 +143,14 @@ header.nav.interactive {
 		padding: 0 @margin - @gutter / 2;
 	}
 
-	nav {	
+	nav {
 		display: block;
 		padding: 100px 0 0 0;
 		box-sizing: border-box;
 		position: relative;
 		top: 0;
-		left: calc(-2 * @column ~'-' 2 * @margin - @gutter * 1.5 + 1); //CLOSED
-		top: 0;
-		width: calc(2 * @column ~'+' @margin - @gutter);
+		left: calc(-2 * @column ~'-' 2 * @margin - @gutter / 2 + 1px);
+		width: calc(2 * @column ~'+' @margin);
 		background: @color2-a;
 
 		.socials {
@@ -161,25 +173,31 @@ header.nav.interactive {
 			top: 100px;
 			left: @margin;
 			height: auto;
+
+			svg {
+				width: 90px;
+			}
 		}
 
 		.links-container {
 			height: auto;
 			position: absolute;
-			top: 200px;
+			top: 220px;
 			bottom: 105px;
-			left: @margin;
-			right: @margin;
+			left: 0;
+			right: 0;
 			display: flex;
 			justify-content: center;
 			flex-flow: column;
 
 			&:before, &:after {
 				position: absolute;
-				top: 0; left: 0;
+				top: 0; 
+				left: @margin;
+				right: -@margin;
 				content: "";
 				display: block;
-				width: 100%;
+				width: calc(100% ~'-' 2 * @margin);
 				border-top: 1px solid @white;
 			}
 
@@ -191,12 +209,16 @@ header.nav.interactive {
 
 		ul {
 			display: block;
-			overflow: scroll;
+			padding: 40px @margin 80px @margin;
+			box-sizing: border-box;
+			overflow-y: scroll;
 			max-height: 100%;
+			width: 100%;
 			height: auto;
 			list-style: none;
 
 			li {
+				opacity: 0;
 				display: inline-block;
 				width: 100%;
 				line-height: 25px;
@@ -214,6 +236,12 @@ header.nav.interactive {
 				&:not(:last-child) {
 					margin-bottom: 20px;
 				}
+
+				&.active a {
+					background: @white;
+					color: @color2-a;
+					padding: 0 5px;
+				}
 			}
 		}
 
@@ -221,6 +249,304 @@ header.nav.interactive {
 			position: absolute;
 			right: -1 * @margin - 50px;
 			left: auto;
+		}
+	}
+}
+
+header.nav.interactive.opening {
+	.nav-wrapper {
+		display: block;
+		will-change: background;
+		animation: nav_navWrapper @menu-forth-anim-duration ease-out forwards;
+
+		nav {
+			will-change: transform;
+			animation: nav_navPannel @menu-forth-anim-duration cubic-bezier(0.19, 1, 0.22, 1) forwards;
+		}
+
+		.links-container {
+			&:before, &:after {
+				will-change: width;
+				animation: nav_whiteLinesForth @menu-forth-anim-duration cubic-bezier(1, 0, 0, 1) forwards;
+			}
+
+			li {
+				will-change: opacity, transform;
+				animation: nav_links @menu-forth-anim-duration cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+			}
+
+			li:nth-child(2)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 1; animation-delay: @menu-forth-anim-duration / 8 * 1 }
+			li:nth-child(3)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 2; animation-delay: @menu-forth-anim-duration / 8 * 2 }
+			li:nth-child(4)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 3; animation-delay: @menu-forth-anim-duration / 8 * 3 }
+			li:nth-child(5)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 4; animation-delay: @menu-forth-anim-duration / 8 * 4 }
+			li:nth-child(6)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 5; animation-delay: @menu-forth-anim-duration / 8 * 5 }
+			li:nth-child(7)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 6; animation-delay: @menu-forth-anim-duration / 8 * 6 }
+			li:nth-child(8)  { animation-duration: @menu-forth-anim-duration - @menu-forth-anim-duration / 8 * 7; animation-delay: @menu-forth-anim-duration / 8 * 7 }
+		}
+
+		.toggle-nav {
+			will-change: transform;
+			animation: nav_button @menu-forth-anim-duration cubic-bezier(0.19, 1, 0.22, 1) forwards;
+
+			span {
+				will-change: opacity;
+				animation: nav_buttonText @menu-forth-anim-duration ease-out forwards;
+			}
+
+			svg {
+				will-change: transform;
+				animation: nav_icon @menu-forth-anim-duration ease-out forwards;
+
+				.line1 {
+					will-change: transform;
+					transform-origin: 50% 50%;
+					animation: nav_line1 @menu-forth-anim-duration linear forwards;
+				}
+
+				.line2 {
+					will-change: transform;
+					transform-origin: 50% 50%;
+					animation: nav_line2 @menu-forth-anim-duration linear forwards;
+				}
+
+				.line3 {
+					will-change: transform;
+					transform-origin: 50% 50%;
+					animation: nav_line3 @menu-forth-anim-duration linear forwards;
+				}
+			}
+		}
+	}
+
+	& > .toggle-nav {
+		display: none;
+	}
+}
+
+header.nav.interactive.open {
+	.nav-wrapper {
+		display: block;
+		background: rgba(0, 0, 0, 0.5);
+
+		nav {
+			transform: translate3D(100%, 0, 0);
+
+			li {
+				opacity: 1;
+			}
+		}
+
+		.toggle-nav {
+			transform: translate3D(-@margin - 55px - @gutter, 0, 0);
+
+			span {
+				display: none;
+			}
+
+			svg {
+				transform: rotateZ(90deg);
+
+				.line1 {
+					transform-origin: 50% 50%;
+					transform: translate3D(0, -13px, 0); opacity: 0; fill: @white;
+				}
+
+				.line2 {
+					transform-origin: 50% 50%;
+					transform: rotateZ(135deg); fill: @white;
+				}
+
+				.line3 {
+					transform-origin: 50% 50%;
+					transform: translate3D(0, 13px, 0) rotateZ(45deg); fill: @white;
+				}
+			}
+		}
+	}
+
+	& > .toggle-nav {
+		display: none;
+	}
+}
+
+header.nav.interactive.closing {
+	.nav-wrapper {
+		display: block;
+		will-change: background;
+		animation: nav_navWrapper @menu-back-anim-duration ease-out reverse;
+
+		nav {
+			will-change: transform;
+			animation: nav_navPannel @menu-back-anim-duration cubic-bezier(0.19, 1, 0.22, 1) reverse;
+		}
+
+		.links-container {
+			&:before, &:after {
+				will-change: width;
+				animation: nav_whiteLinesBack @menu-back-anim-duration cubic-bezier(0.895, 0.03, 0.685, 0.22) forwards;
+			}
+
+			li {
+				will-change: opacity, transform;
+				opacity: 1;
+				animation: nav_links @menu-back-anim-duration cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse;
+			}
+
+			li:nth-child(2)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 1; animation-delay: @menu-back-anim-duration / 8 * 1 }
+			li:nth-child(3)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 2; animation-delay: @menu-back-anim-duration / 8 * 2 }
+			li:nth-child(4)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 3; animation-delay: @menu-back-anim-duration / 8 * 3 }
+			li:nth-child(5)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 4; animation-delay: @menu-back-anim-duration / 8 * 4 }
+			li:nth-child(6)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 5; animation-delay: @menu-back-anim-duration / 8 * 5 }
+			li:nth-child(7)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 6; animation-delay: @menu-back-anim-duration / 8 * 6 }
+			li:nth-child(8)  { animation-duration: @menu-back-anim-duration - @menu-back-anim-duration / 8 * 7; animation-delay: @menu-back-anim-duration / 8 * 7 }
+		}
+
+		.toggle-nav {
+			will-change: transform;
+			animation: nav_button @menu-back-anim-duration cubic-bezier(0.19, 1, 0.22, 1) reverse;
+
+			span {
+				will-change: opacity;
+				animation: nav_buttonText @menu-back-anim-duration ease-out reverse;
+			}
+
+			svg {
+				will-change: transform;
+				animation: nav_icon @menu-back-anim-duration ease-out reverse;
+
+				.line1 {
+					will-change: transform;
+					transform-origin: 50% 50%;
+					animation: nav_line1 @menu-back-anim-duration linear reverse;
+				}
+
+				.line2 {
+					will-change: transform;
+					transform-origin: 50% 50%;
+					animation: nav_line2 @menu-back-anim-duration linear reverse;
+				}
+
+				.line3 {
+					will-change: transform;
+					transform-origin: 50% 50%;
+					animation: nav_line3 @menu-back-anim-duration linear reverse;
+				}
+			}
+		}
+	}
+
+	& > .toggle-nav {
+		display: none;
+	}
+}
+
+
+@keyframes nav_navWrapper {
+	0%   { background: rgba(0, 0, 0, 0); }
+	60% { background: rgba(0, 0, 0, 0.5); }
+	100% { background: rgba(0, 0, 0, 0.5); }
+}
+
+@keyframes nav_navPannel {
+	0%   { transform: translate3D(0, 0, 0); }
+	100% { transform: translate3D(100%, 0, 0); }
+}
+
+@keyframes nav_links {
+	0%   { opacity: 0; transform: translate3D(-100px, 0, 0); }
+	100% { opacity: 1; transform: translate3D(0, 0, 0); }
+}
+
+@keyframes nav_whiteLinesForth {
+	0%   { width: 0; }
+	100% { width: calc(100% ~'-' 2 * @margin); }
+}
+
+@keyframes nav_whiteLinesBack {
+	0%   { width: calc(100% ~'-' 2 * @margin); }
+	70%  { width: 0; }
+	100% { width: 0; }
+}
+
+@keyframes nav_buttonText {
+	0%   { opacity: 1; }
+	20%  { opacity: 0; }
+	100% { opacity: 0; }
+}
+
+@keyframes nav_button {
+	0%   { transform: translate3D(0, 0, 0); }
+	100% { transform: translate3D(-@margin - 55px - @gutter, 0, 0); }
+}
+
+@keyframes nav_icon {
+	0%   { transform: rotateZ(0); }
+	100% { transform: rotateZ(90deg); }
+}
+
+@keyframes nav_line1 {
+	0%   { transform: translate3D(0, 0, 0); opacity: 1; fill: @black; }
+	20%  { transform: translate3D(0, -13px, 0); opacity: 1; fill: @white; }
+	21%  { opacity: 0; }
+	100% { transform: translate3D(0, -13px, 0); opacity: 0; fill: @white; }
+}
+
+@keyframes nav_line2 {
+	0%   { transform: rotateZ(0); fill: @black; }
+	20%  { transform: rotateZ(0); fill: @white; }
+	80%  { transform: rotateZ(135deg); }
+	100% { transform: rotateZ(135deg); fill: @white; }
+}
+
+@keyframes nav_line3 {
+	0%   { transform: translate3D(0, 0, 0) rotateZ(0); fill: @black; }
+	20%  { transform: translate3D(0, 13px, 0) rotateZ(0); fill: @white; }
+	35%  { transform: translate3D(0, 13px, 0) rotateZ(0); }
+	80%  { transform: translate3D(0, 13px, 0) rotateZ(45deg); }
+	100% { transform: translate3D(0, 13px, 0) rotateZ(45deg); fill: @white; }
+}
+
+@media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	header.nav.interactive {
+		nav {
+			left: calc(-3 * @column ~'-' 2 * @margin - @gutter / 2);
+			width: calc(3 * @column ~'+' @margin);
+		}
+	}
+}
+
+@media screen and (max-width: 700px), screen and (max-device-width: 700px) {
+	header.nav.interactive {
+		nav {
+			left: calc(-4 * @column ~'-' 2 * @margin - @gutter / 2);
+			width: calc(4 * @column ~'+' @margin);
+		}
+	}
+}
+
+@media screen and (max-width: 550px), screen and (max-device-width: 550px) {
+	header.nav.interactive {
+		nav {
+			left: calc(-5 * @column ~'-' 2 * @margin - @gutter / 2);
+			width: calc(5 * @column ~'+' @margin);
+		}
+	}
+}
+
+@media screen and (max-width: 450px), screen and (max-device-width: 450px) {
+	header.nav.interactive {
+		nav {
+			left: calc(-7 * @column ~'-' 2 * @margin - @gutter / 2);
+			width: calc(7 * @column ~'+' @margin);
+		}
+	}
+}
+
+@media screen and (max-width: 380px), screen and (max-device-width: 380px) {
+	header.nav.interactive {
+		nav {
+			left: calc(-8 * @column ~'-' 2 * @margin - @gutter / 2);
+			width: calc(8 * @column ~'+' @margin);
 		}
 	}
 }

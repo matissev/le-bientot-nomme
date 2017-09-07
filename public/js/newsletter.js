@@ -77,17 +77,17 @@ function notifyNewsletterForm(responses, form){
 
 		if (response === 'missingFields') {
 			forEachNl(fields, function(field){
-				if (field.value === '' && !hasClass(field, 'optionnal')) {
-					addClass(field, 'invalid');
+				if (field.value === '' && !hasClass(field.parentNode, 'optionnal')) {
+					addClass(field.parentNode, 'invalid');
 				} else {
-					removeClass(field, 'invalid');
+					removeClass(field.parentNode, 'invalid');
 				}
 			});
 		} else if (response === 'invalidEmail' || response === 'invalidCharacters') {
 			addClass(form.querySelector('.email'), 'invalid');
 		} else {
 			forEachNl(fields, function(field){
-				removeClass(field, 'invalid');
+				removeClass(field.parentNode, 'invalid');
 				if(response === 'success') {
 					field.value = '';
 					field.focus();

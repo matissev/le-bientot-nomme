@@ -3,13 +3,13 @@
 // =========
 
 @import (less) "../../bower_components/normalize-css/normalize.css";
-@import "site/mapbox.less";
 
 
 // General
 // =======
 
 body {
+	background: @color2-b;
 	margin: 0;
 	font-family: @current-text;
 	-webkit-overflow-scrolling: touch;
@@ -21,7 +21,7 @@ a {
 }
 
 .grid {
-	// display: none;
+	display: none;
 }
 
 
@@ -39,6 +39,7 @@ a {
 
 //template
 @import "site/layout.less";
+@import "site/footer.less";
 @import "site/nav.less";
 
 // pages
@@ -47,7 +48,9 @@ a {
 
 // partials
 @import "site/agenda.less";
-@import "site/blog.less";
+@import "site/articles.less";
 @import "site/event.less";
+@import "site/lesoin.less";
+@import "site/leprojet.less";
 @import "site/post.less";
 @import "site/popup.less";

@@ -1,4 +1,6 @@
 var keystone = require('keystone'),
+	PageContact = keystone.list('PageContact'),
+	PageLesoin = keystone.list('PageLesoin'),
 	Professional = keystone.list('Professional');
 
 var days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -9,9 +11,11 @@ exports = module.exports = function (req, res) {
 
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'lelieu';
+	locals.section = 'lesoin';
 	locals.data = {
-		professionals: []
+		professionals: [],
+		contact: [],
+		lesoin: []
 	};
 
 	view.on('init', function (next) {
@@ -26,11 +30,36 @@ exports = module.exports = function (req, res) {
 					});
 				}
 			});
-			locals.data.professionals = professionals;
+
+			var professionalsTable = [];
+
+			while(professionals.length) {
+				var row = [];
+				for(var x = 0; x < 3 && professionals.length; x++) {
+					row.push(professionals.shift());
+				}
+				professionalsTable.push(row);
+			}
+
+			locals.data.professionals = professionalsTable;
+			next(err);
+		});
+	});
+
+	view.on('init', function (next) {
+		PageLesoin.model.find().exec(function(err, content) {
+			locals.data.lesoin = content[0];
+			next(err);
+		});
+	});
+
+	view.on('init', function (next) {
+		PageContact.model.find().exec(function(err, content) {
+			locals.data.contact = content[0];
 			next(err);
 		});
 	});
 
 	// Render the view
-	view.render('lelieu');
+	view.render('lesoin');
 };

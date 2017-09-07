@@ -1,6 +1,6 @@
 var keystone = require('keystone'),
 	PageContact = keystone.list('PageContact'),
-	Event = keystone.list('Event');
+	PageLeprojet = keystone.list('PageLeprojet');
 
 exports = module.exports = function (req, res) {
 	var view = new keystone.View(req, res);
@@ -8,25 +8,21 @@ exports = module.exports = function (req, res) {
 
 	// locals.section is used to set the currently selected
 	// item in the header navigation.
-	locals.section = 'agenda';
-	locals.filters = {
-		event: req.params.event
-	};
+	locals.section = 'leprojet';
 	locals.data = {
-		events: [],
-		contact: []
+		professionals: [],
+		contact: [],
+		leprojet: []
 	};
 
-	view.on('init', function(next) {
-		Event.model.findOne({
-			slug: locals.filters.event
-		}).exec(function(err, event) {
-			locals.data.event = event;
+	view.on('init', function (next) {
+		PageLeprojet.model.find().exec(function(err, content) {
+			locals.data.leprojet = content[0];
 			next(err);
 		});
 	});
 
-	view.on('init', function(next) {
+	view.on('init', function (next) {
 		PageContact.model.find().exec(function(err, content) {
 			locals.data.contact = content[0];
 			next(err);
@@ -34,5 +30,5 @@ exports = module.exports = function (req, res) {
 	});
 
 	// Render the view
-	view.render('event');
+	view.render('leprojet');
 };

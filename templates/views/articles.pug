@@ -1,0 +1,34 @@
+extends ../layouts/default
+
+block head
+	title= process.env.WEBSITE_NAME + ' | Articles'
+
+block content
+	section.articles
+		header
+			if data.article.heading
+				.heading-wrapper
+					h1= data.article.heading
+			if data.article.intro
+				p.intro-text= data.article.intro
+		if data.posts.length
+			.posts-grid
+				each post in data.posts
+					a.post(href="/articles/" + post.slug class=post.layout)
+						if post.image.exists
+							img(src=post._.image.fill(400,400) alt=post.imageDescription)
+						else
+							span.post-title(class=post.title.split(' ').length < 2 ? 'few-words' : '')= post.title
+				.more-soon
+					span Bientôt d’autres articles
+
+	.popup
+		//- .popup-overlay
+		button.close-popup
+			include ../../public/images/sprite/post-close.svg
+		.popup-content
+
+block js
+	script
+		| if(document.querySelector('.articles'))
+		| 	document.querySelector('.articles').className += ' interactive ';

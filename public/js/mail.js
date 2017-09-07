@@ -49,7 +49,6 @@ function notifyContactForm(responses, form){
 	var resultMessages = {
 		success: 'Votre message a été envoyé, merci.',
 		invalidEmail: 'Erreur&nbsp;: Veuillez entrer une adresse email valide.',
-		invalidPhone: 'Erreur&nbsp;: Veuillez entrer un numéro de téléphone valide.',
 		missingFields: 'Erreur&nbsp;: Des champs requis n\'ont pas été remplis.',
 		invalidCharacters: 'Erreur&nbsp;: L’email contient des caractères invalides.',
 		failure: 'Erreur&nbsp;: Votre message n’a pas pu être envoyé, veuillez réessayer plus tard.'
@@ -68,7 +67,7 @@ function notifyContactForm(responses, form){
 		newMessage.innerHTML = resultMessages[response];
 		addClass(newMessage, 'result-message');
 
-		if(response === 'missingFields' || response === 'invalidEmail' || response === 'invalidPhone' || response === 'invalidCharacters')
+		if(response === 'missingFields' || response === 'invalidEmail' || response === 'invalidCharacters')
 			addClass(newMessage, 'error');
 		else
 			addClass(newMessage, response);
@@ -78,19 +77,17 @@ function notifyContactForm(responses, form){
 
 		if (response === 'missingFields') {
 			forEachNl(fields, function(field){
-				if (field.value === '' && !hasClass(field, 'optionnal')) {
-					addClass(field, 'invalid');
+				if (field.value === '' && !hasClass(field.parentNode, 'optionnal')) {
+					addClass(field.parentNode, 'invalid');
 				} else {
-					removeClass(field, 'invalid');
+					removeClass(field.parentNode, 'invalid');
 				}
 			});
 		} else if (response === 'invalidEmail' || response === 'invalidCharacters') {
 			addClass(form.querySelector('.email'), 'invalid');
-		} else if (response === 'invalidPhone') {
-			addClass(form.querySelector('.phone'), 'invalid');
 		} else {
 			forEachNl(fields, function(field){
-				removeClass(field, 'invalid');
+				removeClass(field.parentNode, 'invalid');
 				if(response === 'success') {
 					field.value = '';
 					field.focus();

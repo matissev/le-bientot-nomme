@@ -16,14 +16,15 @@ User.add(
 	{ email: { type: Types.Email, initial: true, required: true, unique: true, index: true } },
 	{ password: { type: Types.Password, initial: true, required: true, label: 'Mot de passe' } },
 	'Administration',
-	{ isAdmin: { type: Boolean, label: 'Peu accéder à l\'interface administrateur', index: true } },
+	{ isAdmin: { type: Boolean, label: 'Peut accéder à l\'interface administrateur', index: true } },
 	{ getsMessages: { type: Boolean, label: 'Reçoit les emails provenant du site', index: true } },
-	{ canManageUsers: { type: Boolean, label: 'Peu ajouter/modifier/supprimer les administrateurs du site', index: true, dependsOn: { isAdmin: true } } },
+	{ canManageUsers: { type: Boolean, label: 'Peut ajouter/modifier/supprimer les administrateurs du site', index: true, dependsOn: { isAdmin: true } } },
 	{ heading: 'Permissions', dependsOn: { isAdmin: true } },
-	{ canManagePosts: { type: Boolean, label: 'Peu ajouter/modifier/supprimer des articles du blog', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
-	{ canManageEvents: { type: Boolean, label: 'Peu ajouter/modifier/supprimer des évènements de l\'agenda', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
-	{ canManageProfessionals: { type: Boolean, label: 'Peu ajouter/modifier/supprimer des professionnels de la page lieu', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
-	{ canManageEnquiries: { type: Boolean, label: 'Peu gérer/supprimer les demandes provenant du site (page contact)', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } }
+	{ canManagePosts: { type: Boolean, label: 'Peut ajouter/modifier/supprimer des articles du blog', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
+	{ canManageEvents: { type: Boolean, label: 'Peut ajouter/modifier/supprimer des évènements de l\'agenda', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
+	{ canManageProfessionals: { type: Boolean, label: 'Peut ajouter/modifier/supprimer des professionnels de la page lieu', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
+	{ canManageEnquiries: { type: Boolean, label: 'Peut gérer/supprimer les demandes provenant du site (page contact)', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } },
+	{ canManagePages: { type: Boolean, label: 'Peut modifier les différentes pages du site', index: true, dependsOn: { isAdmin: true, canManageUsers: false } } }
 );
 
 // Provide access to Keystone
@@ -63,12 +64,14 @@ User.schema.pre('save', function(next) {
 		this.canManageEvents = true;
 		this.canManageProfessionals = true;
 		this.canManageEnquiries = true;
+		this.canManagePages = true;
 	} else if (!this.isAdmin) {
 		this.canManageUsers = false;
 		this.canManagePosts = false;
 		this.canManageEvents = false;
 		this.canManageProfessionals = false;
 		this.canManageEnquiries = false;
+		this.canManagePages = false;
 	}
 	next();
 });

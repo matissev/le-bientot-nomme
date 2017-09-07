@@ -20,9 +20,11 @@ var keystone = require('keystone');
 */
 exports.initLocals = function (req, res, next) {
 	res.locals.navLinks = [
+		{ label: 'Accueil', key: 'accueil', href: '/' },
 		{ label: 'Agenda', key: 'agenda', href: '/agenda' },
-		{ label: 'Blog', key: 'blog', href: '/blog' },
-		{ label: 'Le lieu', key: 'lelieu', href: '/lelieu' },
+		{ label: 'Articles', key: 'articles', href: '/articles' },
+		{ label: 'Le soin', key: 'lesoin', href: '/lesoin' },
+		{ label: 'Le projet', key: 'leprojet', href: '/leprojet' },
 		{ label: 'Contact', key: 'contact', href: '/contact' },
 	];
 	res.locals.user = req.user;

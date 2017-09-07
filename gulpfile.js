@@ -58,7 +58,7 @@ var onError = function(err) {
 
 gulp.task('mongo', function(){
 	return gulp.src('.')
-		.pipe(run('rm -r node_modules/keystone/admin/bundles/js/* &'))
+		// .pipe(run('rm -r node_modules/keystone/admin/bundles/js/* &'))
 		.pipe(run('mongod --dbpath ./data/db/ &'))
 		.pipe(run('nodemon keystone.js &'));
 });

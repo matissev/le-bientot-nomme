@@ -1,0 +1,49 @@
+
+section.leprojet {
+	width: 100%;
+	padding: 0 @margin - @gutter / 2;
+	box-sizing: border-box;
+	background: url(/images/leprojet.png) no-repeat;
+	background-size: 100% auto;
+	height: 900px;
+	.clearfix();
+
+	.heading-wrapper {
+		float: left;
+		width: calc(5 * @column ~'+' @margin - @gutter);
+		margin-left: -@margin + @gutter / 2;
+		background: fade(@color1-b, 90%);
+		padding: 120px 0 30px 0;
+
+		h1 {
+			padding: 29px 30px 50px 30px;
+			box-sizing: border-box;
+			background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 31"><rect fill="@{white}" width="1" height="1"/></svg>') repeat;
+			background-size: 1px 31px;
+			width: calc(100% ~'-' 2 * @margin);
+			margin: 0;
+			margin-left: @margin;
+			text-transform: uppercase;
+			color: @white;
+			font-weight: 900;
+			font-size: 120px;
+			word-spacing: 30000px;
+			line-height: 94px;
+			word-wrap: break-word;
+		}
+	}
+
+	.intro-text {
+		background: @black;
+		color: @white;
+		position: relative;
+		top: 400px;
+		font-weight: 700;
+		font-size: 14px;
+		float: right;
+		width: calc(3 * @column ~'-' @gutter);
+		margin: 120px @gutter / 2 0 @gutter / 2;
+		padding: 40px;
+		box-sizing: border-box;
+	}
+}

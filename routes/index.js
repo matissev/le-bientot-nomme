@@ -38,9 +38,10 @@ exports = module.exports = function (app) {
 	app.get('/', routes.views.index);
 	app.get('/agenda', routes.views.agenda);
 	app.get('/agenda/:event', routes.views.event);
-	app.get('/blog', routes.views.blog);
-	app.get('/blog/:post', routes.views.post);
-	app.get('/lelieu', routes.views.lelieu);
+	app.get('/articles', routes.views.articles);
+	app.get('/articles/:post', routes.views.post);
+	app.get('/lesoin', routes.views.lesoin);
+	app.get('/leprojet', routes.views.leprojet);
 	app.all('/contact', routes.views.contact);
 	app.post('/newsletter', routes.views.newsletter);
 

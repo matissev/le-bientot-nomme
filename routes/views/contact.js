@@ -1,6 +1,7 @@
 var keystone = require('keystone'),
 	Enquiry = keystone.list('Enquiry'),
 	User = keystone.list('User'),
+	PageContact = keystone.list('PageContact'),
 	pug = require('pug'),
 	moment = require('moment'),
 	nodemailer = require('nodemailer');
@@ -29,9 +30,19 @@ exports = module.exports = function (req, res) {
 		invalidEmail : false,
 		missingFields : false,
 		invalidCaracters : false,
-		failure : false,
-		invalidPhone : false
+		failure : false
 	};
+
+	locals.data = {
+		contact: []
+	};
+
+	view.on('init', function(next) {
+		PageContact.model.find().exec(function(err, content) {
+			locals.data.contact = content[0];
+			next(err);
+		});
+	});
 
 	// On POST requests, add the Enquiry item to the database
 	view.on('post', { action: 'contact' }, function (next) {
@@ -50,7 +61,7 @@ exports = module.exports = function (req, res) {
 			var updater = newEnquiry.getUpdateHandler(req);
 
 			updater.process(req.body, {
-				fields: 'name, email, phone, subject, message'
+				fields: 'name, email, subject, message'
 			}, function (err) {
 				if (err) {
 					// ======== If the query ERRORS
@@ -101,8 +112,6 @@ exports = module.exports = function (req, res) {
 function validateForm(data) {
 	var emailFilter  = /^[^@]+@[^@.]+\.[^@]*\w\w$/,
 		illegalChars = /[\(\)\\<\>\,\;\:\\\"\[\]]/,
-		rgxPhonePal = /0[1-9]([-. ]?[0-9]){8}/,
-		rgxPhoneUs = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/,
 		empty = /^\s*$/,
 		savedErrors = [];
 
@@ -111,9 +120,6 @@ function validateForm(data) {
 
 	if (!data.email.match(empty) && !emailFilter.test(data.email.replace(/^\s+|\s+$/, '')))
 		savedErrors.push('invalidEmail');
-
-	if (!data.phone.match(empty) && !data.phone.match(rgxPhonePal) && !data.phone.match(rgxPhoneUs))
-		savedErrors.push('invalidPhone');
 
 	if (!data.email.match(empty) && data.email.match(illegalChars))
 		savedErrors.push('invalidCharacters');

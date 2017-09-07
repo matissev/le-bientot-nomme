@@ -1,4 +1,5 @@
 var keystone = require('keystone'),
+	PageContact = keystone.list('PageContact'),
 	request = require('request');
 
 exports = module.exports = function (req, res) {
@@ -12,6 +13,17 @@ exports = module.exports = function (req, res) {
 		invalidCaracters : false,
 		failure : false
 	};
+
+	locals.data = {
+		contact: []
+	};
+
+	view.on('init', function (next) {
+		PageContact.model.find().exec(function(err, content) {
+			locals.data.contact = content[0];
+			next(err);
+		});
+	});
 
 	view.on('post', { action: 'newsletter' }, function (next) {
 		var formErrors = validateForm(req.body);
@@ -72,8 +84,8 @@ function mailchimpAdd(req, cb) {
 		"email_address": req.email,
 		"status": "subscribed",
 		"merge_fields": {
-			"FNAME": req.fname,
-			"LNAME": req.lname
+			"FNAME": '',
+			"LNAME": ''
 		}
 	});
 

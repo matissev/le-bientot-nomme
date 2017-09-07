@@ -4,10 +4,49 @@ block head
 	title= process.env.WEBSITE_NAME
 
 block content
-	section.jumbotron
-		.text
-			h1 Cras quis nulla commodo, aliquam lectus sed
-			p Pierre Durand dans Derniers articles
-			p Il y a 7h | Durée de lecture 3 min
+	- var indexPage = true;
+	header.jumbotron
+		h1
+			include ../../public/images/sprite/logo.svg
+			span La Bienvenue
+		aside.text
+			h2= data.accueil.heading
+			p= data.accueil.intro
+			a(href='/leprojet') En savoir plus
+	section.currently
+		a.program(href="/agenda")
+			span Programmation
+		if data.event
+			a.next-event(href="/agenda/"+data.event.slug)
+				span Prochainement
+	if data.posts.length
+		section.new-posts
+			if data.article.heading
+				.heading-wrapper
+					h2= data.article.heading
+			.posts-grid.on-home
+				each post in data.posts
+					a.post(href="/articles/" + post.slug class=post.layout)
+						if post.image.exists
+							img(src=post._.image.fill(400,400) alt=post.imageDescription)
+						else
+							span.post-title(class=post.title.split(' ').length < 2 ? 'few-words' : '')= post.title
+	section.about
+		h2 À propos
+		a.leprojet-link(href="/leprojet")
+			span Le projet
+		a.lesoin-link(href="/lesoin")
+			span Soin
+	aside.follow-us
+		a(href=data.contact.socials.facebook target="_blank") Suivez-nous sur 
+			span facebook
+	.popup
+		//- .popup-overlay
+		button.close-popup
+			include ../../public/images/sprite/post-close.svg
+		.popup-content
 
 block js
+	script
+		| if(document.querySelector('.posts-grid'))
+		| 	document.querySelector('.posts-grid').className += ' interactive ';

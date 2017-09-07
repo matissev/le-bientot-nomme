@@ -38,8 +38,7 @@ function injectPartial(partialEl, containerEl, response) {
 
 if(!isMobile.any) {
 	ajaxify('article.event-ticket a', function(response){
-		injectPartial('article.event', '.popup-content', response);
-		addClass(document.querySelector('body'), 'popup-active');
+		injectPartial('article.event', '.event-wrapper', response);
 	});
 
 	ajaxify('a.post', function(response){

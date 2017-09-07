@@ -151,10 +151,14 @@ function checkLinks(links) {
 	var errors = [];
 
 	links.forEach(function(link) {
-		if (!empty.test(link.url) && !link.regex.test(link.url)) {
-			errors.push(link.errorMsg);
-			return;
-		} else if (!empty.test(link.url)) {
+		if(link.regex) {
+			if (!empty.test(link.url) && !link.regex.test(link.url)) {
+				errors.push(link.errorMsg);
+				return;
+			}
+		}
+
+		if (!empty.test(link.url)) {
 			request(link.url, function (error, response, body) {
 				if (!error && response.statusCode == 200) {
 					return;
