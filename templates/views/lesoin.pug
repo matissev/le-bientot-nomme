@@ -10,44 +10,45 @@ block content
 				h1 Le soin
 			if data.lesoin.intro
 				p.intro-text= data.lesoin.intro
-		section.professionals
-			h2 Les professionnels du soin
-			each proRow in data.professionals
-				.professionalsRow
-					each pro in proRow
-						.professional
-							if pro.photo.exists
-								img(src=pro._.photo.fill(400,400) alt="Photo de " + pro.name.full)
-							span.name
-								span= pro.name.first
-								| 
-								span= pro.name.last
-							if pro.job
-								span.job= pro.job
-							if pro.description
-								p.description= pro.description
-							if pro.contact.email
-								a.email(href='mailto:'+pro.contact.email)= pro.contact.email
-							if pro.contact.phone
-								span.phone= pro.contact.phone
-							if pro.contact.website
-								a.website(href=pro.contact.website target="_blank" rel="bookmark") Site internet
-							if pro.socials.facebook || pro.socials.twitter || pro.socials.linkedin
-								.socials
-									if pro.socials.facebook
-										a.link(href=pro.socials.facebook target="_blank" rel="bookmark") Facebook
-									if pro.socials.twitter
-										a.link(href=pro.socials.twitter target="_blank" rel="bookmark") Twitter
-									if pro.socials.linkedin
-										a.link(href=pro.socials.linkedin target="_blank" rel="bookmark") Linkedin
-							table.schedule
-								thead
-									caption Horaires
-								each day in pro.timetable
-									//http://schema.org/LocalBusiness
-									tr
-										th= day.label
-										if day.value
-											td(itemprop="openingHours" datetime=day.schema)= day.value
-										else
-											td Fermé
+		if data.professionals.length
+			section.professionals
+				h2 Les professionnels du soin
+				each proRow in data.professionals
+					.professionalsRow
+						each pro in proRow
+							.professional
+								if pro.photo.exists
+									img(src=pro._.photo.fill(400,400) alt="Photo de " + pro.name.full)
+								span.name
+									span= pro.name.first
+									| 
+									span= pro.name.last
+								if pro.job
+									span.job= pro.job
+								if pro.description
+									p.description= pro.description
+								if pro.contact.email
+									a.email(href='mailto:'+pro.contact.email)= pro.contact.email
+								if pro.contact.phone
+									span.phone= pro.contact.phone
+								if pro.contact.website
+									a.website(href=pro.contact.website target="_blank" rel="bookmark") Site internet
+								if pro.socials.facebook || pro.socials.twitter || pro.socials.linkedin
+									.socials
+										if pro.socials.facebook
+											a.link(href=pro.socials.facebook target="_blank" rel="bookmark") Facebook
+										if pro.socials.twitter
+											a.link(href=pro.socials.twitter target="_blank" rel="bookmark") Twitter
+										if pro.socials.linkedin
+											a.link(href=pro.socials.linkedin target="_blank" rel="bookmark") Linkedin
+								table.schedule
+									thead
+										caption Horaires
+									each day in pro.timetable
+										//http://schema.org/LocalBusiness
+										tr
+											th= day.label
+											if day.value
+												td(itemprop="openingHours" datetime=day.schema)= day.value
+											else
+												td Fermé

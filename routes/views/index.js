@@ -54,7 +54,7 @@ exports = module.exports = function (req, res) {
 	view.on('init', function(next) {
 		Post.model.find()
 			.where('state', 'publié')
-			.sort('-publishedAt')
+			.sort('publishedAt')
 			.limit(8)
 			.exec(function(err, posts) {
 				locals.data.posts = posts;

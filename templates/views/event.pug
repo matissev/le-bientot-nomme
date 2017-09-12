@@ -46,6 +46,6 @@ block content
 					| &nbsp;€
 			else
 				span.price Gratuit
-			if data.event.texte
-				div.text!= data.event.texte
+			if data.event.text
+				div.text!= data.event.text
 		+sharer(process.env.DOMAIN_NAME+"/"+data.event.slug)

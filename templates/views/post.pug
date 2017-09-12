@@ -42,7 +42,7 @@ block content
 						.description
 							time #{data.post._.publishedDate.format('MMMM Do, YYYY')}
 							| !{data.post.text}
-							if data.post.events
+							if data.post.events.length
 								.relatedEvents
 									span.relatedEvents-caption Évènements liés
 									each event in data.post.events
