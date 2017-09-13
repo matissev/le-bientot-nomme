@@ -24,7 +24,8 @@ keystone.init({
 	'user model': 'User',
 	'adminui custom styles': 'public/styles/admin.less',
 	'cookie secret': process.env.COOKIE_SECRET,
-	'cloudinary config': process.env.CLOUDINARY_URL
+	'cloudinary config': process.env.CLOUDINARY_URL,
+	'signin logo': ['../images/logo.svg', 200, 100]
 });
 
 // Load your project's Models
