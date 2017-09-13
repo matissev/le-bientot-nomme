@@ -5,10 +5,14 @@
 			"headline": data.post.title,
 			"datePublished": data.post._.publishedDate.format('YYYY-MM-DDTHH:mm'),
 			"author": {
-				"@id": process.env.DOMAIN_NAME + "#organization"
+				"@type": "MedicalBusiness",
+				"@id": process.env.DOMAIN_NAME + "#organization",
+				"name": process.env.WEBSITE_NAME
 			},
 			"publisher": {
-				"@id": process.env.DOMAIN_NAME + "#organization"
+				"@type": "MedicalBusiness",
+				"@id": process.env.DOMAIN_NAME + "#organization",
+				"name": process.env.WEBSITE_NAME
 			}
 		}
 
