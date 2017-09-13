@@ -8,7 +8,7 @@ var Types = keystone.Field.Types;
  */
 
 var PageAgenda = new keystone.List('PageAgenda', {
-	nocreate: true,
+
 	nodelete: true,
 	label: 'Agenda',
 	singular: 'Agenda',
@@ -16,7 +16,7 @@ var PageAgenda = new keystone.List('PageAgenda', {
 });
 
 PageAgenda.add({
-	name: { type: String, noedit: true, default: 'Agenda', label: 'Nom' },
+	name: { type: String, default: 'Agenda', label: 'Nom' },
 	description: { type: Types.Text, default: '', height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
 });
 
