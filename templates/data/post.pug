@@ -1,0 +1,28 @@
+-
+	if(data.post) {
+		var ldDataPost = {
+			"@type": "BlogPosting",
+			"headline": data.post.title,
+			"datePublished": data.post._.publishedDate.format('YYYY-MM-DDTHH:mm'),
+			"author": {
+				"@id": process.env.DOMAIN_NAME + "#organization"
+			},
+			"publisher": {
+				"@id": process.env.DOMAIN_NAME + "#organization"
+			}
+		}
+
+		if(articleImageUrl) {
+			ldDataPost.image = {
+				"@type": "ImageObject",
+				"url": articleImageUrl,
+			};
+
+			if(articleImageDesc) {
+				ldDataPost.image.caption = articleImageDesc;
+			}
+		}
+
+		if(data.post.text)
+			ldDataPost.articleBody = data.post.text
+	}

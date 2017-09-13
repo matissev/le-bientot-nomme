@@ -1,6 +1,7 @@
 include nav
 include socials
 include event
+include post
 
 -
 	var ldDataWebPage = {
@@ -28,10 +29,10 @@ include event
 		ldDataWebPage.mainEntity = {
 			"@id": process.env.DOMAIN_NAME + "/agenda/" + data.event.slug + "#event"
 		};
+		ldDataWebPage.url += "/" + data.event.slug;
 	} else if (ldDataPost) {
-		ldDataWebPage.mainEntity = {
-			"@id": process.env.DOMAIN_NAME + "/articles/" + data.post.slug + "#post"
-		};
+		ldDataWebPage.mainEntity = ldDataPost;
+		ldDataWebPage.url += "/" + data.post.slug;
 	}
 
 	ldDataWebPage.hasPart.push(ldDataNav);

@@ -5,6 +5,7 @@ include event
 	var ldDataMedicalBusiness = {
 		"@context": "https://schema.org",
 		"@type": "MedicalBusiness",
+		"@id": process.env.DOMAIN_NAME + "#organization",
 		"currenciesAccepted": "EUR",
 		"name": process.env.WEBSITE_NAME,
 		"url": process.env.DOMAIN_NAME,

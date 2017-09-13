@@ -4,12 +4,12 @@
 			"@type": "Event",
 			"@id": process.env.DOMAIN_NAME + "/agenda/" + data.event.slug + "#event",
 			"name": data.event.title,
-			"startDate": moment(data.event.startDate).locale('fr').format('YYYY-MM-DDTHH:mm'),
-			"endDate": moment(data.event.endDate).locale('fr').format('YYYY-MM-DDTHH:mm'),
+			"startDate": data.event._.startDate.format('YYYY-MM-DDTHH:mm'),
+			"endDate": data.event._.endDate.format('YYYY-MM-DDTHH:mm'),
 			"offers": {
 				"@type": "Offer",
 				"url": process.env.DOMAIN_NAME + "/agenda/" + data.event.slug,
-				"validFrom": moment(data.event.startDate).locale('fr').format('YYYY-MM-DDTHH:mm')
+				"validFrom": data.event._.startDate.format('YYYY-MM-DDTHH:mm')
 			},
 			"about": data.event.category.name.charAt(0).toUpperCase() + data.event.category.name.slice(1)
 		};
@@ -37,9 +37,9 @@
 		}
 
 		if(data.event.status === "Places disponibles") {
-			ldDataEvent.offers.availability = "http://schema.org/InStock";
+			ldDataEvent.offers.availability = "InStock";
 		} else if(data.event.status === "Complet") {
-			ldDataEvent.offers.availability = "http://schema.org/SoldOut";
+			ldDataEvent.offers.availability = "SoldOut";
 		}
 
 		if(data.contact.address.country || data.contact.address.suburb || data.contact.address.postcode || data.contact.address.street1) {
