@@ -1,0 +1,97 @@
+include socials
+include event
+
+-
+	var ldDataMedicalBusiness = {
+		"@context": "https://schema.org",
+		"@type": "MedicalBusiness",
+		"currenciesAccepted": "EUR",
+		"name": process.env.WEBSITE_NAME,
+		"url": process.env.DOMAIN_NAME,
+		"image": process.env.DOMAIN_NAME + "/images/leprojet.png",
+		"logo": process.env.DOMAIN_NAME + "/images/sprite/logo.svg",
+		"priceRange": "$"
+	}
+
+	if(ldSocials.length)
+		ldDataMedicalBusiness.sameAs = ldSocials;
+
+	if(data.contact.phone && data.contact.mobilePhone) {
+		ldDataMedicalBusiness.telephone = [data.contact.phone, data.contact.mobilePhone];
+	} else if(data.contact.phone && !data.contact.mobilePhone) {
+		ldDataMedicalBusiness.telephone = data.contact.phone;
+	} else if(!data.contact.phone && data.contact.mobilePhone) {
+		ldDataMedicalBusiness.telephone = data.contact.mobilePhone;
+	}
+
+	if(data.contact.address.country || data.contact.address.suburb || data.contact.address.postcode || data.contact.address.street1) {
+		ldDataMedicalBusiness.address = {
+			"@type": "PostalAddress"
+		};
+	}
+
+	if(data.contact.address.country)
+		ldDataMedicalBusiness.address.addressCountry = data.contact.address.country;
+	if(data.contact.address.suburb)
+		ldDataMedicalBusiness.address.addressLocality = data.contact.address.suburb;
+	if(data.contact.address.postcode)
+		ldDataMedicalBusiness.address.postalCode = data.contact.address.postcode;
+	if(data.contact.address.street1)
+		ldDataMedicalBusiness.address.streetAddress = data.contact.address.street1;
+
+	if(employees && employees.length) {
+		ldDataMedicalBusiness.department = [];
+
+		for(var i = 0; i < employees.length; i++) {
+			ldDataMedicalBusiness.department.push({
+				"@type": "MedicalBusiness",
+				"currenciesAccepted": "EUR",
+				"numberOfEmployees": "1",
+				"employee": {
+					"@type": "Person",
+					"givenName": employees[i].name.first,
+					"familyName": employees[i].name.last,
+				}
+			});
+
+			if(employees[i].photo.exists)
+				ldDataMedicalBusiness.department[i].employee.image = employees[i].photo.secure_url;
+			if(employees[i].job)
+				ldDataMedicalBusiness.department[i].employee.jobTitle = employees[i].job;
+			if(employees[i].contact.email)
+				ldDataMedicalBusiness.department[i].email = employees[i].contact.email;
+			if(employees[i].contact.phone)
+				ldDataMedicalBusiness.department[i].telephone = employees[i].contact.phone;
+			if(employees[i].contact.website)
+				ldDataMedicalBusiness.department[i].url = employees[i].contact.website;
+			if(employees[i].description)
+				ldDataMedicalBusiness.department[i].description = employees[i].description;
+
+			for(var u = 0; u < employees[i].timetable.length; u++) {
+				if(employees[i].timetable[u].schema) {
+					if(!ldDataMedicalBusiness.department[i].openingHours)
+						ldDataMedicalBusiness.department[i].openingHours = "";
+					ldDataMedicalBusiness.department[i].openingHours += employees[i].timetable[u].schema + " ";
+				}
+			}
+
+			var ldEmployeeSocials = [];
+
+			if(employees[i].socials.facebook !== "")
+				ldEmployeeSocials.push(employees[i].socials.facebook);
+			if(employees[i].socials.twitter !== "")
+				ldEmployeeSocials.push(employees[i].socials.twitter);
+			if(employees[i].socials.linkedin !== "")
+				ldEmployeeSocials.push(employees[i].socials.linkedin);
+
+			if(ldEmployeeSocials.length)
+				ldDataMedicalBusiness.department[i].sameAs = ldEmployeeSocials;
+		}
+	}
+
+	if(ldDataEvent)
+		ldDataMedicalBusiness.event = ldDataEvent;
+
+	ldDataMedicalBusiness = JSON.stringify(ldDataMedicalBusiness);
+
+script(type="application/ld+json")!= ldDataMedicalBusiness

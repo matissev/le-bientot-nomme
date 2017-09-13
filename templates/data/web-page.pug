@@ -1,0 +1,42 @@
+include nav
+include socials
+include event
+
+-
+	var ldDataWebPage = {
+		"@context": "https://schema.org",
+		"@type": "WebPage",
+		"url": process.env.DOMAIN_NAME + "/" + section,
+		"hasPart": []
+	}
+
+	if(ldSocials.length)
+		ldDataWebPage.sameAs = ldSocials;
+
+	if(articleImageUrl) {
+		ldDataWebPage.primaryImageOfPage = {
+			"@type": "ImageObject",
+			"contentUrl": articleImageUrl,
+		};
+
+		if(articleImageDesc) {
+			ldDataWebPage.primaryImageOfPage.caption = articleImageDesc;
+		}
+	}
+
+	if(ldDataEvent) {
+		ldDataWebPage.mainEntity = {
+			"@id": process.env.DOMAIN_NAME + "/agenda/" + data.event.slug + "#event"
+		};
+	} else if (ldDataPost) {
+		ldDataWebPage.mainEntity = {
+			"@id": process.env.DOMAIN_NAME + "/articles/" + data.post.slug + "#post"
+		};
+	}
+
+	ldDataWebPage.hasPart.push(ldDataNav);
+
+	ldDataWebPage = JSON.stringify(ldDataWebPage);
+
+
+script(type="application/ld+json")!= ldDataWebPage

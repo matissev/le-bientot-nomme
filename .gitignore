@@ -8,6 +8,7 @@ logs
 node_modules
 bower_components
 data
+!templates/data
 
 # Ignore .env configuration files
 .env

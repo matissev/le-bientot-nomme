@@ -1,0 +1,14 @@
+-
+	var ldLinks = [];
+
+	for(var i = 0; i < navLinks.length; i++) {
+		ldLinks.push({
+			"@type": "SiteNavigationElement",
+			"url": process.env.DOMAIN_NAME + navLinks[i].href,
+			"name": navLinks[i].label
+		});
+	}
+
+	var ldDataNav = {
+		"@graph": ldLinks		
+	};
