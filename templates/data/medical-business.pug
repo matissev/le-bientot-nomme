@@ -10,7 +10,10 @@ include event
 		"name": process.env.WEBSITE_NAME,
 		"url": process.env.DOMAIN_NAME,
 		"image": process.env.DOMAIN_NAME + "/images/leprojet.png",
-		"logo": process.env.DOMAIN_NAME + "/images/sprite/logo.svg",
+		"logo": {
+			"@type": "ImageObject",
+			process.env.DOMAIN_NAME + "/images/sprite/logo.svg"
+		},
 		"priceRange": "$"
 	}
 
