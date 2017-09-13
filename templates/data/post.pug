@@ -4,6 +4,7 @@
 			"@type": "BlogPosting",
 			"headline": data.post.title,
 			"datePublished": data.post._.publishedDate.format('YYYY-MM-DDTHH:mm'),
+			"dateModified": data.post._.publishedDate.format('YYYY-MM-DDTHH:mm'),
 			"author": {
 				"@type": "Organization",
 				"@id": process.env.DOMAIN_NAME + "#organization",
