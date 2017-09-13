@@ -37,6 +37,9 @@ exports.create = {
 	}],
 	PageArticle: [{
 		name: 'Articles'
+	}],
+	PageAgenda: [{
+		name: 'Agenda'
 	}]
 };
 

@@ -16,7 +16,8 @@ var PageContact = new keystone.List('PageContact', {
 });
 
 PageContact.add({
-	name: { type: String, hidden: true, default: 'Contact', label: 'Nom' },
+	name: { type: String, noedit: true, default: 'Contact', label: 'Nom' },
+	description: { type: Types.Text, default: '', height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
 	address: { type: Types.Location, label: 'Adresse' },
 	phone: { type: String, label: 'Téléphone fixe' },
 	mobilePhone: { type: String, label: 'Téléphone mobile' },
@@ -39,6 +40,14 @@ PageContact.schema.pre('validate', function(next) {
 	if(!middleware.getAuthUser().canManagePages) {
 		next(new Error('Vous n\'avez pas les autorisations pour modifier les pages du site.'));
 	}
+	next();
+
+	var descriptionOverflow = checkInputLength(this.description.length, 160);
+	
+	if (descriptionOverflow) {
+		next(new Error('La description dépasse de ' + descriptionOverflow + ' caractère(s)'));
+	}
+
 	next();
 });
 
@@ -82,6 +91,10 @@ function checkLinks(links) {
 	});
 
 	return errors;
+}
+
+function checkInputLength(stringLength, maxLength) {
+	return stringLength >= maxLength ? stringLength - maxLength : null;
 }
 
 PageContact.defaultColumns = 'name';

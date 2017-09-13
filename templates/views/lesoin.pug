@@ -1,5 +1,15 @@
 extends ../layouts/default
 
+block variables
+	-
+		var employees = [];
+		for(var y = 0; y < data.professionals.length; y++) {
+			for(var x = 0; x < data.professionals[y].length; x++) {
+				console.log(data.professionals[y][x]);
+				employees.push(data.professionals[y][x]);
+			}
+		}
+
 block head
 	title= process.env.WEBSITE_NAME + ' | Le Soin'
 

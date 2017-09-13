@@ -16,8 +16,9 @@ var PageLeprojet = new keystone.List('PageLeprojet', {
 });
 
 PageLeprojet.add({
-	name: { type: String, hidden: true, default: 'Le projet', label: 'Nom' },
-	intro: { type: Types.Textarea, default: '', note: 'Ce texte servira d\'intro à la page d\'PageLeprojet' }
+	name: { type: String, noedit: true, default: 'Le projet', label: 'Nom' },
+	description: { type: Types.Text, default: '', height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
+	intro: { type: Types.Textarea, default: '', note: 'Ce texte servira d\'intro à la page du projet' }
 });
 
 PageLeprojet.schema.pre('validate', function(next) {
@@ -32,7 +33,19 @@ PageLeprojet.schema.pre('validate', function(next) {
 		next(new Error('Vous n\'avez pas les autorisations pour modifier les pages du site.'));
 	}
 	next();
+
+	var descriptionOverflow = checkInputLength(this.description.length, 160);
+	
+	if (descriptionOverflow) {
+		next(new Error('La description dépasse de ' + descriptionOverflow + ' caractère(s)'));
+	}
+
+	next();
 });
+
+function checkInputLength(stringLength, maxLength) {
+	return stringLength >= maxLength ? stringLength - maxLength : null;
+}
 
 PageLeprojet.defaultColumns = 'name';
 PageLeprojet.register();

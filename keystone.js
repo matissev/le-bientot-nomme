@@ -42,13 +42,19 @@ keystone.set('locals', {
 	editable: keystone.content.editable,
 });
 
+exports.create = {
+	PageAgenda: [{
+		name: 'Agenda'
+	}]
+};
+
 // Load your project's Routes
 keystone.set('routes', require('./routes'));
 
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set('nav', {
-	pages: ['page-accueils', 'page-articles', 'page-lesoins', 'page-leprojets', 'page-contacts'],
+	pages: ['page-accueils', 'page-agendas', 'page-articles', 'page-lesoins', 'page-leprojets', 'page-contacts'],
 	news: 'posts',
 	agenda: ['events', 'event-categories'],
 	leLieu: ['professionals'],

@@ -67,7 +67,7 @@ if (document.querySelector('header.nav')) {
 		container: 'header.nav',
 		toggleButton: 'button.toggle-nav',
 		navElWrapper: '.nav-wrapper',
-		navEl: 'nav'
+		navEl: '.nav-pannel'
 	});
 	nav.init();
 }

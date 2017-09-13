@@ -1,13 +1,18 @@
 include ../mixins/flash-messages
 include ../mixins/sharer
+include ../mixins/head
+
+- mainImagePath = "/images/leprojet.png";
+- pageTitle = section.charAt(0).toUpperCase() + section.slice(1);
+
+block variables
 
 doctype html
-html
-
+html(lang="fr")
 	//- HTML HEADER
 	head
 		meta(charset="utf-8")
-		meta(content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0', name='viewport')
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
 		meta(name="robots" content="NOODP")
 		meta(http-equiv="X-UA-Compatible" content="IE=edge")
 
@@ -15,10 +20,6 @@ html
 
 		link(href="/styles/site.css", rel="stylesheet")
 		//- link(href="/styles/print.min.css" type="text/css" rel="stylesheet" media="print")
-
-		//- This file provides the default styling for the KeystoneJS Content Editor
-		if user && user.canAccessKeystone
-			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
 
 		//- Include template-specific stylesheets by extending the css block
 		block css
@@ -38,12 +39,12 @@ html
 				include ../../public/images/sprite/menu.svg
 				span Menu
 			.nav-wrapper
-				nav
+				.nav-pannel
 					.root-link
 						a(href="/")
 							include ../../public/images/sprite/logo.svg
 							span= process.env.WEBSITE_NAME
-					.links-container
+					nav.links-container(role="navigation")
 						ul
 							each link in navLinks
 								li(class=(section == link.key ? 'active' : null)): a(href=link.href)= link.label
@@ -130,12 +131,13 @@ html
 
 		//- JAVASCRIPT
 
-		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
-		//- which generate links to edit content for users who can access Keystone
-		if user && user.canAccessKeystone
-			script(src='/keystone/js/content/editor.js')
-
 		script(src="/js/script.min.js")
 		script
 			| document.querySelector('header.nav').className += ' interactive ';
 		block js
+
+		//- STRUCTURED DATA
+
+		block jsonld
+			include ../data/web-page
+			include ../data/medical-business

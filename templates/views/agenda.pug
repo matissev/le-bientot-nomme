@@ -1,7 +1,7 @@
 extends ../layouts/default
 
 block head
-	title= process.env.WEBSITE_NAME + ' | Agenda'
+	+head(pageTitle, data.agendaMeta.description, process.env.DOMAIN_NAME + mainImagePath, process.env.DOMAIN_NAME+"/"+section, "website")
 
 block content
 	if data.agenda.length

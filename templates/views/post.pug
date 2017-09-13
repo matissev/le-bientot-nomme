@@ -1,29 +1,12 @@
 extends ../layouts/default
 
+block variables
+	// This is used for the head and the json-ld
+	- var articleImageUrl = data.post.image.secure_url;
+	- var articleImageDesc = data.post.imageDescription;
+
 block head
-	title= process.env.WEBSITE_NAME + ' | ' + data.post.title
-	if data.post.description
-		meta(name="description" content=data.post.description)
-
-	// Facebook
-	meta(property="og:title" content=data.post.title)
-	if data.post.description
-		meta(property="og:description" content=data.post.description)
-	meta(property="og:type" content="article")
-	meta(property="og:url" content=process.env.DOMAIN_NAME+"/blog/"+data.post.slug)
-	if data.post.image
-		meta(property="og:image" content=data.post.image.secure_url)
-
-	// Twitter
-	meta(name="twitter:title" content=data.post.title)
-	if data.post.description
-		meta(name="twitter:description" content=data.post.description)
-	meta(name="twitter:card" content="summary")
-	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/blog/"+data.post.slug)
-	if data.post.image
-		meta(name="twitter:image" content=data.post.image.secure_url)
-
-
+	+head(data.post.title, data.post.description, data.post.image.secure_url, process.env.DOMAIN_NAME+"/articles/"+data.post.slug, "article")
 
 block content
 	.post-wrapper

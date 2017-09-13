@@ -46,7 +46,7 @@ header.nav {
 		height: 100%;
 	}
 
-	nav {
+	.nav-pannel {
 		display: flex;
 		justify-content: space-between;
 		height: 100%;
@@ -143,7 +143,7 @@ header.nav.interactive {
 		padding: 0 @margin - @gutter / 2;
 	}
 
-	nav {
+	.nav-pannel {
 		display: block;
 		padding: 100px 0 0 0;
 		box-sizing: border-box;
@@ -259,7 +259,7 @@ header.nav.interactive.opening {
 		will-change: background;
 		animation: nav_navWrapper @menu-forth-anim-duration ease-out forwards;
 
-		nav {
+		.nav-pannel {
 			will-change: transform;
 			animation: nav_navPannel @menu-forth-anim-duration cubic-bezier(0.19, 1, 0.22, 1) forwards;
 		}
@@ -328,7 +328,7 @@ header.nav.interactive.open {
 		display: block;
 		background: rgba(0, 0, 0, 0.5);
 
-		nav {
+		.nav-pannel {
 			transform: translate3D(100%, 0, 0);
 
 			li {
@@ -375,7 +375,7 @@ header.nav.interactive.closing {
 		will-change: background;
 		animation: nav_navWrapper @menu-back-anim-duration ease-out reverse;
 
-		nav {
+		.nav-pannel {
 			will-change: transform;
 			animation: nav_navPannel @menu-back-anim-duration cubic-bezier(0.19, 1, 0.22, 1) reverse;
 		}
@@ -508,7 +508,7 @@ header.nav.interactive.closing {
 
 @media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
 	header.nav.interactive {
-		nav {
+		.nav-pannel {
 			left: calc(-3 * @column ~'-' 2 * @margin - @gutter / 2);
 			width: calc(3 * @column ~'+' @margin);
 		}
@@ -517,7 +517,7 @@ header.nav.interactive.closing {
 
 @media screen and (max-width: 700px), screen and (max-device-width: 700px) {
 	header.nav.interactive {
-		nav {
+		.nav-pannel {
 			left: calc(-4 * @column ~'-' 2 * @margin - @gutter / 2);
 			width: calc(4 * @column ~'+' @margin);
 		}
@@ -526,7 +526,7 @@ header.nav.interactive.closing {
 
 @media screen and (max-width: 550px), screen and (max-device-width: 550px) {
 	header.nav.interactive {
-		nav {
+		.nav-pannel {
 			left: calc(-5 * @column ~'-' 2 * @margin - @gutter / 2);
 			width: calc(5 * @column ~'+' @margin);
 		}
@@ -535,7 +535,7 @@ header.nav.interactive.closing {
 
 @media screen and (max-width: 450px), screen and (max-device-width: 450px) {
 	header.nav.interactive {
-		nav {
+		.nav-pannel {
 			left: calc(-7 * @column ~'-' 2 * @margin - @gutter / 2);
 			width: calc(7 * @column ~'+' @margin);
 		}
@@ -544,7 +544,7 @@ header.nav.interactive.closing {
 
 @media screen and (max-width: 380px), screen and (max-device-width: 380px) {
 	header.nav.interactive {
-		nav {
+		.nav-pannel {
 			left: calc(-8 * @column ~'-' 2 * @margin - @gutter / 2);
 			width: calc(8 * @column ~'+' @margin);
 		}

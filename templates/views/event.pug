@@ -1,29 +1,12 @@
 extends ../layouts/default
 
+block variables
+	// This is used for the head and the json-ld
+	- var articleImageUrl = data.event.image.secure_url;
+	- var articleImageDesc = data.event.imageDescription;
+
 block head
-	title= process.env.WEBSITE_NAME + ' | ' + data.event.title
-	if data.event.description
-		meta(name="description" content=data.event.description)
-
-	// Facebook
-	meta(property="og:title" content=data.event.title)
-	if data.event.description
-		meta(property="og:description" content=data.event.description)
-	meta(property="og:type" content="article")
-	meta(property="og:url" content=process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)
-	if data.event.image
-		meta(property="og:image" content=data.event.image.secure_url)
-
-	// Twitter
-	meta(name="twitter:title" content=data.event.title)
-	if data.event.description
-		meta(name="twitter:description" content=data.event.description)
-	meta(name="twitter:card" content="summary")
-	meta(name="twitter:url" content=process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)
-	if data.event.image
-		meta(name="twitter:image" content=data.event.image.secure_url)
-
-
+	+head(data.event.title, data.event.description, articleImageUrl, process.env.DOMAIN_NAME+"/agenda/"+data.event.slug, "article")
 
 block content
 	article.event
@@ -32,6 +15,7 @@ block content
 		else
 			header
 				h1.title= data.event.title
+				strong.category= data.event.category.name.charAt(0).toUpperCase() + data.event.category.name.slice(1)
 				if data.event.image.exists
 					img(src=data.event._.image.fill(1000,400) alt=data.event.imageDescription)
 
@@ -44,8 +28,12 @@ block content
 			if data.event.price
 				span.price= data.event.price
 					| &nbsp;€
+
+			if data.event.status
+				span.status= data.event.status
+
 			else
 				span.price Gratuit
-			if data.event.text
+			if data.event.text !== ""
 				div.text!= data.event.text
 		+sharer(process.env.DOMAIN_NAME+"/"+data.event.slug)

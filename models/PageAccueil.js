@@ -16,9 +16,10 @@ var PageAccueil = new keystone.List('PageAccueil', {
 });
 
 PageAccueil.add({
-	name: { type: String, hidden: true, default: 'Accueil', label: 'Nom' },
+	name: { type: String, noedit: true, default: 'Accueil', label: 'Nom' },
+	description: { type: Types.Text, default: '', height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
 	heading: { type: String, default: '', label: 'Phrase d\'introduction' },
-	intro: { type: Types.Textarea, default: '', note: 'Ce texte servira d\'intro à la page d\'accueil' }
+	intro: { type: Types.Textarea, default: '', note: 'Ce texte servira d\'intro à la page d\'accueil' },
 });
 
 PageAccueil.schema.pre('validate', function(next) {
@@ -33,7 +34,19 @@ PageAccueil.schema.pre('validate', function(next) {
 		next(new Error('Vous n\'avez pas les autorisations pour modifier les pages du site.'));
 	}
 	next();
+
+	var descriptionOverflow = checkInputLength(this.description.length, 160);
+	
+	if (descriptionOverflow) {
+		next(new Error('La description dépasse de ' + descriptionOverflow + ' caractère(s)'));
+	}
+
+	next();
 });
+
+function checkInputLength(stringLength, maxLength) {
+	return stringLength >= maxLength ? stringLength - maxLength : null;
+}
 
 PageAccueil.defaultColumns = 'name';
 PageAccueil.register();

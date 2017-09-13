@@ -1,11 +1,13 @@
 extends ../layouts/default
 
+block variables
+	- var indexPage = true;
+
 block head
-	title= process.env.WEBSITE_NAME
+	+head("", data.accueil.description, process.env.DOMAIN_NAME + mainImagePath, process.env.DOMAIN_NAME+"/"+section, "website")
 
 block content
-	- var indexPage = true;
-	header.jumbotron
+	header.jumbotron(role="banner")
 		h1
 			include ../../public/images/sprite/logo.svg
 			span La Bienvenue
@@ -16,8 +18,8 @@ block content
 	section.currently
 		a.program(href="/agenda")
 			span Programmation
-		if data.event
-			a.next-event(href="/agenda/"+data.event.slug)
+		if data.oneEvent
+			a.next-event(href="/agenda/"+data.oneEvent.slug)
 				span Prochainement
 	if data.posts.length
 		section.new-posts

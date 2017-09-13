@@ -20,7 +20,8 @@ exports = module.exports = function (req, res) {
 	view.on('init', function(next) {
 		Event.model.findOne({
 			slug: locals.filters.event
-		}).exec(function(err, event) {
+		}).populate('category')
+		  .exec(function(err, event) {
 			locals.data.event = event;
 			next(err);
 		});

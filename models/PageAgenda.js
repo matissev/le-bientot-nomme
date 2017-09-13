@@ -3,25 +3,24 @@ var middleware = require('../routes/middleware');
 var Types = keystone.Field.Types;
 
 /**
- * PageLesoin Model
+ * PageAgenda Model
  * =============
  */
 
-var PageLesoin = new keystone.List('PageLesoin', {
+var PageAgenda = new keystone.List('PageAgenda', {
 	nocreate: true,
 	nodelete: true,
-	label: 'Le soin',
-	singular: 'Le soin',
-	plural: 'Le soin'
+	label: 'Agenda',
+	singular: 'Agenda',
+	plural: 'Agenda'
 });
 
-PageLesoin.add({
-	name: { type: String, noedit: true, default: 'Le soin', label: 'Nom' },
+PageAgenda.add({
+	name: { type: String, noedit: true, default: 'Agenda', label: 'Nom' },
 	description: { type: Types.Text, default: '', height: 50, label: 'Description', note: 'La description de l\'article doit faire au maximum 160 caractères (2 phrases courtes). Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
-	intro: { type: Types.Textarea, default: '', note: 'Ce texte servira d\'intro à la page du soin' }
 });
 
-PageLesoin.schema.pre('validate', function(next) {
+PageAgenda.schema.pre('validate', function(next) {
 	var user = middleware.getAuthUser().name.first + ' ' + middleware.getAuthUser().name.last;
 
 	// This allows the initialization of the database
@@ -47,5 +46,5 @@ function checkInputLength(stringLength, maxLength) {
 	return stringLength >= maxLength ? stringLength - maxLength : null;
 }
 
-PageLesoin.defaultColumns = 'name';
-PageLesoin.register();
+PageAgenda.defaultColumns = 'name';
+PageAgenda.register();

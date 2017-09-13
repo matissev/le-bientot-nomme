@@ -3,6 +3,7 @@ var keystone = require('keystone'),
 	moment = require('moment'),
 	Event = keystone.list('Event'),
 	EventCategory = keystone.list('EventCategory'),
+	PageAgenda = keystone.list('PageAgenda'),
 	PageContact = keystone.list('PageContact');
 
 var monthsNames = [
@@ -30,7 +31,8 @@ exports = module.exports = function (req, res) {
 	locals.data = {
 		agenda: [],
 		eventCategories: [],
-		contact: []
+		contact: [],
+		agendaMeta: []
 	};
 
 	view.on('init', function (next) {
@@ -93,6 +95,13 @@ exports = module.exports = function (req, res) {
 	view.on('init', function (next) {
 		PageContact.model.find().exec(function(err, content) {
 			locals.data.contact = content[0];
+			next(err);
+		});
+	});
+
+	view.on('init', function (next) {
+		PageAgenda.model.find().exec(function(err, content) {
+			locals.data.agendaMeta = content[0];
 			next(err);
 		});
 	});

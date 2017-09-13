@@ -1,7 +1,7 @@
 extends ../layouts/default
 
 block head
-	title= process.env.WEBSITE_NAME + ' | Articles'
+	+head(pageTitle, data.article.description, process.env.DOMAIN_NAME + mainImagePath, process.env.DOMAIN_NAME+"/"+section, "website")
 
 block content
 	section.articles

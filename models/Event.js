@@ -21,9 +21,10 @@ Event.add({
 	imageDescription: { type: String, default: '', label: 'Description de l\'image', note: 'La description de l\'image doit faire au maximum 125 caractères. Cette information ne sera pas visible sur le site mais reste très importante pour le référencement.' },
 	category: { type: Types.Relationship, ref: 'EventCategory', required: true, initial: true, label: 'Catégorie' },
 	price: { type: String, label: 'Prix', default: '', note:'Si ce champs est laissé vide, l\'évènement sera affiché comme étant GRATUIT.' },
+	status: { type: Types.Select, default: 'Places disponibles', options: 'Places disponibles, Complet', label: 'Disponibilité'},
 	startDate: {type: Types.DatetimeFr, default: Date.now, required: true, label: 'Date & heure de début' },
 	endDate: { type: Types.DatetimeFr, default: Date.now, required:true, label: 'Heure de fin' },
-	text: {type: Types.Html, wysiwyg: true, height: 200, label: 'Texte' },
+	text: {type: Types.Html, wysiwyg: true, height: 200, label: 'Texte' }
 });
 
 Event.schema.pre('remove', function(next) {

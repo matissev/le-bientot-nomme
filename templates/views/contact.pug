@@ -1,12 +1,12 @@
 extends ../layouts/default
 
+block variables
+	- var contactPage = true;
+
 block head
-	title= process.env.WEBSITE_NAME + ' | Contact'
-	//- if data.event.brief
-	//- 	meta(name="description" content=data.event.brief)
+	+head(pageTitle, data.contact.description, process.env.DOMAIN_NAME + mainImagePath, process.env.DOMAIN_NAME+"/"+section, "website")
 
 block content
-	- var contactPage = true;
 	section.contact
 		#map
 		h1 Nous contacter

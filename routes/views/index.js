@@ -16,7 +16,7 @@ exports = module.exports = function (req, res) {
 		accueil: [],
 		contact: [],
 		posts: [],
-		event: [],
+		oneEvent: [],
 		article: []
 	};
 
@@ -46,7 +46,7 @@ exports = module.exports = function (req, res) {
 			.sort('-startDate')
 			.limit(1)
 			.exec(function(err, event) {
-				locals.data.event = event[0];
+				locals.data.oneEvent = event[0];
 				next(err);
 			});
 	});
