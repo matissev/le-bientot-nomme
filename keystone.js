@@ -21,7 +21,7 @@ keystone.init({
 	'ssl': 'force',
 	'letsencrypt': (process.env.NODE_ENV === 'production') && {
 		email: process.env.MAIL_USER,
-		domains: ['www.' + DOMAIN_NAME_SHORT, DOMAIN_NAME_SHORT],
+		domains: ['www.' + process.env.DOMAIN_NAME_SHORT, process.env.DOMAIN_NAME_SHORT],
 		register: true,
 		tos: true
 	},
