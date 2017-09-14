@@ -22,6 +22,7 @@ keystone.init({
 	'session': true,
 	'auth': true,
 	'user model': 'User',
+	'session store': 'mongo',
 	'adminui custom styles': 'public/styles/admin.less',
 	'cookie secret': process.env.COOKIE_SECRET,
 	'cloudinary config': process.env.CLOUDINARY_URL,
