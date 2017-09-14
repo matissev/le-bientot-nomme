@@ -39,6 +39,8 @@ function injectPartial(partialEl, containerEl, response) {
 if(!isMobile.any) {
 	ajaxify('article.event-ticket a', function(response){
 		injectPartial('article.event', '.event-wrapper', response);
+		zenscroll.setup(1000, -50);
+		zenscroll.to(document.querySelector('.event-wrapper'));
 	});
 
 	ajaxify('a.post', function(response){

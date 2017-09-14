@@ -1,8 +1,6 @@
 #SEO
 
 - Verify website with google dev tools
-- Json-LD
-- Correct tags
 
 #DEV
 

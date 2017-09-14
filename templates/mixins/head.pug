@@ -1,6 +1,4 @@
 mixin head(title, description, image, url, dataType)
-	- console.log(image);
-
 	- if(title === "") var pageTitle = process.env.WEBSITE_NAME;
 	- else var pageTitle = process.env.WEBSITE_NAME + ' | ' + title;
 

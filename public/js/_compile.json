@@ -5,6 +5,7 @@
 		"bower_components/packery/dist/packery.pkgd.min.js",
 		"bower_components/objectFitPolyfill/src/objectFitPolyfill.js",
 		"bower_components/isMobile/isMobile.js",
+		"bower_components/zenscroll/zenscroll.js",
 		"public/js/nav.js",
 		"public/js/utilities.js",
 		"public/js/ajax.js",

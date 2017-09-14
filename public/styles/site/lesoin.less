@@ -1,9 +1,15 @@
 
 section.lesoin {
 	width: 100%;
-	padding: 0 @margin - @gutter / 2;
 	box-sizing: border-box;
 	.clearfix();
+
+	.header {
+		width: 100%;
+		box-sizing: border-box;
+		.clearfix();
+		padding: 0 @margin - @gutter / 2;
+	}
 
 	.heading-wrapper {
 		float: left;
@@ -41,12 +47,26 @@ section.lesoin {
 	}
 
 	section.professionals {
+		padding: 0 @margin - @gutter / 2;
+		box-sizing: border-box;
 		width: 100%;
 		clear: both;
 		float: left;
 
+		.spacer-2, .spacer-3 {
+			display: block;
+			width: 100%;
+			height: 40px;
+			float: left;
+			clear: both;
+		}
+
+		.spacer-2 {
+			display: none;
+		}
+
+
 		h2 {
-			padding-left: 30px;
 			box-sizing: border-box;
 			color: @color2-c;
 			font-size: 40px;
@@ -55,56 +75,134 @@ section.lesoin {
 			margin: 70px @gutter / 2 30px @gutter / 2;
 		}
 
-		.professionalsRow {
-			width: 100%;
+		.professional {
+			.clearfix();
+			font-weight: 700;
+			font-size: 14px;
+			color: @color2-c;
 			float: left;
-			clear: both;
-			margin-bottom: 40px;
+			width: calc(33.33333% ~'-' @gutter);
+			margin: 0 @gutter / 2;
 
-			.professional {
-				font-weight: 700;
-				font-size: 14px;
-				color: @color2-c;
+			img {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+
+			.description {
+				margin: 0;
+			}
+
+			.name, .description, .website, .job, .email, .phone, .socials, .schedule {
+				display: inline-block;
 				float: left;
-				width: calc(33.33333% ~'-' @margin);
-				margin: 0 @margin / 2;
+				clear: both;
+				margin-bottom: 10px;
+			}
 
-				img {
-					width: 100%;
-					margin-bottom: 20px;
-				}
+			.name {
+				font-weight: 900;
+			}
 
-				.description {
-					margin: 0;
-				}
+			.socials a {
+				margin-right: 20px;
+			}
 
-				.name, .description, .website, .job, .email, .phone, .socials, .schedule {
-					display: inline-block;
-					float: left;
-					clear: both;
+			.schedule {
+				display: table;
+				width: 100%;
+
+				caption {
 					margin-bottom: 10px;
 				}
 
-				.name {
-					font-weight: 900;
+				th, td {
+					width: 50%;
 				}
+			}
+		}
+	}
+}
 
-				.socials a {
-					margin-right: 20px;
-				}
+@media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	section.lesoin {
+		.intro-text {
+			float: left;
+			clear: both;
+			width: calc(8 * @column ~'-' @gutter);
+			padding: 0;
+		}
 
-				.schedule {
-					display: table;
-					width: 100%;
+		section.professionals {
+			.professional {
+				width: calc(50% ~'-' @gutter);
+			}
 
-					caption {
-						margin-bottom: 10px;
-					}
+			.spacer-2 {
+				display: block;
+			}
 
-					th, td {
-						width: 50%;
-					}
-				}
+			.spacer-3 {
+				display: none;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 900px), screen and (max-device-width: 900px) {
+	section.lesoin {
+		.heading-wrapper {
+			width: calc(7 * @column ~'+' @margin - @gutter);
+		}
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	section.lesoin {
+		.header {
+			padding: 0 @margin-mobile - @gutter / 2;
+		}
+
+		.heading-wrapper {
+			width: 100%;
+			margin-left: -@margin-mobile + @gutter / 2;
+
+			h1 {
+				width: calc(100% ~'-' 2 * @margin-mobile);
+				margin-left: @margin-mobile;
+			}
+		}
+
+		section.professionals {
+			padding: 0 @margin-mobile - @gutter / 2;
+			
+			h2 {
+				width: calc(6 * @column ~'-' @gutter);
+			}
+
+			.professional {
+				width: calc(50% ~'-' @gutter);
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 430px), screen and (max-device-width: 430px) {
+	section.lesoin {
+		.heading-wrapper h1 {
+			font-size: 80px;
+			padding-top: 14px;
+		}
+
+		section.professionals {
+			h2 {
+				width: calc(8 * @column ~'-' @gutter);
+				font-size: 30px;
+			}
+
+			.professional {
+				width: calc(100% ~'-' @gutter);	
+				margin-bottom: 30px;
 			}
 		}
 	}

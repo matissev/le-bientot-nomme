@@ -20,6 +20,7 @@
     "velocity": "^1.5.0",
     "objectFitPolyfill": "^2.0.5",
     "isMobile": "^0.4.1",
-    "packery": "^2.1.1"
+    "packery": "^2.1.1",
+    "zenscroll": "^4.0.0"
   }
 }

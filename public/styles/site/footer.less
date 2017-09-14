@@ -4,10 +4,14 @@ footer {
 	width: 100%;
 	padding: 0 @margin - @gutter / 2;
 	padding-top: 30px;
-	padding-bottom: 30px;
+	padding-bottom: 80px;
 	box-sizing: border-box;
 	background: @color2-b;
 	position: relative;
+
+	address {
+		font-style: normal;
+	}
 
 	.footer-heading-wrapper {
 		display: flex;
@@ -153,6 +157,66 @@ form.newsletter {
 				border-top: 2px solid @grey;
 				border-left: 2px solid @grey;
 			}
+		}
+	}
+}
+
+@media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	footer {
+		.logo-wrapper {
+			svg {
+				padding: 30px 40px 30px 0;
+				border-right: 1px solid lighten(@grey, 30%);
+			}
+		}
+
+		.logo-wrapper, .address, .contact, .follow {
+			h2 {
+				width: 100%;
+			}
+		}
+
+		form.newsletter {
+			input {
+				width: 100%;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 800px), screen and (max-device-width: 800px) {
+	footer {
+		.logo-wrapper {
+			width: 100%;
+
+			svg {
+				padding: 30px 40px 30px 0;
+				border-right: none;
+			}
+		}
+
+		.address, .contact, .follow {
+			width: calc(33.33333% ~'-' @gutter);
+		}
+
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	footer {
+		padding: 0 @margin-mobile - @gutter / 2;
+		padding-bottom: 80px;
+
+		.address, .contact, .follow {
+			width: calc(50% ~'-' @gutter);
+		}
+	}
+}
+
+@media screen and (max-width: 450px), screen and (max-device-width: 450px) {
+	footer {
+		.address, .contact, .follow {
+			width: calc(100% ~'-' @gutter);
 		}
 	}
 }

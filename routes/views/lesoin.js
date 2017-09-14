@@ -31,17 +31,17 @@ exports = module.exports = function (req, res) {
 				}
 			});
 
-			var professionalsTable = [];
+			// var professionalsTable = [];
 
-			while(professionals.length) {
-				var row = [];
-				for(var x = 0; x < 3 && professionals.length; x++) {
-					row.push(professionals.shift());
-				}
-				professionalsTable.push(row);
-			}
+			// while(professionals.length) {
+			// 	var row = [];
+			// 	for(var x = 0; x < 3 && professionals.length; x++) {
+			// 		row.push(professionals.shift());
+			// 	}
+			// 	professionalsTable.push(row);
+			// }
 
-			locals.data.professionals = professionalsTable;
+			locals.data.professionals = professionals;
 			next(err);
 		});
 	});

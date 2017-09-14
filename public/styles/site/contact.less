@@ -21,6 +21,7 @@ section.contact {
 	}
 
 	.contact-card {
+		font-style: normal;
 		padding: 50px 50px 100px 50px;
 		box-sizing: border-box;
 		transform: translate3D(0,0,0);
@@ -222,11 +223,11 @@ form.contact-form {
 	}
 
 	.result-box {
-		float: right;
+		float: left;
+		clear: both;
 	}
 
 	.result-message {
-		float: left;
 		clear: both;
 		padding: 3px 7px 3px 9px;
 		margin: 0;
@@ -283,3 +284,102 @@ form.contact-form {
 	0% { opacity: 0; }
 	100% { opacity: 1; }
 }
+
+@media screen and (max-width: 1100px), screen and (max-device-width: 1100px) {
+	section.contact {
+		.contact-card {
+			width: calc(4 * @column ~"-" @gutter);
+		}
+	}
+}
+
+@media screen and (max-width: 850px), screen and (max-device-width: 850px) {
+	section.contact {
+		h1 {
+			.assistive-hide();
+		}
+
+		.contact-card {
+			margin-top: -180px;
+			width: calc(6 * @column ~"-" @gutter);
+			margin-right: calc(1 * @column ~"+" @gutter / 2);
+		}
+	}
+
+	form.contact-form {
+		width: calc(6 * @column ~"-" @gutter);
+		margin-left: calc(1 * @column ~"+" @gutter / 2);
+		margin-top: 80px;
+
+		input, textarea {
+			width: 100%;
+		}
+	}
+}
+
+@media screen and (max-width: 700px), screen and (max-device-width: 700px) {
+	section.contact {
+		.contact-card {
+			margin-top: -100px;
+			width: calc(8 * @column ~"-" @gutter);
+			margin-right: @gutter / 2;
+		}
+	}
+
+	form.contact-form {
+		width: calc(8 * @column ~"-" @gutter);
+		margin-left: @gutter / 2;
+
+		button {
+			display: block;
+			width: 300px;
+			float: none;
+			margin: 0 auto !important;
+		}
+
+		.result-box {
+			text-align: center;
+			width: 100%;
+			padding-top: 20px;
+
+			.result-message {
+				display: inline-block;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	section.contact {
+		.contact-card {
+			width: calc(8 * @column ~"-" @gutter);
+		}
+
+		.contact-wrapper {
+			padding: 0 @margin-mobile - @gutter / 2;
+		}
+	}
+}
+
+@media screen and (max-width: 450px), screen and (max-device-width: 450px) {
+	form.contact-form {
+		button {
+			width: 100%;
+			margin: 0;
+		}
+
+		.result-message {
+			white-space: normal;
+		}
+	}
+}
+
+// @media screen and (max-width: 1100px), screen and (max-device-width: 1000px) {
+// 	section.contact {
+// 		.contact-card {
+// 			margin-top: -250px;
+// 			width: calc(6 * @column ~"-" @gutter);
+// 			margin-right: calc(1 * @column ~"+" @gutter / 2);
+// 		}
+// 	}
+// }

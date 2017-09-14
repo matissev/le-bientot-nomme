@@ -9,10 +9,19 @@
 // =======
 
 body {
+	scroll-behavior: smooth;
 	background: @color2-b;
 	margin: 0;
 	font-family: @current-text;
 	-webkit-overflow-scrolling: touch;
+	min-width: 300px;
+	max-width: 1700px;
+}
+
+@media screen and (max-width: 1800px), screen and (max-device-width: 1800px) {
+	body {
+		margin: 0 auto;
+	}
 }
 
 a {
@@ -21,7 +30,7 @@ a {
 }
 
 .grid {
-	display: none;
+	// display: none;
 }
 
 

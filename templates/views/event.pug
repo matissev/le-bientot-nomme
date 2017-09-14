@@ -36,4 +36,4 @@ block content
 				span.price Gratuit
 			if data.event.text !== ""
 				div.text!= data.event.text
-		+sharer(process.env.DOMAIN_NAME+"/"+data.event.slug)
+		+sharer(process.env.DOMAIN_NAME+"/agenda/"+data.event.slug)

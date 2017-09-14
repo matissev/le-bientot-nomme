@@ -19,7 +19,7 @@ block content
 						span= data.post.title
 				.img-contain-wrapper
 					if data.post.image.exists
-						img(src=data.post._.image.fit(1000,1000) data-object-fit="contain" alt=data.post.imageDescription)
+						img(src=data.post._.image.fit(300,300) data-object-fit="contain" alt=data.post.imageDescription)
 				.description-wrapper
 					if data.post.text
 						.description
@@ -35,3 +35,4 @@ block content
 												time.start(datetime=sd.format('YYYY-MM-DDTHH:mm'))= sd.format('[Le ]D MMMM YYYY[ de ]HH:mm')
 												- ed = moment(event.endDate).locale('fr');
 												time(datetime=ed.format('YYYY-MM-DDTHH:mm'))= ed.format('[à ]HH:mm')
+							+sharer(process.env.DOMAIN_NAME+"/articles/"+data.post.slug)
