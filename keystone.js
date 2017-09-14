@@ -18,13 +18,13 @@ keystone.init({
 	'views': 'templates/views',
 	'view engine': 'pug',
 
-	// 'ssl': 'force',
-	// 'letsencrypt': (process.env.NODE_ENV === 'production') && {
-	// 	email: process.env.MAIL_USER,
-	// 	domains: ['www.' + process.env.DOMAIN_NAME_SHORT, process.env.DOMAIN_NAME_SHORT],
-	// 	register: true,
-	// 	tos: true
-	// },
+	'ssl': 'force',
+	'letsencrypt': (process.env.NODE_ENV === 'production') && {
+		email: process.env.MAIL_USER,
+		domains: ['www.' + process.env.DOMAIN_NAME_SHORT, process.env.DOMAIN_NAME_SHORT],
+		register: true,
+		tos: true
+	},
 
 	'auto update': true,
 	'session': true,
