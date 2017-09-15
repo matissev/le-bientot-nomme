@@ -19,6 +19,7 @@
  */
 
 var keystone = require('keystone');
+var sitemap = require('keystone-express-sitemap');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
 
@@ -44,6 +45,12 @@ exports = module.exports = function (app) {
 	app.get('/leprojet', routes.views.leprojet);
 	app.all('/contact', routes.views.contact);
 	app.post('/newsletter', routes.views.newsletter);
+
+    app.get('/sitemap.xml', function(req, res) {
+        sitemap.create(keystone, req, res, {
+        	ignore: ['/newsletter']
+        });
+    });
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

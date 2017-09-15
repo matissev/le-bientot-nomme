@@ -20,8 +20,8 @@ block content
 				.img-contain-wrapper
 					if data.post.image.exists
 						img(src=data.post._.image.fit(300,300) data-object-fit="contain" alt=data.post.imageDescription)
-				.description-wrapper
-					if data.post.text
+				if data.post.text
+					.description-wrapper
 						.description
 							time #{data.post._.publishedDate.format('MMMM Do, YYYY')}
 							| !{data.post.text}

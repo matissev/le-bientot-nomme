@@ -38,6 +38,7 @@ header.nav {
 	}
 
 	.nav-wrapper {
+		min-width: @min-width;
 		height: 70px;
 	}
 
@@ -76,20 +77,23 @@ header.nav {
 		}
 
 		.socials {
-			display: flex;
 			height: 100%;
 
-			a {
+			.socials-wrapper {
 				display: flex;
-				justify-content: center;
-				flex-direction: column;
-				height: 100%;
-				color: @white;
-				font-weight: 700;
-				font-size: 14px;
+				justify-content: space-between;
+				flex-wrap: wrap;
 
-				&:not(:first-child) {
-					margin-left: 40px;
+				a {
+					display: inline-block!important;
+					display: flex;
+					color: @white;
+					font-weight: 700;
+					font-size: 14px;
+
+					&:not(:last-child) {
+						margin-right: 10px;
+					}
 				}
 			}
 		}
@@ -106,7 +110,7 @@ header.nav.interactive {
 			color: @black;
 		}
 		font-size: 18px;
-		z-index: 2;
+		z-index: 3;
 		display: block;
 		position: fixed;
 		top: 20px;
@@ -132,7 +136,7 @@ header.nav.interactive {
 	
 	.nav-wrapper {
 		display: none;
-		z-index: 1;
+		z-index: 4;
 		position: fixed;
 		top: 0;
 		left: 0;

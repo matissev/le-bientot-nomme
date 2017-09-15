@@ -18,11 +18,11 @@ html(lang="fr")
 
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 
-		link(href="/styles/site.css", rel="stylesheet")
+		link(href="/styles/site.css" rel="stylesheet")
 		//- link(href="/styles/print.min.css" type="text/css" rel="stylesheet" media="print")
 
-		script
-			| window.noZensmooth = true;
+		//- JAVASCRIPT
+		script(src="/js/script.min.js" async)
 
 		//- Include template-specific stylesheets by extending the css block
 		block css
@@ -57,12 +57,13 @@ html(lang="fr")
 									li: a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
 									li: a(href='/keystone/signout') Se déconnecter
 					.socials
-						if data.contact.socials.facebook
-							a(href=data.contact.socials.facebook target="_blank") facebook
-						if data.contact.socials.twitter
-							a(href=data.contact.socials.twitter target="_blank") twitter
-						if data.contact.socials.linkedin
-							a(href=data.contact.socials.linkedin target="_blank") linkedin
+						.socials-wrapper
+							if data.contact.socials.facebook
+								a(href=data.contact.socials.facebook target="_blank") facebook
+							if data.contact.socials.twitter
+								a(href=data.contact.socials.twitter target="_blank") twitter
+							if data.contact.socials.linkedin
+								a(href=data.contact.socials.linkedin target="_blank") linkedin
 
 		//- BODY
 		main
@@ -133,13 +134,11 @@ html(lang="fr")
 					else
 						a(href='/keystone/signin' target="_blank") Accès administrateur
 
-
-		//- JAVASCRIPT
-
-		script(src="/js/script.min.js")
+		// SCRIPT
+		block js
 		script
 			| document.querySelector('header.nav').className += ' interactive ';
-		block js
+			| window.noZensmooth = true;
 
 		//- STRUCTURED DATA
 

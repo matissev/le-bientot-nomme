@@ -242,6 +242,13 @@ section.new-posts .heading-wrapper {
 }
 
 @media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	section.new-posts .heading-wrapper {
+		width: calc(7 * @column ~'+' @margin - @gutter);
+		h2 {
+			padding: 36px 0 50px 0;
+		}
+	}
+
 	.jumbotron {
 		h1 {
 			left: 0;
@@ -254,6 +261,10 @@ section.new-posts .heading-wrapper {
 }
 
 @media screen and (max-width: 800px), screen and (max-device-width: 800px) {
+	section.new-posts .heading-wrapper {
+		width: calc(8 * @column ~'+' @margin - @gutter);
+	}
+
 	.jumbotron {
 		aside {
 			width: calc(8 * @column ~'-' @gutter);
@@ -266,9 +277,30 @@ section.new-posts .heading-wrapper {
 	.follow-us a {
 		width: calc(5 * @column ~'+' @margin - @gutter);
 	}
+
+	section.about {
+		text-align: center;
+		h2 {
+			margin-left: 0;
+		}
+	}
 }
 
 @media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	section.new-posts {
+		padding: 0 @margin-mobile - @gutter / 2;
+
+		.heading-wrapper {
+			width: 100%;
+			margin-right: -@margin-mobile + @gutter / 2;
+			h2 {
+				width: calc(100% ~'-' 2 * @margin-mobile);
+				margin-left: @margin-mobile;
+				padding: 36px 0 50px 0;
+			}
+		}
+	}
+
 	.jumbotron {
 		padding: 80px @margin-mobile - @gutter / 2 80px @margin-mobile - @gutter / 2;
 	}
@@ -277,6 +309,7 @@ section.new-posts .heading-wrapper {
 		.program, .leprojet-link {
 			width: 100%;
 		}
+
 		.next-event, .lesoin-link {
 			width: 100%;
 		}
@@ -301,6 +334,10 @@ section.new-posts .heading-wrapper {
 			height: 250px;
 			font-size: 16vw;
 		}
+
+		h2 {
+			font-size: 40px;
+		}
 	}
 
 	.follow-us {
@@ -313,7 +350,38 @@ section.new-posts .heading-wrapper {
 	}
 }
 
+@media screen and (max-width: 450px), screen and (max-device-width: 450px) {
+	section.new-posts {
+		.heading-wrapper {
+			padding: 20px 0 10px 0;
+			h2 {
+				font-size: 50px;
+				line-height: 50px;
+			}
+		}
+	}
+
+	.follow-us {
+		a {
+			font-size: 20px;
+
+			span {
+				font-size: 35px;
+			}
+		}
+	}
+}
+
 @media screen and (max-width: 400px), screen and (max-device-width: 400px) {
+	section.new-posts {
+		.heading-wrapper {
+			h2 {
+				line-height: 40px;
+				font-size: 40px;
+			}
+		}
+	}
+
 	.jumbotron {
 		h1 svg {
 			width: 200px;
