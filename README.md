@@ -88,14 +88,13 @@ And then kill (for node) :
     ufw allow 80/tcp
     sudo ufw delete allow 8080
 
-# Setup SSL (FUCK YEAH FINALLY!)
+# Setup SSL (YEAH FINALLY!)
 
 [LINK](https://code.lengstorf.com/deploy-nodejs-ssl-digitalocean/#get-a-free-ssl-certificate-with-let-s-encrypt)
 
 CAREFUL :
 
-on this line -> `proxy_pass http://localhost:5000/`   
-I used my server ip and the port 5000
+With keystone, don't specify any ip adress in the .env, but use the port 5000
 
 AND don't forget to replace the app.example.com with your domain name
 

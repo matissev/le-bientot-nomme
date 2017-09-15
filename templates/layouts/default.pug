@@ -125,13 +125,13 @@ html(lang="fr")
 							span.button-text Envoyer
 							span.loader
 						.result-box
-			div.admin-login
-				if user
-					if user.canAccessKeystone
-						a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
-					a(href='/keystone/signout') Se déconnecter
-				else
-					a(href='/keystone/signin' target="_blank") Accès administrateur
+				div.admin-login
+					if user
+						if user.canAccessKeystone
+							a(href='/keystone' target="_blank") Ouvrir l'interface administrateur
+						a(href='/keystone/signout') Se déconnecter
+					else
+						a(href='/keystone/signin' target="_blank") Accès administrateur
 
 		// SCRIPT
 		block js

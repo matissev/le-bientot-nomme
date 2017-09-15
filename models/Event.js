@@ -24,7 +24,7 @@ Event.add({
 	status: { type: Types.Select, default: 'Places disponibles', options: 'Places disponibles, Complet', label: 'Disponibilité'},
 	startDate: {type: Types.DatetimeFr, default: Date.now, required: true, label: 'Date & heure de début' },
 	endDate: { type: Types.DatetimeFr, default: Date.now, required:true, label: 'Heure de fin' },
-	text: {type: Types.Html, wysiwyg: true, height: 200, label: 'Texte' }
+	text: {type: Types.Text, wysiwyg: true, height: 200, label: 'Texte' }
 });
 
 Event.schema.pre('remove', function(next) {
