@@ -32,7 +32,7 @@ html(lang="fr")
 
 	//- HTML BODY
 	body
-		if process.env.NODE_ENV !== production
+		if process.env.NODE_ENV === 'development'
 			include ../mixins/grid
 
 		//- Customise your site's navigation by changing the navLinks Array in ./routes/middleware.js
@@ -84,7 +84,7 @@ html(lang="fr")
 				address
 					if indexPage
 						.footer-heading-wrapper
-							h1 Nous contacter
+							h2 Nous contacter
 					.logo-wrapper
 						include ../../public/images/logo.svg
 					.address

@@ -23,12 +23,13 @@ footer {
 		height: 150px;
 		text-align: center;
 
-		h1 {
+		h2 {
 			position: relative;
 			top: -20px;
 			margin: 0;
 			font-weight: 900;
 			font-size: 50px;
+			padding: 0 20%;
 		}
 	}
 
@@ -187,7 +188,7 @@ form.newsletter {
 @media screen and (max-width: 800px), screen and (max-device-width: 800px) {
 	footer {
 		.logo-wrapper {
-			width: 100%;
+			width: calc(100% ~'-' @gutter);
 
 			svg {
 				padding: 30px 40px 30px 0;
@@ -204,6 +205,15 @@ form.newsletter {
 
 @media screen and (max-width: 600px), screen and (max-device-width: 600px) {
 	footer {
+		.footer-heading-wrapper {
+			height: 200px;
+
+			h2 {
+				top: 0;
+				position: static;
+			}
+		}
+
 		padding: 0 @margin-mobile - @gutter / 2;
 		padding-bottom: 80px;
 
@@ -215,8 +225,25 @@ form.newsletter {
 
 @media screen and (max-width: 450px), screen and (max-device-width: 450px) {
 	footer {
+		.footer-heading-wrapper {
+			height: 250px;
+			
+			h2 {
+				padding: 5%;
+			}
+		}
 		.address, .contact, .follow {
 			width: calc(100% ~'-' @gutter);
+		}
+
+		.admin-login {
+			width: 100%;
+
+			a {
+				display: inline-block;
+				padding-bottom: 10px;
+				margin-left: 20px;
+			}
 		}
 	}
 }

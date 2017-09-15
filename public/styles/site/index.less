@@ -24,6 +24,10 @@
 	}
 
 	aside {
+		width: calc(4 * @column ~'-' @gutter);
+		margin: 0 @gutter / 2;
+		float: right;
+
 		h2 {
 			margin: 0;
 			margin-bottom: 50px;
@@ -46,10 +50,6 @@
 			border: 1px solid @black;
 			padding: 5px 20px;
 		}
-
-		width: calc(4 * @column ~'-' @gutter);
-		margin: 0 @gutter / 2;
-		float: right;
 	}
 }
 
@@ -239,4 +239,88 @@ section.new-posts .heading-wrapper {
 @keyframes weaving {
 	0%   { transform: translateX(0%); }
 	100% { transform: translateX(-50%); }
+}
+
+@media screen and (max-width: 1000px), screen and (max-device-width: 1000px) {
+	.jumbotron {
+		h1 {
+			left: 0;
+		}
+	}
+
+	.follow-us a {
+		width: calc(4 * @column ~'+' @margin - @gutter);
+	}
+}
+
+@media screen and (max-width: 800px), screen and (max-device-width: 800px) {
+	.jumbotron {
+		aside {
+			width: calc(8 * @column ~'-' @gutter);
+			margin-top: 50px;
+			float: left;
+			clear: both;
+		}
+	}
+
+	.follow-us a {
+		width: calc(5 * @column ~'+' @margin - @gutter);
+	}
+}
+
+@media screen and (max-width: 600px), screen and (max-device-width: 600px) {
+	.jumbotron {
+		padding: 80px @margin-mobile - @gutter / 2 80px @margin-mobile - @gutter / 2;
+	}
+
+	section.currently, section.about {
+		.program, .leprojet-link {
+			width: 100%;
+		}
+		.next-event, .lesoin-link {
+			width: 100%;
+		}
+	}
+
+	section.currently {
+		a {
+			height: 150px!important;
+		}
+
+		.program {
+			font-size: 9vw;
+		}
+
+		.next-event {
+			font-size: 6vw;
+		}
+	}
+
+	section.about {
+		a {
+			height: 250px;
+			font-size: 16vw;
+		}
+	}
+
+	.follow-us {
+		padding: 0 @margin-mobile - @gutter / 2;
+
+		a {
+			width: calc(6 * @column ~'+' @margin-mobile - @gutter);
+			margin-right: -@margin-mobile + @gutter / 2;
+		}
+	}
+}
+
+@media screen and (max-width: 400px), screen and (max-device-width: 400px) {
+	.jumbotron {
+		h1 svg {
+			width: 200px;
+		}
+	}
+
+	.follow-us a {
+		width: calc(7 * @column ~'+' @margin-mobile - @gutter);
+	}
 }

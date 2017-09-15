@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
 		//   for an individual element
 		pckry = new Packery( '.posts-grid', {
 			itemSelector: '.post',
+			percentPosition: true
 		});
 	}
 });
+
+// window.addEventListener('resize', (ev) => {
+//   pckry.layout();
+// });
