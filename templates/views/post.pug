@@ -23,7 +23,8 @@ block content
 				if data.post.text
 					.description-wrapper
 						.description
-							time #{data.post._.publishedDate.format('MMMM Do, YYYY')}
+							- var postTime = moment(data.post.publishedDate).locale('fr');
+							time(datetime=postTime.format('YYYY-MM-DDTHH:mm'))= postTime.format('[Le ]D MMMM YYYY[ à ]HH:mm')
 							| !{data.post.text}
 							if data.post.events.length
 								.relatedEvents

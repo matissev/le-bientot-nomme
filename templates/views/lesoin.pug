@@ -50,14 +50,12 @@ block content
 								if pro.socials.linkedin
 									a.link(href=pro.socials.linkedin target="_blank" rel="bookmark") Linkedin
 						table.schedule
-							thead
-								caption Horaires
+							caption Horaires
 							each day in pro.timetable
-								//http://schema.org/LocalBusiness
 								tr
 									th= day.label
 									if day.value
-										td(itemprop="openingHours" datetime=day.schema)= day.value
+										td: time day.value
 									else
 										td Fermé
 					if i % 2 === 0
