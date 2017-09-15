@@ -42,8 +42,8 @@ block content
 						h3 newsletter
 						input.action(type='hidden', name='action', value='newsletter')
 						.field
-							label(for='email') Email
-							input(type='email', name='email', placeholder='Entrez votre email ici')
+							label(for='email-newsletter') Email
+							input#email-newsletter(type='email', name='email', placeholder='Entrez votre email ici')
 						button(type='submit')
 							span.button-text Envoyer
 							span.loader
@@ -52,16 +52,16 @@ block content
 				input.action(type='hidden', name='action', value='contact')
 				.field
 					label(for='name') Nom
-					input(type='text', name='name', placeholder='Nom')
+					input#name(type='text', name='name', placeholder='Nom')
 				.field.email
 					label(for='email') Email
-					input(type='email', name='email', placeholder='Email')
+					input#email(type='email', name='email', placeholder='Email')
 				.field
 					label(for='subject') Sujet
-					input(type='text', name='subject', placeholder='Sujet')
+					input#subject(type='text', name='subject', placeholder='Sujet')
 				.field
 					label(for='message') Message
-					textarea(name='message', placeholder='Laissez-nous un message…')
+					textarea#message(name='message', placeholder='Laissez-nous un message…')
 				button(type='submit')
 					span.button-text Envoyer
 					span.loader

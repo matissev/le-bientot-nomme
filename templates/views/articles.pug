@@ -14,11 +14,11 @@ block content
 		if data.posts.length
 			.posts-grid
 				each post in data.posts
-					a.post(href="/articles/" + post.slug class=post.layout)
-						if post.image.exists
-							img(src=post._.image.fill(400,400) alt=post.imageDescription)
-						else
-							span.post-title(class=post.title.split(' ').length < 2 ? 'few-words' : '')= post.title
+					article.post(class=post.layout)
+						a(href="/articles/" + post.slug)
+							h2.post-title(class=post.image.exists ? 'hidden-title' : '', class=post.title.split(' ').length < 2 ? 'few-words' : '')= post.title
+							if post.image.exists
+								img(src=post._.image.fill(400,400) alt=post.imageDescription)
 				.more-soon
 					span Bientôt d’autres articles
 

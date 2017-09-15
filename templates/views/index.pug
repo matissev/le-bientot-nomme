@@ -7,7 +7,7 @@ block head
 	+head("", data.accueil.description, process.env.DOMAIN_NAME + mainImagePath, process.env.DOMAIN_NAME+"/"+section, "website")
 
 block content
-	header.jumbotron(role="banner")
+	header.jumbotron
 		h1
 			include ../../public/images/logo.svg
 			span La Bienvenue
@@ -15,7 +15,7 @@ block content
 			h2= data.accueil.heading
 			p= data.accueil.intro
 			a(href='/leprojet') En savoir plus
-	section.currently
+	.currently
 		a.program(href="/agenda")
 			span Programmation
 		if data.oneEvent
@@ -28,11 +28,11 @@ block content
 					h2= data.article.heading
 			.posts-grid.on-home
 				each post in data.posts
-					a.post(href="/articles/" + post.slug class=post.layout)
-						if post.image.exists
-							img(src=post._.image.fill(400,400) alt=post.imageDescription)
-						else
-							span.post-title(class=post.title.split(' ').length < 2 ? 'few-words' : '')= post.title
+					article.post(class=post.layout)
+						a(href="/articles/" + post.slug)
+							h2.post-title(class=post.image.exists ? 'hidden-title' : '', class=post.title.split(' ').length < 2 ? 'few-words' : '')= post.title
+							if post.image.exists
+								img(src=post._.image.fill(400,400) alt=post.imageDescription)
 	section.about
 		h2 À propos
 		a.leprojet-link(href="/leprojet")

@@ -44,7 +44,7 @@ block content
 											a(href="/agenda/" + event.slug rel="bookmark")
 												if event.category
 													span.category= event.category.name
-												strong.title= event.title
+												h3.title= event.title
 												time.day(datetime=event._.startDate.format('YYYY-MM-DDTHH:mm'))= event._.startDate.format('D')
 						if numberOfEvents === 0
 							p.no-events-in-month Aucun évènement n'est programmé ce mois-ci.
