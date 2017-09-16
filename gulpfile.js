@@ -226,3 +226,10 @@ gulp.task('dist', function(callback) {
 		'done',
 	callback);
 });
+
+gulp.task('dist-code', function(callback) {
+	sequence(
+		['js-dist', 'less-dist'],
+		'done',
+	callback);
+});

@@ -26,6 +26,8 @@ keystone.init({
 	'adminui custom styles': 'public/styles/admin.less',
 	'cookie secret': process.env.COOKIE_SECRET,
 	'cloudinary config': process.env.CLOUDINARY_URL,
+	'cloudinary secure': true,
+	'cloudinary folders': true,
 	'signin logo': ['../images/logo.svg', 200, 100]
 });
 
