@@ -88,7 +88,7 @@ html(lang="fr")
 				.logo-wrapper
 					include ../../public/images/logo.svg
 				.address
-					h2 Adresse
+					h3 Adresse
 					if data.contact.address.street1
 						span= data.contact.address.street1
 					if data.contact.address.postcode || data.contact.address.suburb
@@ -100,7 +100,7 @@ html(lang="fr")
 					if data.contact.address.country
 						span= data.contact.address.country
 				.contact
-					h2 Contact
+					h3 Contact
 					if data.contact.phone
 						span T / #{data.contact.phone} 
 					if data.contact.mobilePhone
@@ -108,7 +108,7 @@ html(lang="fr")
 					if data.contact.email
 						a(href='mailto:'+data.contact.email)= data.contact.email
 				.follow
-					h2 Suivez-nous
+					h3 Suivez-nous
 					if data.contact.socials.facebook
 						a(href=data.contact.socials.facebook target="_blank") facebook
 					if data.contact.socials.twitter
