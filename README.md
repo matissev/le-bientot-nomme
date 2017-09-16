@@ -98,4 +98,39 @@ With keystone, don't specify any ip adress in the .env, but use the port 5000
 
 AND don't forget to replace the app.example.com with your domain name
 
+# www and ip canonicalisation on nginx server
 
+In file /etc/nginx/sites-enabled/default.
+Reirect ip to domain name.
+Redirect both, non-SSL and SSL to their non-www counterpart:
+
+```
+server {
+    listen               80;
+    listen               443 ssl;
+    server_name          server_ip_adress;
+    ssl_certificate      path/to/cert;
+    ssl_certificate_key  path/to/key;
+    return 301 $scheme://example.com$request_uri;
+}
+
+server {
+    listen               80;
+    listen               443 ssl;
+    server_name          www.example.com;
+    ssl_certificate      path/to/cert;
+    ssl_certificate_key  path/to/key;
+    return 301 $scheme://example.com$request_uri;
+}
+
+server {
+    listen               80;
+    listen               443 ssl;
+    server_name          example.com;
+    ssl_certificate      path/to/cert;
+    ssl_certificate_key  path/to/key;
+    # rest goes here...
+}
+```
+
+[LINK](https://code.lengstorf.com/deploy-nodejs-ssl-digitalocean/#get-a-free-ssl-certificate-with-let-s-encrypt)
